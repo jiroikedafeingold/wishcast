@@ -154,8 +154,9 @@ struct ContentView: View {
                             // Bigger than the system's inline title, so the place still reads as the heading.
                             ToolbarItem(placement: .title) {
                                 Text(viewModel.place?.name ?? String(localized: "Wishcast"))
-                                    .font(.title2.bold())
+                                    .font(.title.bold())
                                     .lineLimit(1)
+                                    .minimumScaleFactor(0.7)
                             }
                         }
                 }
