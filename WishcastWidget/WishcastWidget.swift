@@ -21,7 +21,7 @@ struct Provider: AppIntentTimelineProvider {
 
     private func entry(for configuration: ConfigurationAppIntent) async -> WishcastEntry {
         let wish = configuration.wish.resolved
-        guard let place = SharedSettings.place else {
+        guard let place = configuration.place?.place ?? SharedSettings.place else {
             return WishcastEntry(date: .now, wish: wish, placeName: nil, current: nil, days: [])
         }
         guard let result = try? await OpenMeteoClient().forecasts(for: place) else {
