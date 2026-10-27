@@ -10,7 +10,7 @@
 		13569B2A30906468004EEAE1 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13569B2930906468004EEAE1 /* WidgetKit.framework */; };
 		13569B2C30906468004EEAE1 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13569B2B30906468004EEAE1 /* SwiftUI.framework */; };
 		13569B3930906469004EEAE1 /* WishcastWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 13569B2730906468004EEAE1 /* WishcastWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		13569C5030912277004EEAE1 /* WishcastWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 13569C4630912276004EEAE1 /* WishcastWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		13569C5030912277004EEAE1 /* WishcastWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 13569C4630912276004EEAE1 /* WishcastWatch Watch App.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		13569C5A30912286004EEAE1 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13569B2930906468004EEAE1 /* WidgetKit.framework */; };
 		13569C5B30912286004EEAE1 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13569B2B30906468004EEAE1 /* SwiftUI.framework */; };
 		13569C6630912287004EEAE1 /* WishcastComplicationsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 13569C5930912286004EEAE1 /* WishcastComplicationsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -397,6 +397,7 @@
 		};
 		13569C4F30912277004EEAE1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 13569C4530912276004EEAE1 /* WishcastWatch Watch App */;
 			targetProxy = 13569C4E30912277004EEAE1 /* PBXContainerItemProxy */;
 		};
