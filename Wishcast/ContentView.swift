@@ -172,7 +172,12 @@ struct ContentView: View {
     }
 
     /// In light mode the page is black while cards stay light (not on the Duo tabletop's scenery).
-    private var isBlackPage: Bool { systemColorScheme == .light && !isOnScenery }
+    /// In light mode, a dark page (stormy weather, or animations off) gets light text on it while
+    /// cards stay light. Not on the Duo tabletop's scenery.
+    private var isBlackPage: Bool {
+        guard systemColorScheme == .light, !isOnScenery else { return false }
+        return !showsAmbient || AmbientBackground.isDarkPage(for: currentScenery, systemIsDark: false)
+    }
 
     private var sidebarColumn: some View {
         blackPage(sidebarContent)
@@ -262,7 +267,7 @@ struct ContentView: View {
     @ViewBuilder
     private func pageBackground() -> some View {
         if showsAmbient {
-            AmbientBackground(scenery: currentScenery)
+            AmbientBackground(scenery: currentScenery, systemIsDark: systemColorScheme == .dark)
         } else if !isOnScenery {
             AmbientBackground.base.ignoresSafeArea()
         }

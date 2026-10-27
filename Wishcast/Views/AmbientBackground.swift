@@ -10,12 +10,34 @@ import UIKit
 /// readable. Still with Reduce Motion; off entirely with the Settings switch.
 struct AmbientBackground: View {
     let scenery: Scenery
+    /// The system appearance (the screen may force dark styling on top of a light-mode page).
+    var systemIsDark = false
     /// Whether this copy plays the thunder rumble. When the list and the day are both on screen,
     /// each strike still rumbles only once (see `ThunderHaptics.rumble(forStrikeAt:)`).
     var playsThunder = true
 
     /// The page color behind the animation: a light grey in light mode (so white cards stand out
     /// and the weather shows), the system's dark grouped background in dark mode.
+    /// The page color for each kind of weather. Light mode: sky blue for sunshine, pale blue-grey
+    /// when partly cloudy, dark grey for everything else; dark mode: muted blue, darker blue-grey,
+    /// black. Nights are black in both.
+    static func pageColor(for scenery: Scenery, systemIsDark: Bool) -> Color {
+        switch (scenery, systemIsDark) {
+        case (.sunny, false): Color(red: 0.53, green: 0.76, blue: 0.95)
+        case (.sunny, true): Color(red: 0.12, green: 0.2, blue: 0.32)
+        case (.partlyCloudy, false): Color(red: 0.78, green: 0.83, blue: 0.88)
+        case (.partlyCloudy, true): Color(red: 0.17, green: 0.2, blue: 0.24)
+        case (.cloudy, false), (.rain, false), (.thunderstorm, false), (.snow, false), (.windy, false):
+            Color(red: 0.2, green: 0.21, blue: 0.23)
+        default: .black
+        }
+    }
+
+    /// Whether the page is dark enough that text sitting on it needs light (dark-mode) styling.
+    static func isDarkPage(for scenery: Scenery, systemIsDark: Bool) -> Bool {
+        systemIsDark || !(scenery == .sunny || scenery == .partlyCloudy)
+    }
+
     static let base = Color.adaptive(light: Color(red: 0.88, green: 0.89, blue: 0.91),
                                     dark: Color(red: 0, green: 0, blue: 0))
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -32,7 +54,7 @@ struct AmbientBackground: View {
                 }
             }
         }
-        .background(Self.base)
+        .background(Self.pageColor(for: scenery, systemIsDark: systemIsDark))
         .ignoresSafeArea()
         .allowsHitTesting(false)
         .accessibilityHidden(true)
