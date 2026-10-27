@@ -348,7 +348,7 @@ struct PickedValue {
     var sourceDescription: String {
         if choice == .typical { return String(localized: "Median of \(sampleSize) forecasts") }
         if sameValueCount > 1 { return String(localized: "\(sameValueCount) of \(sampleSize) forecasts show this") }
-        return String(localized: "Only one forecast")
+        return source?.source ?? ""
     }
 
     /// Counts forecasts whose value formats the same as `value`, so the count matches what's on screen.

@@ -445,39 +445,61 @@ struct ContentView: View {
         }
     }
 
-    /// One dot per favorite, the current one filled; tap a dot to jump to that place. Only shown when
-    /// there's somewhere to swipe to.
+    /// Moves between favorites: the previous and next favorite's names on either side of one dot per
+    /// favorite (the current one wide), in a pill so it reads as a control. Tap a side or a dot, or
+    /// swipe the list sideways. Only shown while on one of two or more favorites.
     @ViewBuilder
     private var favoritesRow: some View {
         let favorites = viewModel.favorites
-        let current = viewModel.favoriteIndex
-        // Only while showing one of two or more favorites, so the dots always mean "swipe for more".
-        if viewModel.place != nil, current != nil, favorites.count > 1 {
-            HStack(spacing: 8) {
-                ForEach(favorites.indices, id: \.self) { index in
-                    Button {
-                        Task { await viewModel.showFavorite(at: index) }
-                    } label: {
-                        Circle()
-                            .fill(index == current ? AnyShapeStyle(.primary) : AnyShapeStyle(.tertiary))
-                            .frame(width: 8, height: 8)
-                            .padding(4)
-                            .contentShape(.rect)
+        if viewModel.place != nil, let current = viewModel.favoriteIndex, favorites.count > 1 {
+            let previous = favorites[(current - 1 + favorites.count) % favorites.count]
+            let next = favorites[(current + 1) % favorites.count]
+            HStack(spacing: 10) {
+                Button {
+                    Task { await viewModel.showFavorite(step: -1) }
+                } label: {
+                    Label(previous.name, systemImage: "chevron.left")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                HStack(spacing: 6) {
+                    ForEach(favorites.indices, id: \.self) { index in
+                        Button {
+                            Task { await viewModel.showFavorite(at: index) }
+                        } label: {
+                            Capsule()
+                                .fill(index == current ? AnyShapeStyle(viewModel.wish.tint) : AnyShapeStyle(.tertiary))
+                                .frame(width: index == current ? 18 : 8, height: 8)
+                                .padding(.vertical, 6)
+                                .contentShape(.rect)
+                        }
                     }
                 }
+                .fixedSize()
+                Button {
+                    Task { await viewModel.showFavorite(step: 1) }
+                } label: {
+                    HStack(spacing: 4) {
+                        Text(next.name)
+                        Image(systemName: "chevron.right")
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                }
             }
+            .font(.subheadline.weight(.medium))
+            .lineLimit(1)
             .buttonStyle(.borderless)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 6)
+            .background(.regularMaterial, in: .capsule)
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel(current.map { String(localized: "Favorite \($0 + 1) of \(favorites.count)") }
-                                ?? String(localized: "\(favorites.count) favorites"))
+            .accessibilityLabel(String(localized: "Favorite \(current + 1) of \(favorites.count)"))
             .accessibilityHint("Swipe up or down to change place.")
             .accessibilityAdjustableAction { direction in
                 Task { await viewModel.showFavorite(step: direction == .increment ? 1 : -1) }
             }
-            .sceneryLegible()
-            .frame(maxWidth: .infinity)
+            .animation(.snappy, value: current)
             .listRowBackground(Color.clear)
-            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+            .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
         }
     }
 
