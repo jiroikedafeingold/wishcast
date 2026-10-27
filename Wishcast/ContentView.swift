@@ -23,6 +23,8 @@ struct ContentView: View {
 
     @AppStorage("hasSeenWelcome") private var hasSeenWelcome = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    /// The system appearance (the columns may override it below).
+    @Environment(\.colorScheme) private var systemColorScheme
 
     var body: some View {
         #if os(iOS)
@@ -169,7 +171,30 @@ struct ContentView: View {
         #endif
     }
 
+    /// In light mode the page is black while cards stay light (not on the Duo tabletop's scenery).
+    private var isBlackPage: Bool { systemColorScheme == .light && !isOnScenery }
+
     private var sidebarColumn: some View {
+        blackPage(sidebarContent)
+    }
+
+    /// Dark styling for the page (titles, headers, toolbar) with light cards, when the page is black.
+    @ViewBuilder
+    private func blackPage(_ content: some View) -> some View {
+        if isBlackPage {
+            content
+                .environment(\.colorScheme, .dark)
+                .environment(\.lightCardsOnBlack, true)
+                #if os(iOS)
+                // The navigation bar (e.g. a pushed day's title) takes its own appearance.
+                .toolbarColorScheme(.dark, for: .navigationBar)
+                #endif
+        } else {
+            content
+        }
+    }
+
+    private var sidebarContent: some View {
         sidebar
             .navigationTitle(viewModel.place?.name ?? String(localized: "Sunnyside"))
             .toolbar {
@@ -249,9 +274,9 @@ struct ContentView: View {
     @ViewBuilder
     private var detailColumn: some View {
         if let day = viewModel.day(for: selectedDate) ?? (isBookLayout ? viewModel.days.first : nil) {
-            DayDetailView(day: day, wish: viewModel.wish, preferences: viewModel.preferences,
-                          timeZone: viewModel.timeZone, official: viewModel.conditions(for: day))
-                .background { pageBackground() }
+            blackPage(DayDetailView(day: day, wish: viewModel.wish, preferences: viewModel.preferences,
+                                    timeZone: viewModel.timeZone, official: viewModel.conditions(for: day))
+                .background { pageBackground() })
         } else {
             ContentUnavailableView("Pick a Day", systemImage: "calendar",
                                    description: Text("See how each value for that day was picked, and how many forecasts show it."))
@@ -267,6 +292,7 @@ struct ContentView: View {
             } label: {
                 DayRow(day: day, timeZone: viewModel.timeZone)
                     .contentShape(.rect)
+                    .lightCard()
             }
             .buttonStyle(.plain)
             .listRowBackground(rowBackground(isSelected: selectedDate == day.date))
@@ -275,6 +301,8 @@ struct ContentView: View {
             NavigationLink(value: day.date) {
                 DayRow(day: day, timeZone: viewModel.timeZone)
             }
+            .lightCard()
+            .listRowBackground(rowBackground())
         }
     }
 
@@ -302,6 +330,12 @@ struct ContentView: View {
             return AnyView(ZStack {
                 Rectangle().fill(.regularMaterial)
                 if isSelected { viewModel.wish.tint.opacity(0.25) }
+            })
+        }
+        if isBlackPage && !clear {
+            return AnyView(ZStack {
+                Color.white
+                if isSelected { viewModel.wish.tint.opacity(0.18) }
             })
         }
         if isSelected { return AnyView(viewModel.wish.tint.opacity(0.18)) }
@@ -380,6 +414,7 @@ struct ContentView: View {
                         // place cleared it mid-update.
                         ForEach(Array(viewModel.alerts.enumerated()), id: \.offset) { _, alert in
                             WeatherAlertRow(alert: alert)
+                                .lightCard()
                                 .listRowBackground(rowBackground())
                         }
                     } header: {
@@ -393,6 +428,7 @@ struct ContentView: View {
                 if viewModel.precipitationExpectedSoon, let nextHour = viewModel.nextHour {
                     Section {
                         NextHourView(forecast: nextHour)
+                            .lightCard()
                             .listRowBackground(rowBackground())
                     } header: {
                         Text("Next Hour").sceneryLegible()
@@ -402,6 +438,7 @@ struct ContentView: View {
                 if let conditions = viewModel.conditions {
                     Section {
                         CurrentConditionsView(conditions: conditions)
+                            .lightCard()
                             .listRowBackground(rowBackground())
                     } header: {
                         // On the Duo's upright top page, space goes to the list of days instead.
@@ -411,6 +448,7 @@ struct ContentView: View {
 
                 Section {
                     WishPicker(selection: $viewModel.wish) { isScrollingWishes = $0 }
+                        .lightCard()
                         .listRowInsets(EdgeInsets(top: isUprightPages ? 2 : 8, leading: 0, bottom: isUprightPages ? 2 : 8, trailing: 0))
                         .listRowBackground(rowBackground(clear: true))
                 } header: {
@@ -420,6 +458,7 @@ struct ContentView: View {
                 if let errorMessage = viewModel.errorMessage {
                     Section {
                         Label(errorMessage, systemImage: "exclamationmark.triangle")
+                            .lightCard()
                             .foregroundStyle(.secondary)
                             .listRowBackground(rowBackground())
                     }
@@ -533,6 +572,7 @@ struct ContentView: View {
             .padding(.horizontal, 14)
             .padding(.vertical, 6)
             .background(.regularMaterial, in: .capsule)
+            .lightCard()
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(String(localized: "Favorite \(current + 1) of \(favorites.count)"))
             .accessibilityHint("Swipe up or down to change place.")

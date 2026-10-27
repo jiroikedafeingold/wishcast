@@ -9,6 +9,8 @@ struct WishPicker: View {
     /// How many launches have shown the "there's more" nudge; it stops after a few.
     @AppStorage("wishPickerNudges") private var nudges = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    /// On the black light-mode page, chips sit on white so they don't vanish into the black.
+    @Environment(\.lightCardsOnBlack) private var lightCardsOnBlack
     /// Once per launch.
     private static var nudgedThisLaunch = false
 
@@ -57,6 +59,7 @@ struct WishPicker: View {
                     .buttonStyle(.bordered)
                     .buttonBorderShape(.capsule)
                     .tint(isSelected ? wish.tint : .secondary)
+                    .background(lightCardsOnBlack ? Color.white : Color.clear, in: .capsule)
                     .accessibilityAddTraits(isSelected ? .isSelected : [])
                     .id(wish)
                 }

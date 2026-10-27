@@ -94,11 +94,16 @@ extension EnvironmentValues {
     @Entry var onScenery = false
     /// True on iPhone Duo's two-page layouts (tabletop and upright), where each page scrolls on its own.
     @Entry var showsScrollHints = false
+    /// True when the page is black (light mode) but cards should stay light: white with dark text.
+    @Entry var lightCardsOnBlack = false
 }
 
 extension View {
     /// A tile's background: a faint fill normally, frosted over scenery so its text stays readable.
     func tileBackground() -> some View { modifier(TileBackground()) }
+
+    /// On the black light-mode page, gives content light styling (dark text); unchanged elsewhere.
+    func lightCard() -> some View { modifier(LightCard()) }
 
     /// Puts loose text (headings, captions) on a frosted card over scenery; unchanged elsewhere.
     func sceneryCard() -> some View { modifier(SceneryCard()) }
@@ -158,11 +163,28 @@ private struct SceneryScrollHints: ViewModifier {
     }
 }
 
-private struct TileBackground: ViewModifier {
-    @Environment(\.onScenery) private var onScenery
+private struct LightCard: ViewModifier {
+    @Environment(\.lightCardsOnBlack) private var lightCardsOnBlack
 
     func body(content: Content) -> some View {
-        if onScenery {
+        if lightCardsOnBlack {
+            content.environment(\.colorScheme, .light)
+        } else {
+            content
+        }
+    }
+}
+
+private struct TileBackground: ViewModifier {
+    @Environment(\.onScenery) private var onScenery
+    @Environment(\.lightCardsOnBlack) private var lightCardsOnBlack
+
+    func body(content: Content) -> some View {
+        if lightCardsOnBlack {
+            content
+                .environment(\.colorScheme, .light)
+                .background(Color.white, in: .rect(cornerRadius: 16))
+        } else if onScenery {
             content.background(.regularMaterial, in: .rect(cornerRadius: 16))
         } else {
             content.background(.fill.quaternary, in: .rect(cornerRadius: 16))
