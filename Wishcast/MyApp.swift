@@ -1,19 +1,34 @@
 import SwiftUI
+import WidgetKit
 
 @main struct MyApp: App {
     @State private var isShowingSplash = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    /// The splash's tag line: the next of the three on every launch.
+    private let tagline: LocalizedStringResource
+
+    init() {
+        let taglines = SplashView.taglines
+        let index = UserDefaults.standard.integer(forKey: "splashTagline")
+        tagline = taglines[index % taglines.count]
+        nextTaglineIndex = (index + 1) % taglines.count
+    }
+
+    private let nextTaglineIndex: Int
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .overlay {
                     if isShowingSplash {
-                        SplashView()
+                        SplashView(tagline: tagline)
                             .transition(.opacity)
                     }
                 }
                 .task {
+                    UserDefaults.standard.set(nextTaglineIndex, forKey: "splashTagline")
+                    // Redraw widgets with this version's layout rather than waiting for their next refresh.
+                    WidgetCenter.shared.reloadAllTimelines()
                     // Screenshot runs go straight to the app.
                     #if DEBUG
                     if ScreenshotMode.shot != nil {
