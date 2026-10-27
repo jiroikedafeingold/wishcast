@@ -437,18 +437,14 @@ struct HingeHorizon: View {
     var body: some View {
         let colors = scenery.horizon
         GeometryReader { proxy in
-            let size = min(max(proxy.size.height * 0.62, 15), 28)
+            let size = min(max(proxy.size.height * 0.5, 15), 30)
             HStack(spacing: size * 0.5) {
                 rule(colors.title, leading: true)
-                Image(systemName: "sparkle")
-                    .font(.system(size: size * 0.4))
                 Text(verbatim: "Wishcast")
                     .font(.system(size: size, weight: .medium, design: .serif).smallCaps())
                     .italic()
                     .tracking(size * 0.12)
                     .lineLimit(1)
-                Image(systemName: "sparkle")
-                    .font(.system(size: size * 0.4))
                 rule(colors.title, leading: false)
             }
             .foregroundStyle(titleStyle(colors.title))

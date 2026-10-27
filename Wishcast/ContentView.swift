@@ -150,10 +150,19 @@ struct ContentView: View {
                     sidebarColumn
                         .toolbarTitleDisplayMode(.inline)
                         .listSectionSpacing(.compact)
+                        .toolbar {
+                            // Bigger than the system's inline title, so the place still reads as the heading.
+                            ToolbarItem(placement: .title) {
+                                Text(viewModel.place?.name ?? String(localized: "Wishcast"))
+                                    .font(.title2.bold())
+                                    .lineLimit(1)
+                            }
+                        }
                 }
-                .frame(height: division.lowerBound)
+                .frame(height: division.lowerBound - Self.hingeBarOverlap)
+                // The title strip reaches a little onto each page, so it's more than a sliver.
                 HingeHorizon(scenery: currentScenery, blendsIn: true)
-                    .frame(height: division.upperBound - division.lowerBound)
+                    .frame(height: division.upperBound - division.lowerBound + 2 * Self.hingeBarOverlap)
                 NavigationStack {
                     detailColumn
                         .toolbarTitleDisplayMode(.inline)
@@ -220,6 +229,9 @@ struct ContentView: View {
             }
         }
     }
+
+    /// How far the upright hinge strip extends onto each page.
+    private static let hingeBarOverlap: CGFloat = 14
 
     #if os(iOS)
     /// iPhone Duo open and upright (not on a table): list on the top page, day on the bottom.
