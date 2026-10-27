@@ -299,17 +299,6 @@ struct ContentView: View {
             }
         } else {
             List(selection: $selectedDate) {
-                // The tag line sits right under the location title, styled as a motto. It's a list row
-                // rather than a navigation subtitle, which drops italics and truncates when collapsed.
-                Text("“\(Text(wishcastTagline))”")
-                    .font(.subheadline)
-                    .fontDesign(.serif)
-                    .italic()
-                    .foregroundStyle(.secondary)
-                    .sceneryLegible()
-                    .listRowBackground(Color.clear)
-                    // A little leading room so the italic slant isn't clipped at the row edge.
-                    .listRowInsets(EdgeInsets(top: 0, leading: 3, bottom: 0, trailing: 0))
 
                 if let conditions = viewModel.conditions {
                     Section {

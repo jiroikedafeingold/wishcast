@@ -1,8 +1,5 @@
 import SwiftUI
 
-/// The app's tag line, shown under the location name, in Settings and at the top of How Wishcast Works.
-let wishcastTagline: LocalizedStringResource = "You aren’t lying to yourself, you are just being optimistic."
-
 extension Wish {
     var tint: Color {
         switch self {

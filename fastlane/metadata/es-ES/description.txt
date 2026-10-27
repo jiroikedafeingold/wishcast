@@ -1,7 +1,5 @@
 Todos lo hemos hecho: mirar una app del tiempo, luego otra y otra más, hasta que una por fin nos dice lo que queríamos oír. Wishcast se ahorra la búsqueda. Examina más de 200 previsiones a la vez y te muestra el mejor caso para el tiempo que esperas.
 
-No te estás engañando. Solo estás siendo optimista.
-
 ELIGE TU DESEO
 - Nieve
 - Soleado

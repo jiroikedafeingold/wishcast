@@ -1,7 +1,5 @@
 Todo mundo já fez isso: abrir um app de clima, depois outro e mais outro, até que um finalmente diga o que a gente queria ouvir. O Wishcast poupa essa busca. Ele analisa mais de 200 previsões de uma vez e mostra o melhor cenário para o tempo que você espera.
 
-Você não está se enganando. Só está sendo otimista.
-
 ESCOLHA SEU DESEJO
 - Neve
 - Ensolarado

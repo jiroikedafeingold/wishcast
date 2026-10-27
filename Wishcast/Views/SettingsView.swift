@@ -41,9 +41,6 @@ struct SettingsView: View {
                     if let url = URL(string: "https://open-meteo.com/") {
                         Link("Weather data by Open-Meteo.com", destination: url)
                     }
-                } footer: {
-                    Text(wishcastTagline)
-                        .italic()
                 }
             }
             .formStyle(.grouped)

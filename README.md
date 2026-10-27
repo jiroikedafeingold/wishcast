@@ -1,7 +1,5 @@
 # Wishcast
 
-*You aren’t lying to yourself, you are just being optimistic.*
-
 Wishcast is a weather app for iPhone, iPad and Mac that shows the **best case** for the weather you’re hoping for. For each day of the week ahead it downloads more than 200 forecasts: up to 26 global and regional weather models and every member of up to 11 ensembles from Open-Meteo, plus the US National Weather Service, MET Norway and Apple Weather directly and, for each value (high, low, rain, snow, clouds, wind), picks the one that best fits your wish: Snow, Sunny, Wild Weather, Cool Evenings or Nice & Pleasant. Values can come from different forecasts, so a Wishcast day is a wish, not a prediction, and the app says so.
 
 ## Features

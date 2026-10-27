@@ -8,15 +8,8 @@ struct WelcomeView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("Welcome to Wishcast")
-                        .font(.largeTitle.bold())
-                    Text("“\(Text(wishcastTagline))”")
-                        .font(.subheadline)
-                        .fontDesign(.serif)
-                        .italic()
-                        .foregroundStyle(.secondary)
-                }
+                Text("Welcome to Wishcast")
+                    .font(.largeTitle.bold())
 
                 point("eye", title: "It looks like a weather app",
                       text: "Current conditions, a 7-day outlook, hourly forecasts and a widget, all laid out like any other weather app.")

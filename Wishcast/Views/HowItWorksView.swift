@@ -13,10 +13,6 @@ struct HowItWorksView: View {
     var body: some View {
         Form {
             Section("In Short") {
-                Text("“\(Text(wishcastTagline))”")
-                    .fontDesign(.serif)
-                    .italic()
-                    .foregroundStyle(.secondary)
                 Text("Wishcast shows an optimistic forecast. For each day it looks at every forecast it downloaded, and for each value (high, low, rain, and so on) it picks the one that best fits your wish. Different values can come from different forecasts, so a day in Wishcast may not match any single forecast. It is a best case, not a prediction of what will happen.")
             }
 
