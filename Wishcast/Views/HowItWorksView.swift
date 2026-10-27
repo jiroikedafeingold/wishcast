@@ -13,11 +13,11 @@ struct HowItWorksView: View {
     var body: some View {
         Form {
             Section("In Short") {
-                Text("Wishcast shows an optimistic forecast. For each day it looks at every forecast it downloaded, and for each value (high, low, rain, and so on) it picks the one that best fits your wish. Different values can come from different forecasts, so a day in Wishcast may not match any single forecast. It is a best case, not a prediction of what will happen.")
+                Text("Sunnyside shows an optimistic forecast. For each day it looks at every forecast it downloaded, and for each value (high, low, rain, and so on) it picks the one that best fits your wish. Different values can come from different forecasts, so a day in Sunnyside may not match any single forecast. It is a best case, not a prediction of what will happen.")
             }
 
             Section("Where the Forecasts Come From") {
-                Text("Most data comes from Open-Meteo.com, which republishes forecasts from national and international weather services. Wishcast also downloads forecasts directly from the US National Weather Service, MET Norway and Apple Weather.")
+                Text("Most data comes from Open-Meteo.com, which republishes forecasts from national and international weather services. Sunnyside also downloads forecasts directly from the US National Weather Service, MET Norway and Apple Weather.")
                 LabeledContent("Weather models (\(OpenMeteoClient.modelNames.count))",
                                value: OpenMeteoClient.modelNames.formatted(.list(type: .and)))
                 LabeledContent("Ensembles (\(OpenMeteoClient.ensembleNames.count))",
@@ -25,7 +25,7 @@ struct HowItWorksView: View {
                 LabeledContent("Direct from providers (\(OpenMeteoClient.providerNames.count))",
                                value: OpenMeteoClient.providerNames.formatted(.list(type: .and)))
                 Text("Regional models and ensembles (such as NOAA HRRR, ICON-D2 or Météo-France AROME) only cover their own area, and the National Weather Service only covers the US, so each place gets the ones that reach it. Apple Weather isn't used in the widget.")
-                Text("An ensemble runs one model many times from slightly different starting conditions. Wishcast counts each run (\"member\", including the unchanged \"control\" run) as one forecast. Members of the same ensemble are variations of one model, so they are not independent opinions.")
+                Text("An ensemble runs one model many times from slightly different starting conditions. Sunnyside counts each run (\"member\", including the unchanged \"control\" run) as one forecast. Members of the same ensemble are variations of one model, so they are not independent opinions.")
                 if sourceCount > 0, let placeName {
                     Text("For \(placeName), \(sourceCount) forecasts were downloaded. Some models don't reach the last day or two, so later days can have fewer.")
                 }
@@ -97,7 +97,7 @@ struct HowItWorksView: View {
             }
             Section {
                 credit("Open-Meteo.com", "https://open-meteo.com/",
-                       "Most weather data and the location search. Data licensed under CC BY 4.0. Wishcast changes it: values from different forecasts are mixed, and daily totals and averages are computed from hourly data.")
+                       "Most weather data and the location search. Data licensed under CC BY 4.0. Sunnyside changes it: values from different forecasts are mixed, and daily totals and averages are computed from hourly data.")
                 credit("ECMWF", "https://www.ecmwf.int/",
                        "European Centre for Medium-Range Weather Forecasts: the ECMWF, ECMWF AI, ECMWF Ensemble, ECMWF AI Ensemble and ECMWF Long-Range (EC46 and SEAS5) forecasts (CC BY).")
                 credit("NOAA NCEP", "https://www.ncei.noaa.gov/products/weather-climate-models/global-forecast",
@@ -135,7 +135,7 @@ struct HowItWorksView: View {
             } header: {
                 Text("Credits")
             } footer: {
-                Text("Licences for data via Open-Meteo as listed on its licence page. Wishcast isn't affiliated with or endorsed by any of these organizations.")
+                Text("Licences for data via Open-Meteo as listed on its licence page. Sunnyside isn't affiliated with or endorsed by any of these organizations.")
             }
 
             Section("References") {
@@ -150,7 +150,7 @@ struct HowItWorksView: View {
             }
         }
         .formStyle(.grouped)
-        .navigationTitle("How Wishcast Works")
+        .navigationTitle("How Sunnyside Works")
     }
 
     private func wishDescription(_ symbol: String, _ tint: Color, _ name: LocalizedStringKey, _ text: LocalizedStringKey) -> some View {

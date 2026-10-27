@@ -1,4 +1,4 @@
-# App Store submission kit — Wishcast
+# App Store submission kit — Sunnyside
 
 The source of truth for every field is `fastlane/metadata/` (11 locales: en-US, de-DE, es-ES, fr-FR, it,
 ja, ko, pt-BR, ru, zh-Hans, zh-Hant). Upload with:
@@ -12,7 +12,7 @@ LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 fastlane upload_store version:1.0.1
 
 | Field | Limit | File |
 |---|---|---|
-| App name | 30 | `<locale>/name.txt` — “Wishcast” in every locale |
+| App name | 30 | `<locale>/name.txt` — “Sunnyside” in every locale |
 | Subtitle | 30 | `<locale>/subtitle.txt` — rotates per release, see `fastlane/subtitle_rotation.json` |
 | Promotional text | 170 | `<locale>/promotional_text.txt` — editable any time, no review |
 | Keywords | 100 | `<locale>/keywords.txt` — comma-separated, no spaces after commas |
@@ -27,7 +27,7 @@ LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 fastlane upload_store version:1.0.1
 
 **Subtitle:** Not lying. Just optimistic.
 
-**Promotional text:** Tired of checking app after app for the forecast you want? Wishcast finds the best
+**Promotional text:** Tired of checking app after app for the forecast you want? Sunnyside finds the best
 case for your wish across more than 200 forecasts, and shows how many of them agree.
 
 **Keywords:** weather,forecast,optimistic,best case,snow,sunny,storm,ensemble,widget,hourly,temperature,rain
@@ -37,11 +37,11 @@ case for your wish across more than 200 forecasts, and shows how many of them ag
 ## Set in App Store Connect (not via fastlane)
 
 - **App Privacy:** declare **Location → Precise Location**: purpose *App Functionality*, **not linked** to the
-  user, **not used for tracking**. Wishcast itself has no analytics, ads, accounts or tracking and the
+  user, **not used for tracking**. Sunnyside itself has no analytics, ads, accounts or tracking and the
   developer receives nothing, but “Use Current Location” sends exact coordinates (and every forecast request
   sends the place’s coordinates) to Open-Meteo, the US National Weather Service, MET Norway (which logs IP
   and coordinates) and Apple WeatherKit, third parties that see the device’s IP address. Apple counts
-  data as collected unless it’s only processed in real time and not retained, which Wishcast can’t promise
+  data as collected unless it’s only processed in real time and not retained, which Sunnyside can’t promise
   for them, so declaring it is the honest choice. Nothing else is collected.
 - **Age rating:** answer “None” to every content question (no user content, no web browsing, no ads).
 - **Pricing:** Free, all territories. (Open-Meteo’s free API is for non-commercial use: no ads, no

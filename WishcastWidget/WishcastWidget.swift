@@ -103,7 +103,7 @@ struct WishcastWidgetEntryView: View {
     @ViewBuilder
     private var content: some View {
         if entry.placeName == nil {
-            Label("Open Wishcast to choose a location", systemImage: "mappin.and.ellipse")
+            Label("Open Sunnyside to choose a location", systemImage: "mappin.and.ellipse")
                 .font(.caption)
         } else if let today = entry.days.first {
             switch family {
@@ -231,7 +231,7 @@ struct WishcastWidget: Widget {
             WishcastWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("Wishcast")
+        .configurationDisplayName("Sunnyside")
         .description("Best-case weather for your wish, mixed from many weather models and their ensemble members.")
         .supportedFamilies(supportedFamilies)
     }

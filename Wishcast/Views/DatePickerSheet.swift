@@ -29,7 +29,7 @@ struct DatePickerSheet: View {
                     if let lastDate {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Forecasts reach \(lastDate.formatted(date: .long, time: .omitted)). The first 7 days are a best case, days 8–14 a long shot, and anything later a wild guess.")
-                            Text("The free weather services Wishcast uses limit how much each device can download a day, so long-range forecasts are downloaded once a day for each place and saved.")
+                            Text("The free weather services Sunnyside uses limit how much each device can download a day, so long-range forecasts are downloaded once a day for each place and saved.")
                             if isLongRangeMissing {
                                 Label("The long-range forecast, which reaches about six months out, couldn’t be downloaded right now, possibly because today’s download limit was reached, so later dates aren’t available. Try again tomorrow.",
                                       systemImage: "exclamationmark.triangle")

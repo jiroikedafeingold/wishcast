@@ -42,7 +42,7 @@ struct SplashView: View {
         }
         .ignoresSafeArea()
         .accessibilityElement()
-        .accessibilityLabel(Text("Wishcast. \(Text(tagline))"))
+        .accessibilityLabel(Text("Sunnyside. \(Text(tagline))"))
     }
 
     /// Gold serif lettering in the open sky above the sun.
@@ -53,7 +53,7 @@ struct SplashView: View {
                                   startPoint: .top, endPoint: .bottom)
         let outline = Color(red: 0.22, green: 0.15, blue: 0.05).opacity(0.75)
         return VStack(spacing: height * 0.01) {
-            Text(verbatim: "Wishcast")
+            Text(verbatim: "Sunnyside")
                 .font(.system(size: min(width * 0.2, 104), weight: .bold, design: .serif))
             Text(tagline)
                 .font(.system(size: min(width * 0.068, 32), weight: .semibold, design: .serif))

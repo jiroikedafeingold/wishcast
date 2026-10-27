@@ -47,9 +47,9 @@ struct ContentView: View {
                 .navigationTitle(summary.place)
             } else {
                 ContentUnavailableView {
-                    Label("Wishcast", systemImage: "mappin.and.ellipse")
+                    Label("Sunnyside", systemImage: "mappin.and.ellipse")
                 } description: {
-                    Text("Open Wishcast on your iPhone and choose a place.")
+                    Text("Open Sunnyside on your iPhone and choose a place.")
                 }
             }
         }

@@ -42,7 +42,7 @@ struct SettingsView: View {
                 #endif
 
                 Section {
-                    NavigationLink("How Wishcast Works") {
+                    NavigationLink("How Sunnyside Works") {
                         HowItWorksView(wish: wish, preferences: preferences, sourceCount: sourceCount, placeName: placeName)
                     }
                     if let url = URL(string: "https://open-meteo.com/") {

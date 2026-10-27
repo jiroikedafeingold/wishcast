@@ -1,16 +1,16 @@
-Wishcast is a weather app with a deliberate twist: for the weather the user is wishing for (Nice & Pleasant, Sunny, Snow, Rainy, Wild Weather or Cool Evenings), it shows the BEST CASE across more than 200 real forecasts a day: up to 26 global and regional models and every member of up to 11 ensembles via Open-Meteo, plus the US National Weather Service, MET Norway and Apple WeatherKit directly. Values can come from different forecasts, so a Wishcast day is optimistic on purpose.
+Sunnyside is a weather app with a deliberate twist: for the weather the user is wishing for (Nice & Pleasant, Sunny, Snow, Rainy, Wild Weather or Cool Evenings), it shows the BEST CASE across more than 200 real forecasts a day: up to 26 global and regional models and every member of up to 11 ensembles via Open-Meteo, plus the US National Weather Service, MET Norway and Apple WeatherKit directly. Values can come from different forecasts, so a Sunnyside day is optimistic on purpose.
 
 This is disclosed throughout, so it never passes itself off as an official forecast:
 - A welcome dialog on first launch explains how to read it ("a wish, not a prediction"; check a regular forecast before making plans).
 - Every day says "This is a wish, not a prediction." Past a week it's labeled "Long shot", past two weeks "Wild guess".
 - Each day shows how many forecasts actually show its high and low, and the day screen shows where every value came from.
-- The ? button opens "How Wishcast Works" with every rule, credits and references.
+- The ? button opens "How Sunnyside Works" with every rule, credits and references.
 
 TO REVIEW (no account or sign-in needed):
 1. Launch, read the welcome dialog, tap "Got It".
 2. Tap "Choose Location", search for a city (e.g. Denver) and pick it. Or tap "Use Current Location".
 3. Tap a wish chip (e.g. Snow) to see the 7-day list change. Tap a day for its detail.
 4. Tap the calendar button in the toolbar ("Pick a Future Date…") to view any day up to about six months ahead.
-5. Add the Wishcast widget from the Home Screen.
+5. Add the Sunnyside widget from the Home Screen.
 
 Data: Open-Meteo.com (CC BY 4.0, free non-commercial use), MET Norway (CC BY 4.0), api.weather.gov and WeatherKit (Apple Weather mark and legal link shown under the 7-day list); the app has no ads, no purchases and no tracking. Location is used only to request forecasts for the user's current place.

@@ -72,7 +72,7 @@ struct WishcastComplicationsEntryView: View {
             }
         } else {
             Image(systemName: "leaf")
-                .accessibilityLabel("Wishcast")
+                .accessibilityLabel("Sunnyside")
         }
     }
 }
@@ -85,7 +85,7 @@ struct WishcastComplications: Widget {
             WishcastComplicationsEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("Wishcast")
+        .configurationDisplayName("Sunnyside")
         .description("Today's best case for your wish, from your iPhone.")
         .supportedFamilies([.accessoryCircular, .accessoryCorner, .accessoryInline, .accessoryRectangular])
     }
@@ -100,7 +100,7 @@ struct WishcastWeekWidget: Widget {
             WeekView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("Wishcast Week")
+        .configurationDisplayName("Sunnyside Week")
         .description("The best case for your wish over the next four days, from your iPhone.")
         .supportedFamilies([.accessoryRectangular])
     }
@@ -138,7 +138,7 @@ private struct WeekView: View {
                 }
             }
         } else {
-            Text("Open Wishcast on your iPhone.")
+            Text("Open Sunnyside on your iPhone.")
                 .font(.caption2)
         }
     }

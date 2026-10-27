@@ -441,7 +441,7 @@ struct HingeHorizon: View {
             let size = min(max(proxy.size.height * 0.5, 15), 30)
             HStack(spacing: size * 0.5) {
                 rule(colors.title, leading: true)
-                Text(verbatim: "Wishcast")
+                Text(verbatim: "Sunnyside")
                     .font(.system(size: size, weight: .medium, design: .serif).smallCaps())
                     .italic()
                     .tracking(size * 0.12)
@@ -931,7 +931,7 @@ private struct SnowField: View {
                             Text(verbatim: "Thu   57° / 44°").listRowBackground(Rectangle().fill(.regularMaterial))
                         }
                     } header: {
-                        Text(verbatim: "7-Day Wishcast").sceneryLegible()
+                        Text(verbatim: "7-Day Outlook").sceneryLegible()
                     } footer: {
                         Text(verbatim: "This is a wish, not a prediction.").sceneryLegible()
                     }
