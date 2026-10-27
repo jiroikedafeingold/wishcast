@@ -34,7 +34,7 @@ final class WatchSync: NSObject {
     private var latest: WatchSummary?
     private var lastSent: WatchSummary?
     /// The last summary sent, kept so the watch can be answered even right after the phone app launches.
-    fileprivate static let savedKey = "watchSummary"
+    nonisolated fileprivate static let savedKey = "watchSummary"
 
     #if os(iOS)
     private override init() {
