@@ -30,6 +30,8 @@ struct WatchSummary: Codable, Equatable {
 /// Sends the latest summary to the paired Apple Watch, if there is one.
 final class WatchSync: NSObject {
     static let shared = WatchSync()
+    /// The newest summary, kept until the watch connection is ready to take it.
+    private var latest: WatchSummary?
     private var lastSent: WatchSummary?
 
     #if os(iOS)
@@ -41,9 +43,14 @@ final class WatchSync: NSObject {
     }
 
     func send(_ summary: WatchSummary) {
-        // Only when something changed (other than the time); the watch keeps the last one it got.
-        guard WCSession.isSupported(), WCSession.default.activationState == .activated,
-              WCSession.default.isWatchAppInstalled,
+        latest = summary
+        push()
+    }
+
+    /// Sends `latest` if the watch can take it and something changed (other than the time).
+    fileprivate func push() {
+        guard let summary = latest, WCSession.isSupported(),
+              WCSession.default.activationState == .activated, WCSession.default.isWatchAppInstalled,
               summary.days != lastSent?.days || summary.place != lastSent?.place || summary.wish != lastSent?.wish,
               let data = try? JSONEncoder().encode(summary)
         else { return }
@@ -62,7 +69,19 @@ final class WatchSync: NSObject {
 
 #if os(iOS)
 extension WatchSync: WCSessionDelegate {
-    nonisolated func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
+    // The first summary usually arrives before the session finishes activating; send it then.
+    nonisolated func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        Task { @MainActor in self.push() }
+    }
+
+    // The watch app was installed (or the paired watch changed).
+    nonisolated func sessionWatchStateDidChange(_ session: WCSession) {
+        Task { @MainActor in
+            self.lastSent = nil
+            self.push()
+        }
+    }
+
     nonisolated func sessionDidBecomeInactive(_ session: WCSession) {}
     nonisolated func sessionDidDeactivate(_ session: WCSession) {
         session.activate()

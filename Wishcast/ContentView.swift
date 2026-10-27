@@ -167,15 +167,23 @@ struct ContentView: View {
         sidebar
             .navigationTitle(viewModel.place?.name ?? String(localized: "Wishcast"))
             .toolbar {
-                // The place name with its favorite star, large or (upright Duo) inline. The inline one is
-                // bigger than the system's, so the place still reads as the heading.
+                // The place name with its favorite star, shown once: as the large title, or (only on the
+                // upright Duo, whose top page has no room for one) in the toolbar row, bigger than the
+                // system's inline title so it still reads as the heading. Elsewhere the toolbar row stays
+                // empty, even after the large title scrolls away.
                 #if os(iOS)
-                ToolbarItem(placement: .largeTitle) {
-                    placeTitle(font: .largeTitle.bold())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                ToolbarItem(placement: .title) {
-                    placeTitle(font: .title.bold())
+                if isUprightPages {
+                    ToolbarItem(placement: .title) {
+                        placeTitle(font: .title.bold())
+                    }
+                } else {
+                    ToolbarItem(placement: .largeTitle) {
+                        placeTitle(font: .largeTitle.bold())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    ToolbarItem(placement: .title) {
+                        Color.clear.frame(width: 0, height: 0)
+                    }
                 }
                 #else
                 ToolbarItem {
@@ -348,9 +356,6 @@ struct ContentView: View {
                             .listRowBackground(rowBackground())
                     } header: {
                         Text("Next Hour").sceneryLegible()
-                    } footer: {
-                        Text("One forecast from Apple Weather, not mixed and not a best case.")
-                            .sceneryLegible()
                     }
                 }
 

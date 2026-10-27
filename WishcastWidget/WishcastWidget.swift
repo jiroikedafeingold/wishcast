@@ -97,7 +97,7 @@ struct WishcastWidgetEntryView: View {
     var body: some View {
         content
             // A little more breathing room above and below than the default margins.
-            .padding(.vertical, family.isAccessory ? 0 : 4)
+            .padding(.vertical, family.isAccessory ? 0 : 10)
     }
 
     @ViewBuilder
