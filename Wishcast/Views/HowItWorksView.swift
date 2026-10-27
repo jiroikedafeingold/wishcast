@@ -40,6 +40,25 @@ struct HowItWorksView: View {
             }
 
             Section {
+                wishDescription("leaf.fill", .green, "Nice & Pleasant",
+                                "Comfortable weather: the high, evening and low closest to your perfect temperatures (set in Settings), with as little rain, snow, cloud and wind as any forecast shows. The wish for a day out.")
+                wishDescription("sun.max.fill", .orange, "Sunny",
+                                "The clearest, driest sky: the least cloud, rain and snow of any forecast. Temperature is left as typical, so a sunny day can still be very hot or cold.")
+                wishDescription("snowflake", .cyan, "Snow",
+                                "The most snow and precipitation of any forecast, and the coldest temperatures.")
+                wishDescription("cloud.rain.fill", .blue, "Rainy",
+                                "The most rain and the most cloud of any forecast, for gardens, reservoirs and cozy days in.")
+                wishDescription("tornado", .purple, "Wild Weather",
+                                "The most dramatic version of the day: the strongest gusts, the most rain and snow, and temperatures as far from your perfect ones as any forecast goes, hotter or colder.")
+                wishDescription("moon.stars.fill", .indigo, "Cool Evenings",
+                                "An evening and low closest to your perfect ones, with little rain or cloud, for a pleasant night out.")
+            } header: {
+                Text("The Wishes")
+            } footer: {
+                Text("Nice & Pleasant and Sunny often agree on a mild, clear day, but they differ when it's clear and very hot or cold (Sunny is happy, Nice & Pleasant isn't) and when it's cloudy but comfortable (the reverse).")
+            }
+
+            Section {
                 Picker("Wish", selection: $wish) {
                     ForEach(Wish.allCases) { wish in
                         Text(wish.title).tag(wish)
@@ -132,6 +151,19 @@ struct HowItWorksView: View {
         }
         .formStyle(.grouped)
         .navigationTitle("How Wishcast Works")
+    }
+
+    private func wishDescription(_ symbol: String, _ tint: Color, _ name: LocalizedStringKey, _ text: LocalizedStringKey) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: symbol)
+                .foregroundStyle(tint)
+                .frame(width: 24)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(name).font(.headline)
+                Text(text).font(.callout).foregroundStyle(.secondary)
+            }
+        }
+        .accessibilityElement(children: .combine)
     }
 
     @ViewBuilder

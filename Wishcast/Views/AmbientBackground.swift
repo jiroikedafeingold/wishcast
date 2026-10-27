@@ -89,7 +89,7 @@ private final class ThunderHaptics {
     #if os(iOS)
     private var engine: CHHapticEngine?
 
-    private let fallback = UIImpactFeedbackGenerator(style: .heavy)
+    private let fallback = UIImpactFeedbackGenerator(style: .rigid)
 
     /// A sharp crack, then a rolling rumble that fades out over about a second.
     func rumble() {
@@ -104,24 +104,26 @@ private final class ThunderHaptics {
                 self.engine = engine
             }
             try engine?.start()
+            // As strong as the Taptic Engine allows: a full-strength, sharp crack, then a full-strength
+            // rumble with hard knocks rolling through it.
             var events = [CHHapticEvent(eventType: .hapticTransient, parameters: [
                 CHHapticEventParameter(parameterID: .hapticIntensity, value: 1),
-                CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.6)
+                CHHapticEventParameter(parameterID: .hapticSharpness, value: 1)
             ], relativeTime: 0)]
             events.append(CHHapticEvent(eventType: .hapticContinuous, parameters: [
                 CHHapticEventParameter(parameterID: .hapticIntensity, value: 1),
-                CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.25)
-            ], relativeTime: 0.05, duration: 1.0))
-            // A few softer knocks inside the rumble, so it rolls rather than buzzes.
-            for (offset, strength) in [(0.25, 0.7), (0.45, 0.55), (0.7, 0.4)] {
+                CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.5)
+            ], relativeTime: 0.03, duration: 1.2))
+            for offset in [0.12, 0.3, 0.5, 0.75, 1.0] {
                 events.append(CHHapticEvent(eventType: .hapticTransient, parameters: [
-                    CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(strength)),
-                    CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.2)
+                    CHHapticEventParameter(parameterID: .hapticIntensity, value: 1),
+                    CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.7)
                 ], relativeTime: offset))
             }
+            // Full strength for most of it, tapering only at the very end.
             let fade = CHHapticParameterCurve(parameterID: .hapticIntensityControl, controlPoints: [
-                .init(relativeTime: 0, value: 0.9), .init(relativeTime: 0.3, value: 0.75), .init(relativeTime: 1.05, value: 0)
-            ], relativeTime: 0.05)
+                .init(relativeTime: 0, value: 1), .init(relativeTime: 0.9, value: 1), .init(relativeTime: 1.23, value: 0.3)
+            ], relativeTime: 0.03)
             let player = try engine?.makePlayer(with: CHHapticPattern(events: events, parameterCurves: [fade]))
             try player?.start(atTime: CHHapticTimeImmediate)
         } catch {
@@ -422,39 +424,42 @@ private struct AmbientLayer: View {
     // MARK: Wind
 
     /// Wind shown only by what it carries: leaves blown across at uneven speeds, each fluttering,
-    /// tumbling and drifting up or down on its own, sped along by gusts that come and go.
+    /// tumbling and drifting up or down on its own. Every 10 seconds a short gust (about 3 seconds)
+    /// speeds them up, and the wind's direction shifts a little each time.
     private func drawWind(in context: inout GraphicsContext, size: CGSize) {
         var random = SeededGenerator(seed: 0x1EAF)
         let colors = [Color(red: 0.55, green: 0.65, blue: 0.3), Color(red: 0.8, green: 0.55, blue: 0.25),
                       Color(red: 0.7, green: 0.4, blue: 0.25), Color(red: 0.6, green: 0.6, blue: 0.35),
                       Color(red: 0.85, green: 0.7, blue: 0.3)]
-        // Gusts: the whole wind speeds up and eases off every several seconds.
-        let gust = 1 + 0.6 * max(0, sin(time * 0.35)) + 0.3 * max(0, sin(time * 0.83 + 1.7))
+        let wind = Wind(time: time)
+        // Leaves live in a field that's rotated to the wind's direction around the screen's center;
+        // the field is the screen's diagonal, so it still covers the screen when tilted.
+        let diagonal = hypot(size.width, size.height)
+        var field = context
+        field.translateBy(x: size.width / 2, y: size.height / 2)
+        field.rotate(by: .radians(wind.angle))
         for _ in 0..<34 {
-            let baseSpeed = Double.random(in: 45...130, using: &random)
-            let span = size.width + 80
+            let baseSpeed = Double.random(in: 35...90, using: &random)
+            let span = diagonal + 80
             let start = Double.random(in: 0...span, using: &random)
-            // Distance travelled so far: the leaf's own pace, plus uneven surges.
-            let surgePhase = Double.random(in: 0...(2 * .pi), using: &random)
-            let surgeRate = Double.random(in: 0.3...0.9, using: &random)
-            let travelled = time * baseSpeed * gust + 40 * sin(time * surgeRate + surgePhase)
-            let x = (start + travelled).truncatingRemainder(dividingBy: span) - 40
-            // Vertical drift: several slow and quick waves with random rates, so the paths wander.
-            let baseY = Double.random(in: 0...1, using: &random) * size.height
-            var y = baseY
+            // Distance travelled so far: the leaf's own pace, with the gusts' extra push added in.
+            let travelled = baseSpeed * (time + Wind.gustBoost * wind.gustDistance)
+            let x = (start + travelled).truncatingRemainder(dividingBy: span) - span / 2
+            // Drift across the wind: a few slow and quicker waves with random rates, so paths wander.
+            var y = (Double.random(in: 0...1, using: &random) - 0.5) * diagonal
             for _ in 0..<3 {
-                let amount = Double.random(in: 6...34, using: &random)
-                let rate = Double.random(in: 0.2...2.4, using: &random)
+                let amount = Double.random(in: 6...28, using: &random)
+                let rate = Double.random(in: 0.15...1.4, using: &random)
                 y += amount * sin(time * rate + Double.random(in: 0...(2 * .pi), using: &random))
             }
             let length = Double.random(in: 7...14, using: &random)
             let color = colors[Int.random(in: 0..<colors.count, using: &random)]
-            let spinRate = Double.random(in: -4...4, using: &random)
-            let flutterRate = Double.random(in: 1.2...3.2, using: &random)
+            let spinRate = Double.random(in: -2.2...2.2, using: &random)
+            let flutterRate = Double.random(in: 0.8...2, using: &random)
             let phase = Double.random(in: 0...(2 * .pi), using: &random)
-            var leaf = context
+            var leaf = field
             leaf.translateBy(x: x, y: y)
-            leaf.rotate(by: .radians(time * spinRate + phase))
+            leaf.rotate(by: .radians(spinRate * (time + wind.gustDistance) + phase))
             // Tumbling: squash the leaf as it turns edge-on.
             leaf.scaleBy(x: 1, y: 0.25 + 0.75 * abs(sin(time * flutterRate + phase)))
             var shape = Path()
@@ -496,6 +501,53 @@ private struct AmbientLayer: View {
                 context.stroke(glint, with: .color(color.opacity((isDark ? 0.6 : 0.4) * twinkle)), lineWidth: 0.6)
             }
         }
+    }
+}
+
+/// The wind for the leaves: one short gust in each 10-second slot, at a random moment, and a
+/// direction that eases to a new slight tilt with each gust.
+private struct Wind {
+    static let slot = 10.0
+    static let gustLength = 3.0
+    /// How much faster than their own pace leaves move at the peak of a gust.
+    static let gustBoost = 1.6
+
+    /// 0…1 strength of the gust right now.
+    let gust: Double
+    /// The extra distance (in "seconds at full gust") all gusts so far have added, so speed changes
+    /// never make leaves jump.
+    let gustDistance: Double
+    /// Radians from left-to-right; between about -0.35 and 0.35 (±20°).
+    let angle: Double
+
+    init(time: Double) {
+        let index = Int((time / Self.slot).rounded(.down))
+        func gustStart(_ slot: Int) -> Double {
+            var random = SeededGenerator(seed: UInt64(bitPattern: Int64(slot)) &* 0xA24B &+ 3)
+            return Double(slot) * Self.slot + Double.random(in: 0.5...(Self.slot - Self.gustLength - 0.5), using: &random)
+        }
+        func direction(_ slot: Int) -> Double {
+            var random = SeededGenerator(seed: UInt64(bitPattern: Int64(slot)) &* 0x51F7 &+ 9)
+            return Double.random(in: -0.35...0.35, using: &random)
+        }
+        let start = gustStart(index)
+        let into = time - start
+        // Each gust is a smooth sin² swell; one full gust adds gustLength / 2 of distance.
+        if into <= 0 {
+            gust = 0
+            gustDistance = Double(index) * Self.gustLength / 2
+        } else if into >= Self.gustLength {
+            gust = 0
+            gustDistance = Double(index + 1) * Self.gustLength / 2
+        } else {
+            let phase = into / Self.gustLength * .pi
+            gust = sin(phase) * sin(phase)
+            gustDistance = Double(index) * Self.gustLength / 2 + (into - sin(2 * phase) * Self.gustLength / (2 * .pi)) / 2
+        }
+        // The direction turns to this slot's tilt while the gust blows, and holds until the next one.
+        let from = direction(index - 1), to = direction(index)
+        let turn = min(max(into / Self.gustLength, 0), 1)
+        angle = from + (to - from) * (0.5 - 0.5 * cos(turn * .pi))
     }
 }
 

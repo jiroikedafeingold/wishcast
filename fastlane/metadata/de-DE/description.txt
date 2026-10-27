@@ -3,12 +3,12 @@ Wir haben es alle schon gemacht: eine Wetter-App geprüft, dann noch eine und no
 Du belügst dich nicht selbst. Du bist nur optimistisch.
 
 WÄHLE DEINEN WUNSCH
+- Angenehm & mild
 - Sonnig
 - Schnee
 - Regnerisch
 - Wildes Wetter
 - Kühle Abende
-- Angenehm & mild
 
 Lege dein perfektes Hoch, deinen perfekten Abend und dein perfektes Tief fest, und Wishcast sucht danach.
 

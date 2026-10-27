@@ -47,10 +47,10 @@ struct WishPicker: View {
                     Button {
                         selection = wish
                     } label: {
-                        Label {
-                            Text(wish.label)
-                        } icon: {
+                        // A tighter icon-to-text gap than Label's default.
+                        HStack(spacing: 4) {
                             Image(systemName: wish.symbolName)
+                            Text(wish.label)
                         }
                         .font(.subheadline.weight(isSelected ? .semibold : .regular))
                     }

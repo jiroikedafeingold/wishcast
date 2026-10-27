@@ -20,7 +20,7 @@ struct WeatherSymbol: View {
     let name: String
 
     var body: some View {
-        if let asset = Self.meteocons[name] {
+        if let asset = Self.artwork[name] {
             // The (hidden) SF Symbol sizes the icon to the surrounding font, so callers keep using
             // `.font(...)`; the Wishcast artwork is drawn over it.
             Image(systemName: name)
@@ -40,7 +40,7 @@ struct WeatherSymbol: View {
     }
 
     /// Wishcast artwork for each condition symbol the app uses.
-    private static let meteocons: [String: String] = [
+    private static let artwork: [String: String] = [
         "sun.max.fill": "weather-clear-day",
         "moon.stars.fill": "weather-clear-night",
         "cloud.sun.fill": "weather-partly-cloudy-day",

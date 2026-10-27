@@ -12,5 +12,6 @@ import SwiftUI
 struct WishcastComplicationsBundle: WidgetBundle {
     var body: some Widget {
         WishcastComplications()
+        WishcastWeekWidget()
     }
 }

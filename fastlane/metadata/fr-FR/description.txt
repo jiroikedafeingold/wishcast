@@ -3,12 +3,12 @@ On l’a tous fait : consulter une app météo, puis une autre, puis encore une 
 Vous ne vous mentez pas. Vous êtes juste optimiste.
 
 CHOISISSEZ VOTRE SOUHAIT
+- Doux et agréable
 - Ensoleillé
 - Neige
 - Pluvieux
 - Météo extrême
 - Soirées fraîches
-- Doux et agréable
 
 Définissez votre maximum idéal, votre soirée idéale et votre minimum idéal, et Wishcast part à leur recherche.
 

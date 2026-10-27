@@ -138,14 +138,6 @@ struct WishcastWidgetEntryView: View {
         .font(.caption.weight(.semibold))
     }
 
-    private var bestCaseNote: some View {
-        Text("Best case for \(Text(entry.wish.label)). Not a prediction.")
-            .font(.caption2)
-            .foregroundStyle(.secondary)
-            .lineLimit(1)
-            .minimumScaleFactor(0.8)
-    }
-
     private func small(_ day: WishcastEntry.Day) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             header
@@ -168,7 +160,6 @@ struct WishcastWidgetEntryView: View {
         // Kept compact so the whole layout fits inside the margins of the shorter medium widget.
         VStack(alignment: .leading, spacing: 4) {
             header
-            bestCaseNote
             HStack {
                 ForEach(entry.days.prefix(5)) { day in
                     VStack(spacing: 2) {
@@ -191,7 +182,6 @@ struct WishcastWidgetEntryView: View {
     private var large: some View {
         VStack(alignment: .leading, spacing: 8) {
             header
-            bestCaseNote
             ForEach(entry.days) { day in
                 HStack {
                     Text(day.weekday)

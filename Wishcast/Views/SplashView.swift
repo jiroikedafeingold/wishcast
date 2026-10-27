@@ -47,21 +47,39 @@ struct SplashView: View {
 
     /// Gold serif lettering in the open sky above the sun.
     private func title(width: CGFloat, height: CGFloat) -> some View {
-        let gold = Color(red: 0.93, green: 0.80, blue: 0.52)
-        return VStack(spacing: height * 0.008) {
+        // Bright gold lettering with a dark outline and deep shadow, over a soft dark wash, so it
+        // stands out from the bright sky.
+        let gold = LinearGradient(colors: [Color(red: 1, green: 0.93, blue: 0.7), Color(red: 0.98, green: 0.78, blue: 0.38)],
+                                  startPoint: .top, endPoint: .bottom)
+        let outline = Color(red: 0.22, green: 0.15, blue: 0.05).opacity(0.75)
+        return VStack(spacing: height * 0.01) {
             Text(verbatim: "Wishcast")
-                .font(.system(size: min(width * 0.19, 96), weight: .semibold, design: .serif))
+                .font(.system(size: min(width * 0.2, 104), weight: .bold, design: .serif))
             Text(tagline)
-                .font(.system(size: min(width * 0.062, 30), weight: .medium, design: .serif))
+                .font(.system(size: min(width * 0.068, 32), weight: .semibold, design: .serif))
                 .multilineTextAlignment(.center)
         }
         .foregroundStyle(gold)
-        .shadow(color: .black.opacity(0.45), radius: 3, y: 2)
-        .shadow(color: .black.opacity(0.25), radius: 12)
+        // A thin outline made from four tight shadows, then the depth shadows.
+        .shadow(color: outline, radius: 0, x: 1, y: 1)
+        .shadow(color: outline, radius: 0, x: -1, y: -1)
+        .shadow(color: outline, radius: 0, x: 1, y: -1)
+        .shadow(color: outline, radius: 0, x: -1, y: 1)
+        .shadow(color: .black.opacity(0.55), radius: 4, y: 3)
+        .shadow(color: .black.opacity(0.35), radius: 16)
         .padding(.horizontal, width * 0.06)
         .lineLimit(2)
         .minimumScaleFactor(0.6)
-        .padding(.top, height * 0.12)
+        .padding(.vertical, height * 0.03)
+        .frame(maxWidth: .infinity)
+        .background {
+            // Larger than the text's box so it fades out softly with no visible edge.
+            Ellipse()
+                .fill(.black.opacity(0.32))
+                .frame(width: width * 1.05, height: height * 0.22)
+                .blur(radius: width * 0.09)
+        }
+        .padding(.top, height * 0.1)
     }
 }
 

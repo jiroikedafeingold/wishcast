@@ -3,12 +3,12 @@ L’abbiamo fatto tutti: controllare un’app meteo, poi un’altra e un’altra
 Non ti stai prendendo in giro. Sei solo ottimista.
 
 SCEGLI IL TUO DESIDERIO
+- Mite e piacevole
 - Soleggiato
 - Neve
 - Piovoso
 - Tempo estremo
 - Serate fresche
-- Mite e piacevole
 
 Imposta la tua massima perfetta, la tua sera perfetta e la tua minima perfetta, e Wishcast le cerca.
 

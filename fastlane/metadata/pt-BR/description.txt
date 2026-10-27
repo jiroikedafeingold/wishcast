@@ -3,12 +3,12 @@ Todo mundo já fez isso: abrir um app de clima, depois outro e mais outro, até 
 Você não está se enganando. Só está sendo otimista.
 
 ESCOLHA SEU DESEJO
+- Agradável
 - Ensolarado
 - Neve
 - Chuvoso
 - Tempo extremo
 - Fins de tarde frescos
-- Agradável
 
 Defina sua máxima perfeita, seu fim de tarde perfeito e sua mínima perfeita, e o Wishcast vai atrás deles.
 
