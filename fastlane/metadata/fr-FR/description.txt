@@ -1,5 +1,7 @@
 On l’a tous fait : consulter une app météo, puis une autre, puis encore une autre, jusqu’à ce que l’une d’elles nous dise enfin ce qu’on voulait entendre. Wishcast vous épargne la recherche. Il examine plus de 200 prévisions à la fois et vous montre le meilleur cas pour la météo que vous espérez.
 
+Vous ne vous mentez pas. Vous êtes juste optimiste.
+
 CHOISISSEZ VOTRE SOUHAIT
 - Neige
 - Ensoleillé

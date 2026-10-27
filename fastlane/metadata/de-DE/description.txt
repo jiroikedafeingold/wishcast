@@ -1,5 +1,7 @@
 Wir haben es alle schon gemacht: eine Wetter-App geprüft, dann noch eine und noch eine, bis uns endlich eine gesagt hat, was wir hören wollten. Wishcast spart dir die Suche. Es betrachtet mehr als 200 Prognosen auf einmal und zeigt dir den besten Fall für das Wetter, auf das du hoffst.
 
+Du belügst dich nicht selbst. Du bist nur optimistisch.
+
 WÄHLE DEINEN WUNSCH
 - Schnee
 - Sonnig

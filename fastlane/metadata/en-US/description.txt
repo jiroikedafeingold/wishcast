@@ -1,5 +1,7 @@
 We've all done it: checked one weather app, then another, then another, until one finally told us what we wanted to hear. Wishcast skips the hunting. It looks at more than 200 forecasts at once and shows you the best case for the weather you're hoping for.
 
+You aren't lying to yourself. You are just being optimistic.
+
 PICK YOUR WISH
 - Snow
 - Sunny
