@@ -5,6 +5,7 @@ extension Wish {
         switch self {
         case .snow: .cyan
         case .sunny: .orange
+        case .rainy: .blue
         case .wild: .purple
         case .coolEvenings: .indigo
         case .pleasant: .green

@@ -49,7 +49,7 @@ struct PlaceQuery: EntityQuery {
 
 /// The widget's wish choice; "Same as App" follows whatever is picked in Wishcast.
 enum WidgetWish: String, AppEnum {
-    case app, snow, sunny, wild, coolEvenings, pleasant
+    case app, snow, sunny, rainy, wild, coolEvenings, pleasant
 
     static var typeDisplayRepresentation: TypeDisplayRepresentation { "Wish" }
 
@@ -58,6 +58,7 @@ enum WidgetWish: String, AppEnum {
             .app: "Same as App",
             .snow: "Snow",
             .sunny: "Sunny",
+            .rainy: "Rainy",
             .wild: "Wild Weather",
             .coolEvenings: "Cool Evenings",
             .pleasant: "Nice & Pleasant"

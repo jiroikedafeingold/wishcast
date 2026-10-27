@@ -5,6 +5,7 @@ func wishTint(_ wish: String) -> Color {
     switch wish {
     case "snow": .cyan
     case "sunny": .orange
+    case "rainy": .blue
     case "wild": .purple
     case "coolEvenings": .indigo
     default: .green

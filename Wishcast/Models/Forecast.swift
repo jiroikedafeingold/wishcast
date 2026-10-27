@@ -8,6 +8,15 @@ struct Place: Codable, Hashable, Identifiable {
     var longitude: Double
 
     var id: String { "\(latitude),\(longitude)" }
+
+    /// Whether two places are effectively the same spot (within about 2 km), so saving a place
+    /// twice (or the current location next to a saved city) keeps a single entry.
+    func isSame(as other: Place) -> Bool {
+        let metersPerDegree = 111_000.0
+        let dLat = (latitude - other.latitude) * metersPerDegree
+        let dLon = (longitude - other.longitude) * metersPerDegree * cos(latitude * .pi / 180)
+        return (dLat * dLat + dLon * dLon).squareRoot() < 2_000
+    }
 }
 
 /// The user's ideal temperatures, stored in °C. Defaults are common comfortable values, user-adjustable.
@@ -124,7 +133,7 @@ struct Conditions {
 
 /// The kind of weather the user is hoping for.
 enum Wish: String, CaseIterable, Identifiable, Codable {
-    case snow, sunny, wild, coolEvenings, pleasant
+    case snow, sunny, rainy, wild, coolEvenings, pleasant
 
     var id: String { rawValue }
 
@@ -132,6 +141,7 @@ enum Wish: String, CaseIterable, Identifiable, Codable {
         switch self {
         case .snow: "Snow"
         case .sunny: "Sunny"
+        case .rainy: "Rainy"
         case .wild: "Wild Weather"
         case .coolEvenings: "Cool Evenings"
         case .pleasant: "Nice & Pleasant"
@@ -142,6 +152,7 @@ enum Wish: String, CaseIterable, Identifiable, Codable {
         switch self {
         case .snow: "snowflake"
         case .sunny: "sun.max.fill"
+        case .rainy: "cloud.rain.fill"
         case .wild: "tornado"
         case .coolEvenings: "moon.stars.fill"
         case .pleasant: "leaf.fill"
@@ -157,8 +168,13 @@ enum Wish: String, CaseIterable, Identifiable, Codable {
 
         case (.sunny, .cloudCover), (.sunny, .precipitation), (.sunny, .snowfall): .lowest
 
-        case (.wild, .high), (.wild, .precipitation), (.wild, .snowfall), (.wild, .gust): .highest
-        case (.wild, .low): .lowest
+        case (.rainy, .precipitation), (.rainy, .cloudCover): .highest
+
+        // Temperatures as far from comfortable as any forecast goes, too hot or too cold.
+        case (.wild, .high): .farthest(preferences.idealHigh)
+        case (.wild, .evening): .farthest(preferences.idealEvening)
+        case (.wild, .low): .farthest(preferences.idealLow)
+        case (.wild, .precipitation), (.wild, .snowfall), (.wild, .gust): .highest
 
         case (.coolEvenings, .evening): .closest(preferences.idealEvening)
         case (.coolEvenings, .low): .closest(preferences.idealLow)
@@ -181,14 +197,21 @@ enum Wish: String, CaseIterable, Identifiable, Codable {
             (day.snowfall ?? 0) >= 0.5
         case .sunny:
             (day.cloudCover ?? 100) <= 30 && day.precipitation < 0.5
+        case .rainy:
+            day.precipitation >= 5
         case .wild:
             (day.maxGust ?? 0) >= 60 || day.precipitation >= 15 || (day.snowfall ?? 0) >= 10 || (day.maxCAPE ?? 0) >= 1000
+                || abs(day.high - preferences.idealHigh) >= Self.wildTemperatureGap
+                || abs(day.low - preferences.idealLow) >= Self.wildTemperatureGap
         case .coolEvenings:
             day.eveningTemp.map { abs($0 - preferences.idealEvening) <= 3 } ?? false
         case .pleasant:
             abs(day.high - preferences.idealHigh) <= 3 && day.precipitation < 1 && (day.maxGust ?? 0) < 40
         }
     }
+
+    /// How far (°C) a high or low must be from the user's ideal to count as wild: 11 °C, about 20 °F.
+    private static let wildTemperatureGap = 11.0
 
     /// Plain-language version of `isMatched`, kept next to it so the two stay in sync.
     func matchDescription(preferences: Preferences) -> String {
@@ -198,8 +221,10 @@ enum Wish: String, CaseIterable, Identifiable, Codable {
             return String(localized: "\(Metric.snowfall.format(0.5)) or more of snow.")
         case .sunny:
             return String(localized: "Daytime cloud cover of 30% or less, and less than \(Metric.rainfall.format(0.5)) of precipitation.")
+        case .rainy:
+            return String(localized: "\(Metric.rainfall.format(5)) or more of precipitation.")
         case .wild:
-            return String(localized: "Gusts of \(Metric.wind.format(60)) or more, or \(Metric.rainfall.format(15)) or more of precipitation, or \(Metric.snowfall.format(10)) or more of snow, or strong thunderstorm potential (CAPE, a measure of how unstable the air is, of 1,000 J/kg or more).")
+            return String(localized: "Gusts of \(Metric.wind.format(60)) or more, or \(Metric.rainfall.format(15)) or more of precipitation, or \(Metric.snowfall.format(10)) or more of snow, or strong thunderstorm potential (CAPE, a measure of how unstable the air is, of 1,000 J/kg or more), or a high or low at least \(Metric.temperatureDifference(Self.wildTemperatureGap)) hotter or colder than your perfect high or low.")
         case .coolEvenings:
             return String(localized: "An evening average within \(tolerance) of your perfect evening (\(Metric.temperature.format(preferences.idealEvening))).")
         case .pleasant:
@@ -212,6 +237,7 @@ enum Wish: String, CaseIterable, Identifiable, Codable {
         switch self {
         case .snow: .snowfall
         case .sunny: .cloudCover
+        case .rainy: .precipitation
         case .wild: .gust
         case .coolEvenings: .evening
         case .pleasant: .high
@@ -289,6 +315,8 @@ enum Field: CaseIterable, Identifiable {
 enum Choice: Equatable {
     /// The forecast value nearest a preferred temperature (°C).
     case closest(Double)
+    /// The forecast value farthest from a preferred temperature (°C), hotter or colder.
+    case farthest(Double)
     case lowest
     case highest
     /// The median of all forecasts, for values the wish doesn't care about.
@@ -297,6 +325,7 @@ enum Choice: Equatable {
     func describe(_ field: Field) -> String {
         switch self {
         case .closest(let target): String(localized: "Closest to your \(Metric.temperature.format(target))")
+        case .farthest(let target): String(localized: "Farthest from your \(Metric.temperature.format(target)), hotter or colder")
         case .lowest: String(localized: "Lowest of all forecasts")
         case .highest: String(localized: "Highest of all forecasts")
         case .typical: String(localized: "Typical: the median of all forecasts")
@@ -319,7 +348,7 @@ struct PickedValue {
     var sourceDescription: String {
         if choice == .typical { return String(localized: "Median of \(sampleSize) forecasts") }
         if sameValueCount > 1 { return String(localized: "\(sameValueCount) of \(sampleSize) forecasts show this") }
-        return source?.source ?? ""
+        return String(localized: "Only one forecast")
     }
 
     /// Counts forecasts whose value formats the same as `value`, so the count matches what's on screen.
@@ -340,6 +369,7 @@ struct PickedValue {
         case .lowest: best = candidates.min { $0.value < $1.value }
         case .highest: best = candidates.max { $0.value < $1.value }
         case .closest(let target): best = candidates.min { abs($0.value - target) < abs($1.value - target) }
+        case .farthest(let target): best = candidates.max { abs($0.value - target) < abs($1.value - target) }
         case .typical:
             let values = candidates.map(\.value).sorted()
             let median = values.count.isMultiple(of: 2)

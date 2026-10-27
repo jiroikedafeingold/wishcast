@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import MapKit
 import Observation
 import WeatherKit
 import WidgetKit
@@ -65,7 +66,12 @@ final class WishcastViewModel {
         wish = SharedSettings.wish
         preferences = SharedSettings.preferences
         place = SharedSettings.place
-        savedPlaces = SharedSettings.savedPlaces
+        // One entry per place: drop any duplicates saved by earlier versions.
+        let saved = SharedSettings.savedPlaces.reduce(into: [Place]()) { unique, place in
+            if !unique.contains(where: { $0.isSame(as: place) }) { unique.append(place) }
+        }
+        savedPlaces = saved
+        SharedSettings.savedPlaces = saved
         favorites = SharedSettings.favorites
     }
 
@@ -122,10 +128,12 @@ final class WishcastViewModel {
         errorMessage = nil
     }
 
-    func select(_ newPlace: Place) async {
+    func select(_ chosen: Place) async {
+        // A place already saved (or one within about 2 km of it) reuses that entry.
+        let newPlace = savedPlaces.first { $0.isSame(as: chosen) } ?? chosen
         place = newPlace
         SharedSettings.place = newPlace
-        if !savedPlaces.contains(newPlace) {
+        if !savedPlaces.contains(where: { $0.isSame(as: newPlace) }) {
             savedPlaces.append(newPlace)
             SharedSettings.savedPlaces = savedPlaces
         }
@@ -278,16 +286,27 @@ final class WishcastViewModel {
                     errorMessage = String(localized: "Location access is off. Search for a place instead.")
                     return
                 }
-                if let coordinate = update.location?.coordinate {
-                    await select(Place(name: String(localized: "Current Location"),
-                                       latitude: coordinate.latitude,
-                                       longitude: coordinate.longitude))
+                if let location = update.location {
+                    let named = await placeName(for: location)
+                    await select(Place(name: named?.name ?? String(localized: "Current Location"),
+                                       detail: named?.detail,
+                                       latitude: location.coordinate.latitude,
+                                       longitude: location.coordinate.longitude))
                     return
                 }
             }
         } catch {
             errorMessage = String(localized: "Couldn't find your location.")
         }
+    }
+
+    /// The city (and country) at a location, so the current location is saved under its real name.
+    private func placeName(for location: CLLocation) async -> (name: String, detail: String?)? {
+        guard let request = MKReverseGeocodingRequest(location: location),
+              let address = try? await request.mapItems.first?.addressRepresentations,
+              let city = address.cityName
+        else { return nil }
+        return (city, address.regionName)
     }
 
     func conditions(for day: WishcastDay) -> Conditions.Daily? {
