@@ -144,8 +144,14 @@ struct ContentView: View {
             // and the title strip across the hinge. The lower page uses a compact title so the day
             // starts near the top of its page.
             VStack(spacing: 0) {
-                NavigationStack { sidebarColumn }
-                    .frame(height: division.lowerBound)
+                // The place name moves into the toolbar row and sections sit closer together, so more
+                // of the list of days fits on the upper page.
+                NavigationStack {
+                    sidebarColumn
+                        .toolbarTitleDisplayMode(.inline)
+                        .listSectionSpacing(.compact)
+                }
+                .frame(height: division.lowerBound)
                 HingeHorizon(scenery: currentScenery, blendsIn: true)
                     .frame(height: division.upperBound - division.lowerBound)
                 NavigationStack {
@@ -214,6 +220,13 @@ struct ContentView: View {
             }
         }
     }
+
+    #if os(iOS)
+    /// iPhone Duo open and upright (not on a table): list on the top page, day on the bottom.
+    private var isUprightPages: Bool { fold.uprightDivision != nil && !isOnScenery }
+    #else
+    private var isUprightPages: Bool { false }
+    #endif
 
     #if os(iOS)
     /// Whether the tabletop scenery is showing behind the list and the day.
@@ -317,16 +330,17 @@ struct ContentView: View {
                         CurrentConditionsView(conditions: conditions)
                             .listRowBackground(rowBackground())
                     } header: {
-                        Text("Right Now").sceneryLegible()
+                        // On the Duo's upright top page, space goes to the list of days instead.
+                        if !isUprightPages { Text("Right Now").sceneryLegible() }
                     }
                 }
 
                 Section {
                     WishPicker(selection: $viewModel.wish)
-                        .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
+                        .listRowInsets(EdgeInsets(top: isUprightPages ? 2 : 8, leading: 0, bottom: isUprightPages ? 2 : 8, trailing: 0))
                         .listRowBackground(rowBackground(clear: true))
                 } header: {
-                    Text("I'm Wishing For").sceneryLegible()
+                    if !isUprightPages { Text("I'm Wishing For").sceneryLegible() }
                 }
 
                 if let errorMessage = viewModel.errorMessage {
