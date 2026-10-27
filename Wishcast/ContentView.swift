@@ -117,6 +117,16 @@ struct ContentView: View {
                 NavigationStack { detailColumn }
             }
             .ignoresSafeArea(edges: .horizontal)
+        } else if let division = fold.uprightDivision {
+            // iPhone Duo open and held upright: the list of days on the top page, the full day below.
+            VStack(spacing: 0) {
+                NavigationStack { sidebarColumn }
+                    .frame(height: division.lowerBound)
+                Color.clear
+                    .frame(height: division.upperBound - division.lowerBound)
+                NavigationStack { detailColumn }
+            }
+            .ignoresSafeArea(edges: .vertical)
         } else {
             // Wide enough that each day's "H: … · L: …" count fits on one line.
             NavigationSplitView { sidebarColumn.navigationSplitViewColumnWidth(min: 320, ideal: 390, max: 480) } detail: { detailColumn }
@@ -204,9 +214,11 @@ struct ContentView: View {
     }
     #endif
 
+    /// Whether the list and the day are both on screen around a hinge (book or upright), so rows
+    /// select a day rather than navigate to it.
     private var isBookLayout: Bool {
         #if os(iOS)
-        fold.bookDivision != nil
+        fold.bookDivision != nil || fold.uprightDivision != nil
         #else
         false
         #endif

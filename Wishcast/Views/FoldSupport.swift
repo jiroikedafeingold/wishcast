@@ -13,6 +13,9 @@ struct FoldState: Equatable {
     /// The hinge running top to bottom (the open Duo held like a book), bent or flat. `lowerBound` is
     /// where the leading page ends.
     var bookDivision: ClosedRange<CGFloat>?
+    /// The hinge running side to side (the open Duo held upright), bent or flat. `lowerBound` is where
+    /// the upper page ends.
+    var uprightDivision: ClosedRange<CGFloat>?
 }
 
 /// Reports the window's fold state. Attach as a background that ignores the safe area, so its
@@ -62,9 +65,11 @@ struct FoldReader: UIViewRepresentable {
             let bent = reservedRegions(kind: .division, options: []).map(\.frame)
             let any = reservedRegions(kind: .division, options: .includeInactive).map(\.frame)
             let sideways = bent.first { $0.width > $0.height && $0.minY > 0 && $0.maxY < bounds.height }
-            let upright = any.first { $0.height > $0.width && $0.minX > 0 && $0.maxX < bounds.width }
+            let book = any.first { $0.height > $0.width && $0.minX > 0 && $0.maxX < bounds.width }
+            let upright = any.first { $0.width > $0.height && $0.minY > 0 && $0.maxY < bounds.height }
             return FoldState(tabletopBand: sideways.map { $0.minY...$0.maxY },
-                             bookDivision: upright.map { $0.minX...$0.maxX })
+                             bookDivision: book.map { $0.minX...$0.maxX },
+                             uprightDivision: upright.map { $0.minY...$0.maxY })
         }
     }
 }
