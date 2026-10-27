@@ -12,10 +12,6 @@ struct ContentView: View {
     #if os(iOS)
     @State private var fold = FoldState()
     #endif
-    #if DEBUG
-    /// Set by the tabletop "Test" button to preview each scene; nil follows the day's weather.
-    @State private var testScenery: Scenery?
-    #endif
 
     @AppStorage("hasSeenWelcome") private var hasSeenWelcome = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -104,15 +100,6 @@ struct ContentView: View {
                 NavigationStack {
                     detailColumn
                         .containerBackground(for: .navigation) { SkyScenery(scenery: scenery) }
-                        #if DEBUG
-                        .toolbar {
-                            ToolbarItem {
-                                Button(action: cycleTestScenery) {
-                                    Text(verbatim: "Test: " + (testScenery?.debugName ?? "Auto (\(scenery.debugName))"))
-                                }
-                            }
-                        }
-                        #endif
                 }
                 .environment(\.colorScheme, scenery.skyColorScheme)
                 .frame(height: band.lowerBound)
@@ -264,24 +251,9 @@ struct ContentView: View {
     /// The scene for the day on the upper page (today by default). After dark, today's clear and
     /// partly cloudy skies turn to night.
     private var currentScenery: Scenery {
-        #if DEBUG
-        if let testScenery { return testScenery }
-        #endif
         guard let day = viewModel.day(for: selectedDate) ?? viewModel.days.first else { return .sunny }
         return Scenery(symbolName: day.symbolName, isNight: viewModel.isNightNow(on: day))
     }
-
-    #if DEBUG
-    /// Auto, then each scene in turn, then back to Auto.
-    private func cycleTestScenery() {
-        let all = Scenery.allCases
-        if let testScenery, let index = all.firstIndex(of: testScenery) {
-            self.testScenery = index + 1 < all.count ? all[index + 1] : nil
-        } else {
-            testScenery = all.first
-        }
-    }
-    #endif
 
     private var isScreenshotRun: Bool {
         #if DEBUG

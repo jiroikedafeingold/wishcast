@@ -21,7 +21,7 @@ enum Scenery: String, CaseIterable, Identifiable {
         }
     }
 
-    /// English name for the debug test button.
+    /// English name, for the gallery preview.
     var debugName: String {
         switch self {
         case .sunny: "Sunny"

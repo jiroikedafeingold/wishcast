@@ -456,7 +456,7 @@ enum ForecastRange {
         case .extended:
             "More than a week out, forecasts lose much of their skill and fewer models reach this far. Treat this as a long shot."
         case .longRange:
-            "More than two weeks out, forecasts for a specific day have very little skill. They're better at broad trends, like a warm or wet week. This is a wild guess, mostly for fun."
+            "More than two weeks out, wild guess."
         }
     }
 }
