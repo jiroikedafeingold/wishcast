@@ -501,7 +501,7 @@ struct GroundScenery: View {
                 // Sunlit patches only in full sun; under passing clouds the light is soft and even.
                 GrassBlades(palette: .bright)
             case .cloudy:
-                GrassBlades(palette: .overcast)
+                GrassBlades(palette: .dull)
             case .rain:
                 Asphalt(isStorm: false)
                 animated { PuddleRipples(time: $0, flash: 0) }
@@ -557,6 +557,8 @@ private struct GrassPalette {
     static let shade = GrassPalette(ground: [rgb(0.10, 0.25, 0.08), rgb(0.05, 0.16, 0.05)], hueShift: 0, saturation: 0.75, brightness: 0.8)
     static let sun = GrassPalette(ground: [rgb(0.42, 0.62, 0.18), rgb(0.25, 0.45, 0.10)], hueShift: -0.04, saturation: 0.62, brightness: 1.75)
     static let overcast = GrassPalette(ground: [rgb(0.17, 0.30, 0.13), rgb(0.10, 0.21, 0.09)], hueShift: 0, saturation: 0.5, brightness: 1.05)
+    /// Under a full overcast: dark, grey-green and flat.
+    static let dull = GrassPalette(ground: [rgb(0.10, 0.16, 0.10), rgb(0.06, 0.10, 0.07)], hueShift: 0.02, saturation: 0.3, brightness: 0.72)
     static let bright = GrassPalette(ground: [rgb(0.20, 0.34, 0.14), rgb(0.12, 0.24, 0.09)], hueShift: -0.01, saturation: 0.55, brightness: 1.2)
     static let windswept = GrassPalette(ground: [rgb(0.30, 0.42, 0.24), rgb(0.22, 0.34, 0.18)], hueShift: -0.02, saturation: 0.35, brightness: 1.55)
     static let night = GrassPalette(ground: [rgb(0.04, 0.09, 0.10), rgb(0.02, 0.05, 0.07)], hueShift: 0.12, saturation: 0.45, brightness: 0.5)
