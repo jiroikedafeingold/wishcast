@@ -146,7 +146,7 @@ struct ContentView: View {
             VStack(spacing: 0) {
                 NavigationStack { sidebarColumn }
                     .frame(height: division.lowerBound)
-                HingeHorizon(scenery: currentScenery)
+                HingeHorizon(scenery: currentScenery, blendsIn: true)
                     .frame(height: division.upperBound - division.lowerBound)
                 NavigationStack {
                     detailColumn
@@ -168,6 +168,10 @@ struct ContentView: View {
         sidebar
             .navigationTitle(viewModel.place?.name ?? String(localized: "Wishcast"))
             .toolbar {
+                ToolbarItem {
+                    Button("Pick a Future Date…", systemImage: "calendar") { isPickingDate = true }
+                        .disabled(viewModel.days.isEmpty)
+                }
                 ToolbarItem {
                     Button("Locations", systemImage: "mappin.and.ellipse") { isPickingPlace = true }
                 }
@@ -346,8 +350,6 @@ struct ContentView: View {
                         ForEach(viewModel.days) { day in
                             dayRow(day)
                         }
-                        Button("Pick a Future Date…", systemImage: "calendar") { isPickingDate = true }
-                            .listRowBackground(rowBackground())
                     } header: {
                         Text("7-Day Wishcast").sceneryLegible()
                     } footer: {

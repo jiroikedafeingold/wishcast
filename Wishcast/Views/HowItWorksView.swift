@@ -32,7 +32,7 @@ struct HowItWorksView: View {
             }
 
             Section("How Far Ahead") {
-                Text("The main list shows 7 days. Use “Pick a Future Date” to see any day up to about six months out.")
+                Text("The main list shows 7 days. Use the calendar button (“Pick a Future Date”) to see any day up to about six months out.")
                 LabeledContent("First 7 days", value: String(localized: "Best case. More than 200 forecasts a day, more where regional models reach."))
                 LabeledContent("Days 8–14", value: String(localized: "Long shot. Fewer models reach this far, and forecasts lose much of their skill after a week."))
                 LabeledContent("Day 15 and later", value: String(localized: "Wild guess. Forecasts for a specific day this far out have very little skill; they're better at broad trends."))

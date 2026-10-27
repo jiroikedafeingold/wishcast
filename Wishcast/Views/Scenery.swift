@@ -427,27 +427,62 @@ private func lightningIntensity(at time: Double) -> Double {
 
 // MARK: - Hinge
 
-/// The strip over iPhone Duo's hinge: a soft gradient from the scene's sky into its ground, with
-/// the app's title across it.
+/// The strip over iPhone Duo's hinge: the scene's colors with the app's name set like a title
+/// card, between fine rules. With `blendsIn` (the upright layout, where the pages have plain
+/// backgrounds) the color fades out at the top and bottom edges into the pages.
 struct HingeHorizon: View {
     let scenery: Scenery
+    var blendsIn = false
 
     var body: some View {
         let colors = scenery.horizon
         GeometryReader { proxy in
-            Text(verbatim: "Wishcast")
-                .font(.system(size: min(max(proxy.size.height * 0.68, 15), 30), weight: .semibold, design: .serif))
-                .italic()
-                .tracking(1.5)
-                .foregroundStyle(colors.title)
-                .shadow(color: colors.title == .white ? .black.opacity(0.35) : .white.opacity(0.5), radius: 2)
-                .lineLimit(1)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background {
-                    LinearGradient(colors: [colors.far, colors.near], startPoint: .top, endPoint: .bottom)
-                }
+            let size = min(max(proxy.size.height * 0.62, 15), 28)
+            HStack(spacing: size * 0.5) {
+                rule(colors.title, leading: true)
+                Image(systemName: "sparkle")
+                    .font(.system(size: size * 0.4))
+                Text(verbatim: "Wishcast")
+                    .font(.system(size: size, weight: .medium, design: .serif).smallCaps())
+                    .italic()
+                    .tracking(size * 0.12)
+                    .lineLimit(1)
+                Image(systemName: "sparkle")
+                    .font(.system(size: size * 0.4))
+                rule(colors.title, leading: false)
+            }
+            .foregroundStyle(titleStyle(colors.title))
+            .shadow(color: colors.title == .white ? .black.opacity(0.3) : .white.opacity(0.5), radius: 2)
+            .padding(.horizontal, 24)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background {
+                LinearGradient(colors: [colors.far, colors.near], startPoint: .top, endPoint: .bottom)
+                    .mask {
+                        if blendsIn {
+                            LinearGradient(stops: [.init(color: .clear, location: 0), .init(color: .black, location: 0.35),
+                                                   .init(color: .black, location: 0.65), .init(color: .clear, location: 1)],
+                                           startPoint: .top, endPoint: .bottom)
+                        } else {
+                            Color.black
+                        }
+                    }
+            }
         }
         .accessibilityHidden(true)
+    }
+
+    /// Light titles get a faint warm sheen, like gilt lettering; dark ones stay solid.
+    private func titleStyle(_ color: Color) -> AnyShapeStyle {
+        guard color == .white else { return AnyShapeStyle(color) }
+        return AnyShapeStyle(LinearGradient(colors: [.white, rgb(1, 0.92, 0.74), .white],
+                                            startPoint: .leading, endPoint: .trailing))
+    }
+
+    /// A hairline that fades away from the title.
+    private func rule(_ color: Color, leading: Bool) -> some View {
+        LinearGradient(colors: [color.opacity(0), color.opacity(0.7)],
+                       startPoint: leading ? .leading : .trailing, endPoint: leading ? .trailing : .leading)
+            .frame(maxWidth: 90, maxHeight: 1)
     }
 }
 
