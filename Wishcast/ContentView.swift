@@ -240,7 +240,7 @@ struct ContentView: View {
         if let day = viewModel.day(for: selectedDate) ?? (isBookLayout ? viewModel.days.first : nil) {
             DayDetailView(day: day, wish: viewModel.wish, preferences: viewModel.preferences,
                           timeZone: viewModel.timeZone, official: viewModel.conditions(for: day))
-                .background { if showsAmbient { AmbientBackground(scenery: currentScenery) } }
+                .background { if showsAmbient { AmbientBackground(scenery: currentScenery, playsThunder: true) } }
         } else {
             ContentUnavailableView("Pick a Day", systemImage: "calendar",
                                    description: Text("See how each value for that day was picked, and how many forecasts show it."))
