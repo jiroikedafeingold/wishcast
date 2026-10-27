@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcuserdatad
+xcuserdata/
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Fastlane run artifacts
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/README.md
+
+# Secrets: App Store Connect API keys and env files (never commit)
+*.p8
+fastlane/.env
+.env
