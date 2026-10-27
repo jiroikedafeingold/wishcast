@@ -11,6 +11,8 @@ struct ContentView: View {
     /// True while the wish chips are being scrolled, so that sideways drag doesn't change place.
     @State private var isScrollingWishes = false
     @AppStorage("tabletopGrass") private var tabletopGrass = true
+    /// The animated weather hint behind the list and the day (Settings); not used on the Duo tabletop.
+    @AppStorage("ambientBackground") private var ambientBackground = true
     #if os(iOS)
     @State private var fold = FoldState()
     #endif
@@ -212,11 +214,15 @@ struct ContentView: View {
             }
     }
 
+    /// Whether the animated weather background is on (and this isn't the Duo tabletop, which has its own scenery).
+    private var showsAmbient: Bool { ambientBackground && !isOnScenery }
+
     @ViewBuilder
     private var detailColumn: some View {
         if let day = viewModel.day(for: selectedDate) ?? (isBookLayout ? viewModel.days.first : nil) {
             DayDetailView(day: day, wish: viewModel.wish, preferences: viewModel.preferences,
                           timeZone: viewModel.timeZone, official: viewModel.conditions(for: day))
+                .background { if showsAmbient { AmbientBackground(scenery: currentScenery) } }
         } else {
             ContentUnavailableView("Pick a Day", systemImage: "calendar",
                                    description: Text("See how each value for that day was picked, and how many forecasts show it."))
@@ -436,6 +442,8 @@ struct ContentView: View {
             }
             .refreshable { await viewModel.refresh() }
             .sceneryScrollHints()
+            .scrollContentBackground(showsAmbient ? .hidden : .automatic)
+            .background { if showsAmbient { AmbientBackground(scenery: currentScenery) } }
             // Swipe sideways to move between favorites (not while scrolling the wish chips).
             .simultaneousGesture(DragGesture(minimumDistance: 40).onEnded { drag in
                 let dx = drag.translation.width, dy = drag.translation.height

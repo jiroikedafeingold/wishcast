@@ -6,6 +6,7 @@ struct SettingsView: View {
     let sourceCount: Int
     let placeName: String?
     @AppStorage("tabletopGrass") private var tabletopGrass = true
+    @AppStorage("ambientBackground") private var ambientBackground = true
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -24,6 +25,12 @@ struct SettingsView: View {
                 Section {
                     Button("Restore Defaults") { preferences = Preferences() }
                         .disabled(preferences == Preferences())
+                }
+
+                Section {
+                    Toggle("Animated Backgrounds", isOn: $ambientBackground)
+                } footer: {
+                    Text("A gentle animation of the day’s weather, like sunshine, rain or snow, behind the list and the day.")
                 }
 
                 #if os(iOS)
