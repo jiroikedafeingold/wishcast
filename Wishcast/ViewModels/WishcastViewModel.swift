@@ -391,7 +391,7 @@ final class WishcastViewModel {
     /// The place, wish and week, formatted for the Apple Watch app and its complications.
     private func syncWatch() {
         guard let place, !days.isEmpty else { return }
-        let wishTitle = String(localized: wish.title)
+        let wishTitle = String(localized: wish.label)
         WatchSync.shared.send(WatchSummary(
             place: place.name,
             wishTitle: wishTitle,

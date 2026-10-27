@@ -48,7 +48,7 @@ struct WishPicker: View {
                         selection = wish
                     } label: {
                         Label {
-                            Text(wish.title)
+                            Text(wish.label)
                         } icon: {
                             Image(systemName: wish.symbolName)
                         }

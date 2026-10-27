@@ -106,6 +106,12 @@ struct PlaceSearchView: View {
         }
         // Each button handles its own tap, rather than the whole row acting as one.
         .buttonStyle(.borderless)
+        // Custom swipe actions replace the list's built-in delete, so it's added back here.
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            Button("Delete", systemImage: "trash", role: .destructive) {
+                onDelete([place])
+            }
+        }
         .swipeActions(edge: .leading) {
             Button(isFavorite ? "Remove from Favorites" : "Add to Favorites",
                    systemImage: isFavorite ? "star.slash" : "star") {

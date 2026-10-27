@@ -148,6 +148,19 @@ enum Wish: String, CaseIterable, Identifiable, Codable {
         }
     }
 
+    /// The short, lower-case name used where it completes a phrase: the "I'm wishing for" chips and
+    /// the widgets ("Best case for sun").
+    var label: LocalizedStringResource {
+        switch self {
+        case .sunny: "sun"
+        case .snow: "snow"
+        case .rainy: "rain"
+        case .wild: "wild weather"
+        case .coolEvenings: "cool evenings"
+        case .pleasant: "nice and pleasant"
+        }
+    }
+
     var symbolName: String {
         switch self {
         case .snow: "snowflake"

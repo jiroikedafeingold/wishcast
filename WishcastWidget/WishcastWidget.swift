@@ -139,7 +139,7 @@ struct WishcastWidgetEntryView: View {
     }
 
     private var bestCaseNote: some View {
-        Text("Best case for \(Text(entry.wish.title)). Not a prediction.")
+        Text("Best case for \(Text(entry.wish.label)). Not a prediction.")
             .font(.caption2)
             .foregroundStyle(.secondary)
             .lineLimit(1)
@@ -215,7 +215,7 @@ struct WishcastWidgetEntryView: View {
     private func rectangular(_ day: WishcastEntry.Day) -> some View {
         VStack(alignment: .leading) {
             Label {
-                Text(entry.wish.title)
+                Text(entry.wish.label)
             } icon: {
                 Image(systemName: entry.wish.symbolName)
             }
