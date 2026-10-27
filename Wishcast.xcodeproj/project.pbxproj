@@ -758,7 +758,7 @@
 				DEVELOPMENT_TEAM = TJ8LYQ4D36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = WishcastWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Wishcast;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.jirofeingold.Wishcast;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -793,7 +793,7 @@
 				DEVELOPMENT_TEAM = TJ8LYQ4D36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = WishcastWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Wishcast;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.jirofeingold.Wishcast;
 				LD_RUNPATH_SEARCH_PATHS = (

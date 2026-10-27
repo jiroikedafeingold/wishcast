@@ -165,20 +165,21 @@ struct WishcastWidgetEntryView: View {
     }
 
     private var medium: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        // Kept compact so the whole layout fits inside the margins of the shorter medium widget.
+        VStack(alignment: .leading, spacing: 4) {
             header
             bestCaseNote
             HStack {
                 ForEach(entry.days.prefix(5)) { day in
-                    VStack(spacing: 6) {
+                    VStack(spacing: 2) {
                         Text(day.weekday)
                             .font(.caption2.weight(.semibold))
                         WeatherSymbol(name: day.symbolName)
-                            .font(.title3)
+                            .font(.body)
                         Text(Metric.temperature.format(day.high))
-                            .font(.callout.weight(.semibold))
+                            .font(.subheadline.weight(.semibold))
                         Text(Metric.temperature.format(day.low))
-                            .font(.caption)
+                            .font(.caption2)
                             .foregroundStyle(.secondary)
                     }
                     .frame(maxWidth: .infinity)
