@@ -10,6 +10,10 @@
 		13569B2A30906468004EEAE1 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13569B2930906468004EEAE1 /* WidgetKit.framework */; };
 		13569B2C30906468004EEAE1 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13569B2B30906468004EEAE1 /* SwiftUI.framework */; };
 		13569B3930906469004EEAE1 /* WishcastWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 13569B2730906468004EEAE1 /* WishcastWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		13569C5030912277004EEAE1 /* WishcastWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 13569C4630912276004EEAE1 /* WishcastWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		13569C5A30912286004EEAE1 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13569B2930906468004EEAE1 /* WidgetKit.framework */; };
+		13569C5B30912286004EEAE1 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13569B2B30906468004EEAE1 /* SwiftUI.framework */; };
+		13569C6630912287004EEAE1 /* WishcastComplicationsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 13569C5930912286004EEAE1 /* WishcastComplicationsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -19,6 +23,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13569B2630906468004EEAE1;
 			remoteInfo = WishcastWidgetExtension;
+		};
+		13569C4E30912277004EEAE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13569C4530912276004EEAE1;
+			remoteInfo = "WishcastWatch Watch App";
+		};
+		13569C6430912287004EEAE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13569C5830912286004EEAE1;
+			remoteInfo = WishcastComplicationsExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -32,6 +50,24 @@
 			);
 			name = "Embed Foundation Extensions";
 		};
+		13569C5130912277004EEAE1 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolder = Product;
+			files = (
+				13569C5030912277004EEAE1 /* WishcastWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+		};
+		13569C6B30912287004EEAE1 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				13569C6630912287004EEAE1 /* WishcastComplicationsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +76,9 @@
 		13569B2930906468004EEAE1 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = /System/Library/Frameworks/WidgetKit.framework; sourceTree = "<absolute>"; };
 		13569B2B30906468004EEAE1 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = /System/Library/Frameworks/SwiftUI.framework; sourceTree = "<absolute>"; };
 		13569B4F309065EB004EEAE1 /* WishcastWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WishcastWidgetExtension.entitlements; sourceTree = "<group>"; };
+		13569C4630912276004EEAE1 /* WishcastWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WishcastWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13569C5930912286004EEAE1 /* WishcastComplicationsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WishcastComplicationsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		13569C6C309122A6004EEAE1 /* WishcastComplicationsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WishcastComplicationsExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -60,6 +99,13 @@
 			);
 			target = 13569B2630906468004EEAE1 /* WishcastWidgetExtension */;
 		};
+		13569C6730912287004EEAE1 /* Exceptions for "WishcastComplications" folder in "WishcastComplicationsExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 13569C5830912286004EEAE1 /* WishcastComplicationsExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -79,6 +125,19 @@
 			path = WishcastWidget;
 			sourceTree = "<group>";
 		};
+		13569C4730912276004EEAE1 /* WishcastWatch Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "WishcastWatch Watch App";
+			sourceTree = "<group>";
+		};
+		13569C5C30912286004EEAE1 /* WishcastComplications */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				13569C6730912287004EEAE1 /* Exceptions for "WishcastComplications" folder in "WishcastComplicationsExtension" target */,
+			);
+			path = WishcastComplications;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,15 +153,30 @@
 				13569B2A30906468004EEAE1 /* WidgetKit.framework in Frameworks */,
 			);
 		};
+		13569C4330912276004EEAE1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		13569C5630912286004EEAE1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				13569C5B30912286004EEAE1 /* SwiftUI.framework in Frameworks */,
+				13569C5A30912286004EEAE1 /* WidgetKit.framework in Frameworks */,
+			);
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		000000000000000000000001 = {
 			isa = PBXGroup;
 			children = (
+				13569C6C309122A6004EEAE1 /* WishcastComplicationsExtension.entitlements */,
 				13569B4F309065EB004EEAE1 /* WishcastWidgetExtension.entitlements */,
 				000000000000000000000010 /* Wishcast */,
 				13569B2D30906468004EEAE1 /* WishcastWidget */,
+				13569C4730912276004EEAE1 /* WishcastWatch Watch App */,
+				13569C5C30912286004EEAE1 /* WishcastComplications */,
 				13569B2830906468004EEAE1 /* Frameworks */,
 				000000000000000000000020 /* Products */,
 			);
@@ -113,6 +187,8 @@
 			children = (
 				000000000000000000000120 /* Wishcast.app */,
 				13569B2730906468004EEAE1 /* WishcastWidgetExtension.appex */,
+				13569C4630912276004EEAE1 /* WishcastWatch Watch App.app */,
+				13569C5930912286004EEAE1 /* WishcastComplicationsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,11 +213,13 @@
 				000000000000000130000000 /* Frameworks */,
 				000000000000000140000000 /* Resources */,
 				13569B3E30906469004EEAE1 /* Embed Foundation Extensions */,
+				13569C5130912277004EEAE1 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				13569B3830906469004EEAE1 /* PBXTargetDependency */,
+				13569C4F30912277004EEAE1 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				000000000000000000000010 /* Wishcast */,
@@ -169,6 +247,46 @@
 			productReference = 13569B2730906468004EEAE1 /* WishcastWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		13569C4530912276004EEAE1 /* WishcastWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13569C5430912277004EEAE1 /* Build configuration list for PBXNativeTarget "WishcastWatch Watch App" */;
+			buildPhases = (
+				13569C4230912276004EEAE1 /* Sources */,
+				13569C4330912276004EEAE1 /* Frameworks */,
+				13569C4430912276004EEAE1 /* Resources */,
+				13569C6B30912287004EEAE1 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				13569C6530912287004EEAE1 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				13569C4730912276004EEAE1 /* WishcastWatch Watch App */,
+			);
+			name = "WishcastWatch Watch App";
+			productName = "WishcastWatch Watch App";
+			productReference = 13569C4630912276004EEAE1 /* WishcastWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		13569C5830912286004EEAE1 /* WishcastComplicationsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13569C6830912287004EEAE1 /* Build configuration list for PBXNativeTarget "WishcastComplicationsExtension" */;
+			buildPhases = (
+				13569C5530912286004EEAE1 /* Sources */,
+				13569C5630912286004EEAE1 /* Frameworks */,
+				13569C5730912286004EEAE1 /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				13569C5C30912286004EEAE1 /* WishcastComplications */,
+			);
+			name = WishcastComplicationsExtension;
+			productName = WishcastComplicationsExtension;
+			productReference = 13569C5930912286004EEAE1 /* WishcastComplicationsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -183,6 +301,12 @@
 						CreatedOnToolsVersion = 26.3;
 					};
 					13569B2630906468004EEAE1 = {
+						CreatedOnToolsVersion = 27.1;
+					};
+					13569C4530912276004EEAE1 = {
+						CreatedOnToolsVersion = 27.1;
+					};
+					13569C5830912286004EEAE1 = {
 						CreatedOnToolsVersion = 27.1;
 					};
 				};
@@ -213,6 +337,8 @@
 			targets = (
 				000000000000000100000000 /* Wishcast */,
 				13569B2630906468004EEAE1 /* WishcastWidgetExtension */,
+				13569C4530912276004EEAE1 /* WishcastWatch Watch App */,
+				13569C5830912286004EEAE1 /* WishcastComplicationsExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -224,6 +350,16 @@
 			);
 		};
 		13569B2530906468004EEAE1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		13569C4430912276004EEAE1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		13569C5730912286004EEAE1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
 			);
@@ -241,6 +377,16 @@
 			files = (
 			);
 		};
+		13569C4230912276004EEAE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		13569C5530912286004EEAE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -248,6 +394,16 @@
 			isa = PBXTargetDependency;
 			target = 13569B2630906468004EEAE1 /* WishcastWidgetExtension */;
 			targetProxy = 13569B3730906469004EEAE1 /* PBXContainerItemProxy */;
+		};
+		13569C4F30912277004EEAE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13569C4530912276004EEAE1 /* WishcastWatch Watch App */;
+			targetProxy = 13569C4E30912277004EEAE1 /* PBXContainerItemProxy */;
+		};
+		13569C6530912287004EEAE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13569C5830912286004EEAE1 /* WishcastComplicationsExtension */;
+			targetProxy = 13569C6430912287004EEAE1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -586,6 +742,144 @@
 			};
 			name = Release;
 		};
+		13569C5230912277004EEAE1 /* Debug configuration for PBXNativeTarget "WishcastWatch Watch App" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "WishcastWatch Watch App/WishcastWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TJ8LYQ4D36;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WishcastWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.jirofeingold.Wishcast;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jirofeingold.Wishcast.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		13569C5330912277004EEAE1 /* Release configuration for PBXNativeTarget "WishcastWatch Watch App" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "WishcastWatch Watch App/WishcastWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TJ8LYQ4D36;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WishcastWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.jirofeingold.Wishcast;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jirofeingold.Wishcast.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		13569C6930912287004EEAE1 /* Debug configuration for PBXNativeTarget "WishcastComplicationsExtension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WishcastComplicationsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TJ8LYQ4D36;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WishcastComplications/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WishcastComplications;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jirofeingold.Wishcast.watchkitapp.WishcastComplications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		13569C6A30912287004EEAE1 /* Release configuration for PBXNativeTarget "WishcastComplicationsExtension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WishcastComplicationsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TJ8LYQ4D36;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WishcastComplications/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WishcastComplications;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jirofeingold.Wishcast.watchkitapp.WishcastComplications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -610,6 +904,22 @@
 			buildConfigurations = (
 				13569B3C30906469004EEAE1 /* Debug configuration for PBXNativeTarget "WishcastWidgetExtension" */,
 				13569B3D30906469004EEAE1 /* Release configuration for PBXNativeTarget "WishcastWidgetExtension" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		13569C5430912277004EEAE1 /* Build configuration list for PBXNativeTarget "WishcastWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13569C5230912277004EEAE1 /* Debug configuration for PBXNativeTarget "WishcastWatch Watch App" */,
+				13569C5330912277004EEAE1 /* Release configuration for PBXNativeTarget "WishcastWatch Watch App" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		13569C6830912287004EEAE1 /* Build configuration list for PBXNativeTarget "WishcastComplicationsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13569C6930912287004EEAE1 /* Debug configuration for PBXNativeTarget "WishcastComplicationsExtension" */,
+				13569C6A30912287004EEAE1 /* Release configuration for PBXNativeTarget "WishcastComplicationsExtension" */,
 			);
 			defaultConfigurationName = Release;
 		};

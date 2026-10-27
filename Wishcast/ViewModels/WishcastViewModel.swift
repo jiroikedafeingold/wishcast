@@ -308,5 +308,30 @@ final class WishcastViewModel {
     private func rebuildDays() {
         days = WishcastDay.build(from: forecasts, wish: wish, preferences: preferences)
         rebuildPickedDay()
+        syncWatch()
+    }
+
+    /// The place, wish and week, formatted for the Apple Watch app and its complications.
+    private func syncWatch() {
+        guard let place, !days.isEmpty else { return }
+        let wishTitle = String(localized: wish.title)
+        WatchSync.shared.send(WatchSummary(
+            place: place.name,
+            wishTitle: wishTitle,
+            wishSymbol: wish.symbolName,
+            wish: wish.rawValue,
+            note: String(localized: "Best case for \(wishTitle). Not a prediction."),
+            updated: .now,
+            days: days.prefix(7).map { day in
+                let count = day.forecasts.count
+                return WatchSummary.Day(
+                    weekday: day.weekday(in: timeZone, width: .abbreviated),
+                    symbol: day.symbolName,
+                    high: Metric.temperature.format(day.high.value),
+                    low: Metric.temperature.format(day.low.value),
+                    matchText: String(localized: "H: \(day.high.sameValueCount) of \(count) \u{00B7} L: \(day.low.sameValueCount) of \(count)")
+                )
+            }
+        ))
     }
 }

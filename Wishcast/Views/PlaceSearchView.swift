@@ -66,11 +66,13 @@ struct PlaceSearchView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
                 }
+                #if os(iOS)
                 if favorites.count > 1 && viewModel.query.isEmpty {
                     ToolbarItem(placement: .primaryAction) {
                         EditButton()
                     }
                 }
+                #endif
             }
         }
         .presentationSizing(.form)

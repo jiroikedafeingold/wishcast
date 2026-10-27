@@ -169,6 +169,7 @@ struct ContentView: View {
             .toolbar {
                 // The place name with its favorite star, large or (upright Duo) inline. The inline one is
                 // bigger than the system's, so the place still reads as the heading.
+                #if os(iOS)
                 ToolbarItem(placement: .largeTitle) {
                     placeTitle(font: .largeTitle.bold())
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -176,6 +177,17 @@ struct ContentView: View {
                 ToolbarItem(placement: .title) {
                     placeTitle(font: .title.bold())
                 }
+                #else
+                ToolbarItem {
+                    if let place = viewModel.place {
+                        let isFavorite = viewModel.isFavorite(place)
+                        Button(isFavorite ? "Remove from Favorites" : "Add to Favorites",
+                               systemImage: isFavorite ? "star.fill" : "star") {
+                            viewModel.toggleFavorite(place)
+                        }
+                    }
+                }
+                #endif
                 ToolbarItem {
                     Button("Pick a Future Date…", systemImage: "calendar") { isPickingDate = true }
                         .disabled(viewModel.days.isEmpty)
