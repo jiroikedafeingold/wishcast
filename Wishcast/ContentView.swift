@@ -138,13 +138,18 @@ struct ContentView: View {
             }
             .ignoresSafeArea(edges: .horizontal)
         } else if let division = fold.uprightDivision {
-            // iPhone Duo open and held upright: the list of days on the top page, the full day below.
+            // iPhone Duo open and held upright: the list of days on the top page, the full day below,
+            // and the title strip across the hinge. The lower page uses a compact title so the day
+            // starts near the top of its page.
             VStack(spacing: 0) {
                 NavigationStack { sidebarColumn }
                     .frame(height: division.lowerBound)
-                Color.clear
+                HingeHorizon(scenery: currentScenery)
                     .frame(height: division.upperBound - division.lowerBound)
-                NavigationStack { detailColumn }
+                NavigationStack {
+                    detailColumn
+                        .toolbarTitleDisplayMode(.inline)
+                }
             }
             .ignoresSafeArea(edges: .vertical)
         } else {
