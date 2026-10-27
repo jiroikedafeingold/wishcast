@@ -18,23 +18,8 @@ struct ContentView: View {
 
     var body: some View {
         #if os(iOS)
-        // iPhone Duo: in the tabletop pose (half-open, lower half on the table) the app moves to the
-        // upper half and the lower half optionally becomes a sunlit lawn with today's best case.
-        Group {
-            if let band = fold.tabletopBand, tabletopGrass {
-                VStack(spacing: 0) {
-                    splitView
-                        .frame(height: band.lowerBound)
-                    Color.clear
-                        .frame(height: band.upperBound - band.lowerBound)
-                    TabletopPanel(day: viewModel.days.first, wish: viewModel.wish, timeZone: viewModel.timeZone)
-                }
-                .ignoresSafeArea(edges: .vertical)
-            } else {
-                splitView
-            }
-        }
-        .background(FoldReader(state: $fold).ignoresSafeArea())
+        splitView
+            .background(FoldReader(state: $fold).ignoresSafeArea())
         #else
         splitView
         #endif
@@ -106,7 +91,27 @@ struct ContentView: View {
     @ViewBuilder
     private var columns: some View {
         #if os(iOS)
-        if let division = fold.bookDivision {
+        if let band = fold.tabletopBand, tabletopGrass {
+            // iPhone Duo half-open on a table: the day stands up under a blue sky, and the list lies
+            // flat on the table over sunlit grass.
+            VStack(spacing: 0) {
+                NavigationStack {
+                    detailColumn
+                        .containerBackground(for: .navigation) { BlueSky() }
+                }
+                .environment(\.colorScheme, .light)
+                .frame(height: band.lowerBound)
+                Color.clear
+                    .frame(height: band.upperBound - band.lowerBound)
+                NavigationStack {
+                    sidebarColumn
+                        .scrollContentBackground(.hidden)
+                        .containerBackground(for: .navigation) { SunlitGrass() }
+                }
+                .environment(\.colorScheme, .dark)
+            }
+            .ignoresSafeArea(edges: .vertical)
+        } else if let division = fold.bookDivision {
             // iPhone Duo held open like a book: the list on the left page, the day on the right, and
             // nothing on the hinge. (The system split view slides the list over the day on this screen.)
             HStack(spacing: 0) {
@@ -154,7 +159,7 @@ struct ContentView: View {
 
     @ViewBuilder
     private var detailColumn: some View {
-        if let day = viewModel.day(for: selectedDate) {
+        if let day = viewModel.day(for: selectedDate) ?? (isBookLayout ? viewModel.days.first : nil) {
             DayDetailView(day: day, wish: viewModel.wish, preferences: viewModel.preferences,
                           timeZone: viewModel.timeZone, official: viewModel.conditions(for: day))
         } else {
@@ -306,39 +311,4 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-}
-
-/// The lower half of a half-open iPhone Duo on a table: sunlit grass with today's best case on glass.
-private struct TabletopPanel: View {
-    let day: WishcastDay?
-    let wish: Wish
-    let timeZone: TimeZone
-
-    var body: some View {
-        SunlitGrass()
-            .overlay {
-                if let day {
-                    VStack(spacing: 6) {
-                        HStack(spacing: 12) {
-                            WeatherSymbol(name: day.symbolName)
-                                .font(.largeTitle)
-                            Text("\(Metric.temperature.format(day.high.value)) / \(Metric.temperature.format(day.low.value))")
-                                .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                                .monospacedDigit()
-                        }
-                        Text(day.weekday(in: timeZone))
-                            .font(.headline)
-                        Text("\(Text(ForecastRange(date: day.date, timeZone: timeZone).title)) for \(Text(wish.title))")
-                            .font(.subheadline)
-                        Text("This is a wish, not a prediction.")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 16)
-                    .glassEffect(.regular, in: .rect(cornerRadius: 24))
-                    .accessibilityElement(children: .combine)
-                }
-            }
-    }
 }

@@ -185,6 +185,75 @@ private struct DappleMask: View {
     }
 }
 
+/// A clear blue sky for the upper half of iPhone Duo on a table: deep blue overhead fading to a pale
+/// horizon at the hinge, soft sunlight in one corner and a few slow clouds. Still with Reduce Motion.
+struct BlueSky: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        ZStack {
+            LinearGradient(colors: [Color(red: 0.16, green: 0.42, blue: 0.86),
+                                    Color(red: 0.42, green: 0.68, blue: 0.96),
+                                    Color(red: 0.78, green: 0.89, blue: 0.99)],
+                           startPoint: .top, endPoint: .bottom)
+            RadialGradient(colors: [Color(red: 1, green: 0.97, blue: 0.85).opacity(0.85), .clear],
+                           center: UnitPoint(x: 0.85, y: 0.08), startRadius: 0, endRadius: 260)
+                .blendMode(.screen)
+            if reduceMotion {
+                Clouds(time: 0)
+            } else {
+                TimelineView(.animation(minimumInterval: 1.0 / 20)) { timeline in
+                    Clouds(time: timeline.date.timeIntervalSinceReferenceDate)
+                }
+            }
+        }
+        .drawingGroup()
+        .accessibilityHidden(true)
+    }
+}
+
+/// Fair-weather cumulus: a flat, faintly grey base with rounded puffs piled higher in the middle,
+/// drifting slowly left to right.
+private struct Clouds: View {
+    var time: Double
+
+    var body: some View {
+        Canvas { context, size in
+            var random = SeededRandom(state: 0xC10D5)
+            for _ in 0..<5 {
+                let width = Double.random(in: 0.26...0.44, using: &random) * size.width
+                let speed = Double.random(in: 3...7, using: &random)
+                let span = size.width + width * 2
+                let startX = Double.random(in: 0...span, using: &random)
+                let left = (startX + time * speed).truncatingRemainder(dividingBy: span) - width
+                let base = Double.random(in: 0.25...0.7, using: &random) * size.height
+                var cloud = context
+                cloud.addFilter(.blur(radius: width * 0.035))
+                // Shaded underside, then the sunlit puffs on top of it.
+                cloud.fill(Path(ellipseIn: CGRect(x: left, y: base - width * 0.09, width: width, height: width * 0.16)),
+                           with: .color(Color(white: 0.86).opacity(0.9)))
+                let puffs = 7
+                for index in 0..<puffs {
+                    let along = (Double(index) + 0.5) / Double(puffs)
+                    // Taller toward the middle, like a cumulus tower.
+                    let lift = sin(along * .pi)
+                    let diameter = width * (0.18 + 0.2 * lift) * Double.random(in: 0.85...1.15, using: &random)
+                    let center = CGPoint(x: left + along * width,
+                                         y: base - width * 0.05 - lift * width * 0.12 + Double.random(in: -4...4, using: &random))
+                    cloud.fill(Path(ellipseIn: CGRect(x: center.x - diameter / 2, y: center.y - diameter / 2,
+                                                      width: diameter, height: diameter)),
+                               with: .color(.white.opacity(0.95)))
+                }
+            }
+        }
+    }
+}
+
+#Preview("Blue sky") {
+    BlueSky()
+        .frame(height: 400)
+}
+
 #Preview("Sunlit grass") {
     SunlitGrass()
         .frame(height: 400)
