@@ -45,8 +45,10 @@ private struct AmbientLayer: View {
             switch scenery {
             case .sunny:
                 drawSunGlow(in: &context, size: size, strength: 1)
+                drawSunDisc(in: &context, size: size, strength: 1)
             case .partlyCloudy:
-                drawSunGlow(in: &context, size: size, strength: 0.6)
+                drawSunGlow(in: &context, size: size, strength: 0.7)
+                drawSunDisc(in: &context, size: size, strength: 0.7)
                 drawClouds(in: &context, size: size, count: 4, opacity: 0.55)
             case .cloudy:
                 drawClouds(in: &context, size: size, count: 7, opacity: 0.6)
@@ -77,7 +79,7 @@ private struct AmbientLayer: View {
         let breathe = 0.85 + 0.15 * sin(time * 0.4)
         let radius = max(size.width, 320) * 0.75
         context.fill(Path(CGRect(origin: .zero, size: size)), with: .radialGradient(
-            Gradient(colors: [Color(red: 1, green: 0.84, blue: 0.45).opacity((isDark ? 0.18 : 0.32) * strength * breathe), .clear]),
+            Gradient(colors: [Color(red: 1, green: 0.82, blue: 0.4).opacity((isDark ? 0.5 : 0.45) * strength * breathe), .clear]),
             center: center, startRadius: 0, endRadius: radius))
         var rays = context
         rays.translateBy(x: center.x, y: center.y)
@@ -90,14 +92,28 @@ private struct AmbientLayer: View {
             ray.addLine(to: CGPoint(x: cos(angle + 0.05) * radius, y: sin(angle + 0.05) * radius))
             ray.closeSubpath()
             rays.fill(ray, with: .radialGradient(
-                Gradient(colors: [Color(red: 1, green: 0.9, blue: 0.6).opacity((isDark ? 0.05 : 0.1) * strength), .clear]),
+                Gradient(colors: [Color(red: 1, green: 0.9, blue: 0.6).opacity((isDark ? 0.16 : 0.16) * strength), .clear]),
                 center: .zero, startRadius: 0, endRadius: radius))
         }
     }
 
+    /// The sun itself, half off the top corner: a warm disc with a soft bloom.
+    private func drawSunDisc(in context: inout GraphicsContext, size: CGSize, strength: Double) {
+        let center = CGPoint(x: size.width * 0.88, y: size.height * 0.04)
+        let radius = min(size.width, 400) * 0.16
+        var bloom = context
+        bloom.addFilter(.blur(radius: radius * 0.5))
+        bloom.fill(Path(ellipseIn: CGRect(x: center.x - radius * 1.4, y: center.y - radius * 1.4, width: radius * 2.8, height: radius * 2.8)),
+                   with: .color(Color(red: 1, green: 0.8, blue: 0.35).opacity(0.45 * strength)))
+        context.fill(Path(ellipseIn: CGRect(x: center.x - radius, y: center.y - radius, width: radius * 2, height: radius * 2)),
+                     with: .radialGradient(Gradient(colors: [Color(red: 1, green: 0.95, blue: 0.75).opacity(0.85 * strength),
+                                                             Color(red: 1, green: 0.78, blue: 0.3).opacity(0.6 * strength)]),
+                                           center: center, startRadius: 0, endRadius: radius))
+    }
+
     private func drawClouds(in context: inout GraphicsContext, size: CGSize, count: Int, opacity: Double) {
         var random = SeededGenerator(seed: 0xA1B2)
-        let tone = isDark ? Color(white: 0.55) : Color(white: 0.78)
+        let tone = isDark ? Color(white: 0.62) : Color(white: 0.72)
         var clouds = context
         clouds.addFilter(.blur(radius: 18))
         for _ in 0..<count {
@@ -108,13 +124,13 @@ private struct AmbientLayer: View {
             let y = Double.random(in: 0...0.9, using: &random) * size.height
             let height = width * Double.random(in: 0.18...0.3, using: &random)
             clouds.fill(Path(ellipseIn: CGRect(x: x, y: y, width: width, height: height)),
-                        with: .color(tone.opacity(opacity * (isDark ? 0.35 : 0.5))))
+                        with: .color(tone.opacity(opacity * (isDark ? 0.7 : 0.75))))
         }
     }
 
     private func drawRain(in context: inout GraphicsContext, size: CGSize, count: Int) {
         var random = SeededGenerator(seed: 0x7A1)
-        let color = (isDark ? Color(white: 0.8) : Color(red: 0.35, green: 0.5, blue: 0.7)).opacity(isDark ? 0.16 : 0.2)
+        let color = (isDark ? Color(red: 0.75, green: 0.85, blue: 1) : Color(red: 0.35, green: 0.5, blue: 0.7)).opacity(isDark ? 0.38 : 0.35)
         for _ in 0..<count {
             let x = Double.random(in: -20...size.width, using: &random)
             let speed = Double.random(in: 380...620, using: &random)
@@ -124,7 +140,7 @@ private struct AmbientLayer: View {
             var streak = Path()
             streak.move(to: CGPoint(x: x, y: y))
             streak.addLine(to: CGPoint(x: x + length * 0.15, y: y + length))
-            context.stroke(streak, with: .color(color), lineWidth: 1)
+            context.stroke(streak, with: .color(color), lineWidth: 1.3)
         }
     }
 
@@ -133,16 +149,16 @@ private struct AmbientLayer: View {
         let phase = time.truncatingRemainder(dividingBy: 11)
         let flash = phase < 0.25 ? 1 - phase / 0.25 : (phase > 0.4 && phase < 0.6 ? 0.5 * (1 - (phase - 0.4) / 0.2) : 0)
         guard flash > 0 else { return }
-        context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(Color(red: 0.85, green: 0.9, blue: 1).opacity(0.12 * flash)))
+        context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(Color(red: 0.85, green: 0.9, blue: 1).opacity(0.24 * flash)))
     }
 
     private func drawSnow(in context: inout GraphicsContext, size: CGSize) {
         var random = SeededGenerator(seed: 0x5A0)
-        let color = isDark ? Color.white.opacity(0.35) : Color(red: 0.6, green: 0.7, blue: 0.85).opacity(0.45)
+        let color = isDark ? Color.white.opacity(0.7) : Color(red: 0.6, green: 0.7, blue: 0.85).opacity(0.65)
         for _ in 0..<45 {
             let x = Double.random(in: 0...size.width, using: &random)
             let speed = Double.random(in: 14...32, using: &random)
-            let radius = Double.random(in: 1...2.4, using: &random)
+            let radius = Double.random(in: 1.3...3, using: &random)
             let phase = Double.random(in: 0...(2 * .pi), using: &random)
             let fall = size.height + 10
             let y = (Double.random(in: 0...1, using: &random) * fall + time * speed).truncatingRemainder(dividingBy: fall) - 5
@@ -187,7 +203,7 @@ private struct AmbientLayer: View {
             var print = context
             print.translateBy(x: here.x - sin(heading) * 5 * side, y: here.y + cos(heading) * 5 * side)
             print.rotate(by: .radians(heading + .pi / 2))
-            let opacity = (isDark ? 0.18 : 0.26) * trailFade
+            let opacity = (isDark ? 0.42 : 0.4) * trailFade
             print.fill(Path(ellipseIn: CGRect(x: -3.5, y: -8, width: 7, height: 9)), with: .color(shade.opacity(opacity)))
             print.fill(Path(ellipseIn: CGRect(x: -2.8, y: 2, width: 5.6, height: 5.5)), with: .color(shade.opacity(opacity)))
         }
@@ -195,7 +211,7 @@ private struct AmbientLayer: View {
 
     private func drawWind(in context: inout GraphicsContext, size: CGSize) {
         var random = SeededGenerator(seed: 0x3D)
-        let color = (isDark ? Color(white: 0.8) : Color(red: 0.45, green: 0.55, blue: 0.65)).opacity(isDark ? 0.14 : 0.18)
+        let color = (isDark ? Color(white: 0.85) : Color(red: 0.45, green: 0.55, blue: 0.65)).opacity(isDark ? 0.34 : 0.32)
         for _ in 0..<9 {
             let y = Double.random(in: 0...1, using: &random) * size.height
             let length = Double.random(in: 60...160, using: &random)
@@ -207,7 +223,7 @@ private struct AmbientLayer: View {
             streak.addCurve(to: CGPoint(x: x + length, y: y - 6),
                             control1: CGPoint(x: x + length * 0.35, y: y + 6),
                             control2: CGPoint(x: x + length * 0.7, y: y - 10))
-            context.stroke(streak, with: .color(color), style: StrokeStyle(lineWidth: 1.2, lineCap: .round))
+            context.stroke(streak, with: .color(color), style: StrokeStyle(lineWidth: 1.8, lineCap: .round))
         }
     }
 
@@ -217,11 +233,11 @@ private struct AmbientLayer: View {
         for _ in 0..<count {
             let x = Double.random(in: 0...1, using: &random) * size.width
             let y = Double.random(in: 0...1, using: &random) * size.height
-            let radius = Double.random(in: 0.6...1.5, using: &random)
+            let radius = Double.random(in: 0.8...1.9, using: &random)
             let phase = Double.random(in: 0...(2 * .pi), using: &random)
             let twinkle = 0.5 + 0.5 * sin(time * Double.random(in: 0.5...1.3, using: &random) + phase)
             context.fill(Path(ellipseIn: CGRect(x: x - radius, y: y - radius, width: radius * 2, height: radius * 2)),
-                         with: .color(color.opacity((isDark ? 0.45 : 0.25) * twinkle)))
+                         with: .color(color.opacity((isDark ? 0.85 : 0.4) * twinkle)))
         }
     }
 }

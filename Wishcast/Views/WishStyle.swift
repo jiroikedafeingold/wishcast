@@ -13,7 +13,7 @@ extension Wish {
     }
 }
 
-/// A weather condition icon: Meteocons artwork where there is one, otherwise an SF Symbol with
+/// A weather condition icon: Wishcast's own artwork where there is one, otherwise an SF Symbol with
 /// explicit layer colors (multicolor rendering draws clouds and moons white, which disappears on
 /// light backgrounds).
 struct WeatherSymbol: View {
@@ -22,16 +22,14 @@ struct WeatherSymbol: View {
     var body: some View {
         if let asset = Self.meteocons[name] {
             // The (hidden) SF Symbol sizes the icon to the surrounding font, so callers keep using
-            // `.font(...)`; the Meteocons artwork (MIT, Bas Milius) is drawn over it.
+            // `.font(...)`; the Wishcast artwork is drawn over it.
             Image(systemName: name)
                 .hidden()
                 .overlay {
                     Image(asset)
                         .resizable()
                         .scaledToFit()
-                        .scaleEffect(1.35)
-                        // Meteocons' pale clouds need a faint edge to show on light backgrounds.
-                        .shadow(color: .black.opacity(0.18), radius: 0.8, y: 0.5)
+                        .scaleEffect(1.2)
                 }
                 .accessibilityRepresentation { Image(systemName: name) }
         } else {
@@ -41,19 +39,19 @@ struct WeatherSymbol: View {
         }
     }
 
-    /// Meteocons artwork for each condition symbol the app uses.
+    /// Wishcast artwork for each condition symbol the app uses.
     private static let meteocons: [String: String] = [
-        "sun.max.fill": "meteocon-clear-day",
-        "moon.stars.fill": "meteocon-clear-night",
-        "cloud.sun.fill": "meteocon-partly-cloudy-day",
-        "cloud.moon.fill": "meteocon-partly-cloudy-night",
-        "cloud.fill": "meteocon-cloudy",
-        "cloud.fog.fill": "meteocon-fog",
-        "cloud.drizzle.fill": "meteocon-drizzle",
-        "cloud.rain.fill": "meteocon-rain",
-        "cloud.snow.fill": "meteocon-snow",
-        "cloud.bolt.rain.fill": "meteocon-thunderstorms-rain",
-        "wind": "meteocon-wind"
+        "sun.max.fill": "weather-clear-day",
+        "moon.stars.fill": "weather-clear-night",
+        "cloud.sun.fill": "weather-partly-cloudy-day",
+        "cloud.moon.fill": "weather-partly-cloudy-night",
+        "cloud.fill": "weather-cloudy",
+        "cloud.fog.fill": "weather-fog",
+        "cloud.drizzle.fill": "weather-drizzle",
+        "cloud.rain.fill": "weather-rain",
+        "cloud.snow.fill": "weather-snow",
+        "cloud.bolt.rain.fill": "weather-thunderstorms-rain",
+        "wind": "weather-wind"
     ]
 
     private var colors: (Color, Color, Color) {

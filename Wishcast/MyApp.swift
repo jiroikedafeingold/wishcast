@@ -19,6 +19,8 @@ import WidgetKit
     var body: some Scene {
         WindowGroup {
             ContentView()
+                // Wishcast is designed for a dark look throughout (also set in Info.plist for iOS).
+                .preferredColorScheme(.dark)
                 .overlay {
                     if isShowingSplash {
                         SplashView(tagline: tagline)

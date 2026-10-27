@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// A weather condition icon: Meteocons artwork (MIT, Bas Milius) sized to the surrounding font, or the
+/// A weather condition icon: Wishcast artwork sized to the surrounding font, or the
 /// SF Symbol where there's no artwork. Keep the table in sync with `WeatherSymbol` in the iOS app.
 struct WeatherIcon: View {
     let name: String
@@ -14,7 +14,7 @@ struct WeatherIcon: View {
                     Image(asset)
                         .resizable()
                         .scaledToFit()
-                        .scaleEffect(1.35)
+                        .scaleEffect(1.2)
                 }
                 .accessibilityRepresentation { Image(systemName: name) }
         } else {
@@ -24,16 +24,16 @@ struct WeatherIcon: View {
     }
 
     private static let meteocons: [String: String] = [
-        "sun.max.fill": "meteocon-clear-day",
-        "moon.stars.fill": "meteocon-clear-night",
-        "cloud.sun.fill": "meteocon-partly-cloudy-day",
-        "cloud.moon.fill": "meteocon-partly-cloudy-night",
-        "cloud.fill": "meteocon-cloudy",
-        "cloud.fog.fill": "meteocon-fog",
-        "cloud.drizzle.fill": "meteocon-drizzle",
-        "cloud.rain.fill": "meteocon-rain",
-        "cloud.snow.fill": "meteocon-snow",
-        "cloud.bolt.rain.fill": "meteocon-thunderstorms-rain",
-        "wind": "meteocon-wind"
+        "sun.max.fill": "weather-clear-day",
+        "moon.stars.fill": "weather-clear-night",
+        "cloud.sun.fill": "weather-partly-cloudy-day",
+        "cloud.moon.fill": "weather-partly-cloudy-night",
+        "cloud.fill": "weather-cloudy",
+        "cloud.fog.fill": "weather-fog",
+        "cloud.drizzle.fill": "weather-drizzle",
+        "cloud.rain.fill": "weather-rain",
+        "cloud.snow.fill": "weather-snow",
+        "cloud.bolt.rain.fill": "weather-thunderstorms-rain",
+        "wind": "weather-wind"
     ]
 }

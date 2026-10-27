@@ -8,6 +8,10 @@ struct ContentView: View {
     @State private var isShowingHelp = false
     @State private var isShowingWelcome = false
     @State private var isPickingDate = false
+    #if DEBUG
+    /// Set by the temporary background test button; nil follows the day's weather.
+    @State private var testScenery: Scenery?
+    #endif
     /// True while the wish chips are being scrolled, so that sideways drag doesn't change place.
     @State private var isScrollingWishes = false
     @AppStorage("tabletopGrass") private var tabletopGrass = true
@@ -198,6 +202,20 @@ struct ContentView: View {
                     }
                 }
                 #endif
+                #if DEBUG
+                // Temporary: flip through the animated backgrounds (Debug builds only).
+                if showsAmbient {
+                    ToolbarItem {
+                        Button {
+                            let all = Scenery.allCases
+                            let next = testScenery.flatMap { all.firstIndex(of: $0) }.map { $0 + 1 } ?? 0
+                            testScenery = next < all.count ? all[next] : nil
+                        } label: {
+                            Text(verbatim: testScenery?.debugName ?? "Auto")
+                        }
+                    }
+                }
+                #endif
                 ToolbarItem {
                     Button("Pick a Future Date…", systemImage: "calendar") { isPickingDate = true }
                         .disabled(viewModel.days.isEmpty)
@@ -282,6 +300,9 @@ struct ContentView: View {
     /// The scene for the day on the upper page (today by default). After dark, today's clear and
     /// partly cloudy skies turn to night.
     private var currentScenery: Scenery {
+        #if DEBUG
+        if let testScenery { return testScenery }
+        #endif
         guard let day = viewModel.day(for: selectedDate) ?? viewModel.days.first else { return .sunny }
         return Scenery(symbolName: day.symbolName, isNight: viewModel.isNightNow(on: day))
     }
@@ -344,8 +365,10 @@ struct ContentView: View {
 
                 if !viewModel.alerts.isEmpty {
                     Section {
-                        ForEach(viewModel.alerts.indices, id: \.self) { index in
-                            WeatherAlertRow(alert: viewModel.alerts[index])
+                        // Each row holds its own alert: indexing into the array crashed when a new
+                        // place cleared it mid-update.
+                        ForEach(Array(viewModel.alerts.enumerated()), id: \.offset) { _, alert in
+                            WeatherAlertRow(alert: alert)
                                 .listRowBackground(rowBackground())
                         }
                     } header: {

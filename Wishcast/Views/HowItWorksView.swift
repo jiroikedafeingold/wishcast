@@ -111,8 +111,6 @@ struct HowItWorksView: View {
                        "The KMA LDPS forecast.")
                 credit("Apple Weather", "https://developer.apple.com/weatherkit/data-source-attribution/",
                        "Apple's hourly forecast, via WeatherKit. Its data sources are listed on Apple's attribution page.")
-                credit("Meteocons", "https://github.com/basmilius/meteocons",
-                       "Weather icons by Bas Milius (MIT License).")
                 credit("GeoNames", "https://www.geonames.org/",
                        "The place names used in location search, via Open-Meteo (CC BY).")
             } header: {
