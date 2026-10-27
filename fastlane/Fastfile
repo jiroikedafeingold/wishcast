@@ -15,7 +15,7 @@ platform :ios do
       api_key: api_key,
       app_version: options[:version],   # target/create this version; nil = the current editable one
       skip_binary_upload: true,         # binary is delivered by Xcode Cloud
-      skip_metadata: false,
+      skip_metadata: options[:skip_metadata] || false,   # skip_metadata:true uploads screenshots only
       skip_screenshots: options[:skip_screenshots] || false,
       # Screenshots REPLACE what's on App Store Connect, never add to it: every set for each
       # uploaded locale is deleted first. Don't turn this off — an additive push leaves stale shots
