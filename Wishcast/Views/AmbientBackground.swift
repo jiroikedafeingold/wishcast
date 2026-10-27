@@ -132,7 +132,7 @@ private struct AmbientLayer: View {
                 drawSunDisc(in: &context, size: size, strength: 1)
             case .partlyCloudy:
                 // A smaller, dimmer sun that the clouds keep drifting across.
-                drawSunGlow(in: &context, size: size, strength: 0.35)
+                drawSunGlow(in: &context, size: size, strength: 0.35, rays: false)
                 drawSunDisc(in: &context, size: size, strength: 0.55)
                 drawSunCoveringClouds(in: &context, size: size)
                 drawClouds(in: &context, size: size, count: 9, opacity: 0.75, seed: 0xC1)
@@ -163,13 +163,14 @@ private struct AmbientLayer: View {
 
     // MARK: Sun
 
-    private func drawSunGlow(in context: inout GraphicsContext, size: CGSize, strength: Double) {
+    private func drawSunGlow(in context: inout GraphicsContext, size: CGSize, strength: Double, rays: Bool = true) {
         let center = sunCenter(size)
         let breathe = 0.85 + 0.15 * sin(time * 0.4)
         let radius = max(size.width, 320) * 0.75
         context.fill(Path(CGRect(origin: .zero, size: size)), with: .radialGradient(
             Gradient(colors: [Color(red: 1, green: 0.82, blue: 0.4).opacity((isDark ? 0.5 : 0.45) * strength * breathe), .clear]),
             center: center, startRadius: 0, endRadius: radius))
+        guard rays else { return }
         var rays = context
         rays.translateBy(x: center.x, y: center.y)
         rays.rotate(by: .radians(time * 0.03))
