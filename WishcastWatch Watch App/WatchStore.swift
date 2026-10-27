@@ -29,6 +29,25 @@ extension WatchStore: WCSessionDelegate {
     nonisolated func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         let context = session.receivedApplicationContext
         Task { @MainActor in self.receive(context) }
+        requestLatest(from: session)
+    }
+
+    /// Asks the phone for its latest summary, so opening the watch app shows the current place
+    /// without waiting for the system to deliver the application context.
+    nonisolated func requestLatest(from session: WCSession = .default) {
+        guard session.activationState == .activated, session.isReachable else { return }
+        session.sendMessage(["request": "summary"], replyHandler: { reply in
+            Task { @MainActor in self.receive(reply) }
+        }, errorHandler: nil)
+    }
+
+    nonisolated func sessionReachabilityDidChange(_ session: WCSession) {
+        requestLatest(from: session)
+    }
+
+    // Sent by the phone while this app is open.
+    nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+        Task { @MainActor in self.receive(message) }
     }
 
     nonisolated func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {

@@ -3,8 +3,8 @@ L’abbiamo fatto tutti: controllare un’app meteo, poi un’altra e un’altra
 Non ti stai prendendo in giro. Sei solo ottimista.
 
 SCEGLI IL TUO DESIDERIO
-- Neve
 - Soleggiato
+- Neve
 - Piovoso
 - Tempo estremo
 - Serate fresche

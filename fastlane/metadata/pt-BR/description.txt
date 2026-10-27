@@ -3,8 +3,8 @@ Todo mundo já fez isso: abrir um app de clima, depois outro e mais outro, até 
 Você não está se enganando. Só está sendo otimista.
 
 ESCOLHA SEU DESEJO
-- Neve
 - Ensolarado
+- Neve
 - Chuvoso
 - Tempo extremo
 - Fins de tarde frescos

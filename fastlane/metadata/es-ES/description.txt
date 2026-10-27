@@ -3,8 +3,8 @@ Todos lo hemos hecho: mirar una app del tiempo, luego otra y otra más, hasta qu
 No te estás engañando. Solo estás siendo optimista.
 
 ELIGE TU DESEO
-- Nieve
 - Soleado
+- Nieve
 - Lluvioso
 - Tiempo extremo
 - Tardes frescas

@@ -15,8 +15,7 @@ struct ContentView: View {
                                     .font(.caption)
                                     .foregroundStyle(wishTint(summary.wish))
                                 HStack {
-                                    Image(systemName: today.symbol)
-                                        .symbolRenderingMode(.multicolor)
+                                    WeatherIcon(name: today.symbol)
                                         .font(.title2)
                                     Text(verbatim: "\(today.high) / \(today.low)")
                                         .font(.title2.weight(.semibold))
@@ -36,8 +35,7 @@ struct ContentView: View {
                             HStack {
                                 Text(day.weekday)
                                     .frame(minWidth: 36, alignment: .leading)
-                                Image(systemName: day.symbol)
-                                    .symbolRenderingMode(.multicolor)
+                                WeatherIcon(name: day.symbol)
                                 Spacer()
                                 Text(verbatim: "\(day.high) / \(day.low)")
                                     .monospacedDigit()

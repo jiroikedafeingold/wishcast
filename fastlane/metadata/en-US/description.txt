@@ -3,8 +3,8 @@ We've all done it: checked one weather app, then another, then another, until on
 You aren't lying to yourself. You are just being optimistic.
 
 PICK YOUR WISH
-- Snow
 - Sunny
+- Snow
 - Rainy
 - Wild Weather
 - Cool Evenings

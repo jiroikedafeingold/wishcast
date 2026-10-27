@@ -133,7 +133,7 @@ struct Conditions {
 
 /// The kind of weather the user is hoping for.
 enum Wish: String, CaseIterable, Identifiable, Codable {
-    case snow, sunny, rainy, wild, coolEvenings, pleasant
+    case sunny, snow, rainy, wild, coolEvenings, pleasant
 
     var id: String { rawValue }
 
@@ -585,7 +585,7 @@ enum SharedSettings {
     private static var defaults: UserDefaults { UserDefaults(suiteName: appGroup) ?? .standard }
 
     static var wish: Wish {
-        get { defaults.string(forKey: "wish").flatMap(Wish.init(rawValue:)) ?? .pleasant }
+        get { defaults.string(forKey: "wish").flatMap(Wish.init(rawValue:)) ?? .sunny }
         set { defaults.set(newValue.rawValue, forKey: "wish") }
     }
 

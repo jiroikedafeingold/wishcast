@@ -3,8 +3,8 @@ Wir haben es alle schon gemacht: eine Wetter-App geprüft, dann noch eine und no
 Du belügst dich nicht selbst. Du bist nur optimistisch.
 
 WÄHLE DEINEN WUNSCH
-- Schnee
 - Sonnig
+- Schnee
 - Regnerisch
 - Wildes Wetter
 - Kühle Abende
