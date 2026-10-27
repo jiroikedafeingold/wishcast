@@ -88,9 +88,12 @@ struct ContentView: View {
         }
         .onAppear {
             // Explain how to read Wishcast once, on first launch; it's always available from the ? button.
-            if !hasSeenWelcome { isShowingWelcome = true }
+            if !hasSeenWelcome && !isScreenshotRun { isShowingWelcome = true }
         }
         .task { await viewModel.refresh() }
+        #if DEBUG
+        .task { await stageScreenshot() }
+        #endif
         .onChange(of: viewModel.days.map(\.date)) { _, dates in
             // With room for both columns, show today rather than an empty detail pane —
             // including after switching to a place whose days don't include the old selection.
@@ -115,10 +118,11 @@ struct ContentView: View {
             }
             .ignoresSafeArea(edges: .horizontal)
         } else {
-            NavigationSplitView { sidebarColumn } detail: { detailColumn }
+            // Wide enough that each day's "H: … · L: …" count fits on one line.
+            NavigationSplitView { sidebarColumn.navigationSplitViewColumnWidth(min: 320, ideal: 390, max: 480) } detail: { detailColumn }
         }
         #else
-        NavigationSplitView { sidebarColumn } detail: { detailColumn }
+        NavigationSplitView { sidebarColumn.navigationSplitViewColumnWidth(min: 320, ideal: 390, max: 480) } detail: { detailColumn }
         #endif
     }
 
@@ -168,6 +172,37 @@ struct ContentView: View {
             }
         }
     }
+
+    private var isScreenshotRun: Bool {
+        #if DEBUG
+        ScreenshotMode.shot != nil
+        #else
+        false
+        #endif
+    }
+
+    #if DEBUG
+    /// Opens the screen for an App Store screenshot (see ScreenshotMode).
+    private func stageScreenshot() async {
+        guard let shot = ScreenshotMode.shot else { return }
+        isShowingWelcome = false
+        viewModel.wish = shot == 3 ? .snow : .pleasant
+        await viewModel.select(ScreenshotMode.place)
+        switch shot {
+        case 2:
+            selectedDate = viewModel.days.dropFirst(2).first?.date
+        case 4:
+            await viewModel.loadLongRange()
+            if let date = Calendar.current.date(byAdding: .day, value: 58, to: .now) {
+                selectedDate = viewModel.pick(date)
+            }
+        case 5:
+            isShowingHelp = true
+        default:
+            break
+        }
+    }
+    #endif
 
     private var isBookLayout: Bool {
         #if os(iOS)

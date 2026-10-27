@@ -536,6 +536,8 @@ struct WishcastDay: Identifiable {
             ? Date.FormatStyle.dateTime.weekday(width)
             : Date.FormatStyle.dateTime.weekday(.abbreviated).month(.abbreviated).day()
         style.timeZone = timeZone
+        // Used as a title, so capitalize it even in languages that write weekdays lowercase (e.g. Russian).
+        style.capitalizationContext = .standalone
         return date.formatted(style)
     }
 

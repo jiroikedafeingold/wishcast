@@ -220,10 +220,32 @@ struct OpenMeteoClient {
 
     private func get<T: Decodable>(_ components: URLComponents) async throws -> T {
         guard let url = components.url else { throw URLError(.badURL) }
+        #if DEBUG
+        // Screenshot runs relaunch the app dozens of times; reuse each download so every shot and
+        // language shows the same forecasts and Open-Meteo's free rate limit isn't exhausted.
+        if let cached = Self.screenshotCache(for: url), let data = try? Data(contentsOf: cached) {
+            return try JSONDecoder().decode(T.self, from: data)
+        }
+        #endif
         let (data, response) = try await URLSession.shared.data(from: url)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw URLError(.badServerResponse) }
+        #if DEBUG
+        if let cached = Self.screenshotCache(for: url) { try? data.write(to: cached) }
+        #endif
         return try JSONDecoder().decode(T.self, from: data)
     }
+
+    #if DEBUG
+    /// A per-URL cache file, only when launched for screenshots (`-shot N`).
+    private static func screenshotCache(for url: URL) -> URL? {
+        guard ProcessInfo.processInfo.arguments.contains("-shot") else { return nil }
+        // URLs contain the place, models and forecast length, so a stable hash of the string is a safe key.
+        let key = url.absoluteString.utf8.reduce(UInt64(14_695_981_039_346_656_037)) { ($0 ^ UInt64($1)) &* 1_099_511_628_211 }
+        let folder = URL.cachesDirectory.appending(path: "ScreenshotForecasts", directoryHint: .isDirectory)
+        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        return folder.appending(path: String(key, radix: 16) + ".json")
+    }
+    #endif
 
     // MARK: - Summarizing
 
