@@ -232,6 +232,19 @@ struct ContentView: View {
             }
     }
 
+    /// The page behind the list and the day: the animated weather, or the plain page color when
+    /// that's off. The Duo tabletop draws its own scenery instead.
+    @ViewBuilder
+    private func pageBackground(playsThunder: Bool = false) -> some View {
+        if showsAmbient {
+            AmbientBackground(scenery: currentScenery, playsThunder: playsThunder)
+        } else if !isOnScenery {
+            AmbientBackground.base.ignoresSafeArea()
+        }
+    }
+
+    private var pageBackground: some View { pageBackground() }
+
     /// Whether the animated weather background is on (and this isn't the Duo tabletop, which has its own scenery).
     private var showsAmbient: Bool { ambientBackground && !isOnScenery }
 
@@ -240,7 +253,7 @@ struct ContentView: View {
         if let day = viewModel.day(for: selectedDate) ?? (isBookLayout ? viewModel.days.first : nil) {
             DayDetailView(day: day, wish: viewModel.wish, preferences: viewModel.preferences,
                           timeZone: viewModel.timeZone, official: viewModel.conditions(for: day))
-                .background { if showsAmbient { AmbientBackground(scenery: currentScenery, playsThunder: true) } }
+                .background { pageBackground }
         } else {
             ContentUnavailableView("Pick a Day", systemImage: "calendar",
                                    description: Text("See how each value for that day was picked, and how many forecasts show it."))
@@ -465,8 +478,9 @@ struct ContentView: View {
             }
             .refreshable { await viewModel.refresh() }
             .sceneryScrollHints()
-            .scrollContentBackground(showsAmbient ? .hidden : .automatic)
-            .background { if showsAmbient { AmbientBackground(scenery: currentScenery) } }
+            .scrollContentBackground(.hidden)
+            // The list stays alive under an open day, so it alone plays the thunder rumble.
+            .background { pageBackground(playsThunder: true) }
             // Swipe sideways to move between favorites (not while scrolling the wish chips).
             .simultaneousGesture(DragGesture(minimumDistance: 40).onEnded { drag in
                 let dx = drag.translation.width, dy = drag.translation.height

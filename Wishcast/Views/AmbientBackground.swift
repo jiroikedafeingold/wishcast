@@ -1,23 +1,22 @@
 import SwiftUI
 #if os(iOS)
 import CoreHaptics
+import UIKit
 #endif
 
 /// An animated hint of the day's weather behind the main screens: sunshine, clouds drifting over a
 /// peeking sun, rain, lightning (with a soft haptic rumble), drifting snow with footprints wandering
-/// across it, gusts and tumbling leaves, or twinkling stars. Cards sit on top, so the data stays
+/// across it, tumbling leaves blown on the wind, or twinkling stars. Cards sit on top, so the data stays
 /// readable. Still with Reduce Motion; off entirely with the Settings switch.
 struct AmbientBackground: View {
     let scenery: Scenery
     /// Only one copy on screen should rumble (the list and the day can both show a background).
     var playsThunder = false
 
-    /// The same base color the screens use without the animation.
-    #if os(iOS)
-    private static let base = Color(uiColor: .systemGroupedBackground)
-    #else
-    private static let base = Color(nsColor: .windowBackgroundColor)
-    #endif
+    /// The page color behind the animation: a light grey in light mode (so white cards stand out
+    /// and the weather shows), the system's dark grouped background in dark mode.
+    static let base = Color(light: Color(red: 0.88, green: 0.89, blue: 0.91),
+                                    dark: Color(red: 0, green: 0, blue: 0))
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.colorScheme) private var colorScheme
 
@@ -90,25 +89,45 @@ private final class ThunderHaptics {
     #if os(iOS)
     private var engine: CHHapticEngine?
 
+    private let fallback = UIImpactFeedbackGenerator(style: .heavy)
+
+    /// A sharp crack, then a rolling rumble that fades out over about a second.
     func rumble() {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
         do {
             if engine == nil {
-                engine = try CHHapticEngine()
-                engine?.isAutoShutdownEnabled = true
+                let engine = try CHHapticEngine()
+                engine.isAutoShutdownEnabled = true
+                // After the system resets the engine (e.g. the app was in the background), make a new one.
+                engine.resetHandler = { [weak self] in self?.engine = nil }
+                engine.stoppedHandler = { [weak self] _ in self?.engine = nil }
+                self.engine = engine
             }
             try engine?.start()
-            let rumble = CHHapticEvent(eventType: .hapticContinuous, parameters: [
-                CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.55),
-                CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.1)
-            ], relativeTime: 0, duration: 0.7)
+            var events = [CHHapticEvent(eventType: .hapticTransient, parameters: [
+                CHHapticEventParameter(parameterID: .hapticIntensity, value: 1),
+                CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.6)
+            ], relativeTime: 0)]
+            events.append(CHHapticEvent(eventType: .hapticContinuous, parameters: [
+                CHHapticEventParameter(parameterID: .hapticIntensity, value: 1),
+                CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.25)
+            ], relativeTime: 0.05, duration: 1.0))
+            // A few softer knocks inside the rumble, so it rolls rather than buzzes.
+            for (offset, strength) in [(0.25, 0.7), (0.45, 0.55), (0.7, 0.4)] {
+                events.append(CHHapticEvent(eventType: .hapticTransient, parameters: [
+                    CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(strength)),
+                    CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.2)
+                ], relativeTime: offset))
+            }
             let fade = CHHapticParameterCurve(parameterID: .hapticIntensityControl, controlPoints: [
-                .init(relativeTime: 0, value: 1), .init(relativeTime: 0.15, value: 0.8), .init(relativeTime: 0.7, value: 0)
-            ], relativeTime: 0)
-            let player = try engine?.makePlayer(with: CHHapticPattern(events: [rumble], parameterCurves: [fade]))
+                .init(relativeTime: 0, value: 0.9), .init(relativeTime: 0.3, value: 0.75), .init(relativeTime: 1.05, value: 0)
+            ], relativeTime: 0.05)
+            let player = try engine?.makePlayer(with: CHHapticPattern(events: events, parameterCurves: [fade]))
             try player?.start(atTime: CHHapticTimeImmediate)
         } catch {
-            // Haptics are a nicety; without them the storm is just silent.
+            // If Core Haptics isn't available right now, at least give a single heavy tap.
+            engine = nil
+            fallback.impactOccurred(intensity: 1)
         }
     }
     #else
@@ -402,71 +421,52 @@ private struct AmbientLayer: View {
 
     // MARK: Wind
 
-    /// Gusts as flowing ribbons that ripple as they travel, a few curling at the end, with leaves
-    /// tumbling across between them.
+    /// Wind shown only by what it carries: leaves blown across at uneven speeds, each fluttering,
+    /// tumbling and drifting up or down on its own, sped along by gusts that come and go.
     private func drawWind(in context: inout GraphicsContext, size: CGSize) {
-        var random = SeededGenerator(seed: 0x3D)
-        let lineColor = isDark ? Color(white: 0.88) : Color(red: 0.4, green: 0.5, blue: 0.62)
-        for index in 0..<8 {
-            let baseY = Double.random(in: 0.05...0.95, using: &random) * size.height
-            let ribbon = Double.random(in: 150...320, using: &random)
-            let speed = Double.random(in: 90...170, using: &random)
-            let amplitude = Double.random(in: 6...18, using: &random)
-            let wavelength = Double.random(in: 140...260, using: &random)
-            let phase = Double.random(in: 0...(2 * .pi), using: &random)
-            let span = size.width + ribbon * 2
-            let head = (Double.random(in: 0...span, using: &random) + time * speed).truncatingRemainder(dividingBy: span) - ribbon * 0.5
-            let curls = index.isMultiple(of: 3)
-            // One smooth stroke per gust, fading in at its tail and out at its head.
-            var path = Path()
-            let pieces = 36
-            for piece in 0...pieces {
-                let along = Double(piece) / Double(pieces)
-                let x = head - ribbon + along * ribbon
-                let wave = amplitude * sin(x / wavelength * 2 * .pi + time * 1.3 + phase)
-                    + amplitude * 0.4 * sin(x / (wavelength * 0.45) * 2 * .pi - time * 2.1 + phase)
-                var point = CGPoint(x: x, y: baseY + wave)
-                // A little curl at the leading end of some gusts.
-                if curls && along > 0.85 {
-                    let curl = (along - 0.85) / 0.15 * .pi * 1.6
-                    point = CGPoint(x: x - (1 - cos(curl)) * 14, y: baseY + wave - sin(curl) * 14)
-                }
-                if piece == 0 { path.move(to: point) } else { path.addLine(to: point) }
-            }
-            let strength = isDark ? 0.42 : 0.38
-            let shading = GraphicsContext.Shading.linearGradient(
-                Gradient(stops: [.init(color: lineColor.opacity(0), location: 0),
-                                 .init(color: lineColor.opacity(strength), location: 0.55),
-                                 .init(color: lineColor.opacity(0), location: 1)]),
-                startPoint: CGPoint(x: head - ribbon, y: baseY), endPoint: CGPoint(x: head + 14, y: baseY))
-            context.stroke(path, with: shading, style: StrokeStyle(lineWidth: 1.8, lineCap: .round, lineJoin: .round))
-        }
-        drawLeaves(in: &context, size: size)
-    }
-
-    private func drawLeaves(in context: inout GraphicsContext, size: CGSize) {
         var random = SeededGenerator(seed: 0x1EAF)
         let colors = [Color(red: 0.55, green: 0.65, blue: 0.3), Color(red: 0.8, green: 0.55, blue: 0.25),
-                      Color(red: 0.7, green: 0.4, blue: 0.25), Color(red: 0.6, green: 0.6, blue: 0.35)]
-        for _ in 0..<11 {
-            let speed = Double.random(in: 70...140, using: &random)
-            let span = size.width + 60
-            let x = (Double.random(in: 0...span, using: &random) + time * speed).truncatingRemainder(dividingBy: span) - 30
+                      Color(red: 0.7, green: 0.4, blue: 0.25), Color(red: 0.6, green: 0.6, blue: 0.35),
+                      Color(red: 0.85, green: 0.7, blue: 0.3)]
+        // Gusts: the whole wind speeds up and eases off every several seconds.
+        let gust = 1 + 0.6 * max(0, sin(time * 0.35)) + 0.3 * max(0, sin(time * 0.83 + 1.7))
+        for _ in 0..<34 {
+            let baseSpeed = Double.random(in: 45...130, using: &random)
+            let span = size.width + 80
+            let start = Double.random(in: 0...span, using: &random)
+            // Distance travelled so far: the leaf's own pace, plus uneven surges.
+            let surgePhase = Double.random(in: 0...(2 * .pi), using: &random)
+            let surgeRate = Double.random(in: 0.3...0.9, using: &random)
+            let travelled = time * baseSpeed * gust + 40 * sin(time * surgeRate + surgePhase)
+            let x = (start + travelled).truncatingRemainder(dividingBy: span) - 40
+            // Vertical drift: several slow and quick waves with random rates, so the paths wander.
             let baseY = Double.random(in: 0...1, using: &random) * size.height
-            let phase = Double.random(in: 0...(2 * .pi), using: &random)
-            let y = baseY + 26 * sin(time * 0.9 + phase) + 10 * sin(time * 2.3 + phase * 2)
-            let length = Double.random(in: 8...13, using: &random)
+            var y = baseY
+            for _ in 0..<3 {
+                let amount = Double.random(in: 6...34, using: &random)
+                let rate = Double.random(in: 0.2...2.4, using: &random)
+                y += amount * sin(time * rate + Double.random(in: 0...(2 * .pi), using: &random))
+            }
+            let length = Double.random(in: 7...14, using: &random)
             let color = colors[Int.random(in: 0..<colors.count, using: &random)]
+            let spinRate = Double.random(in: -4...4, using: &random)
+            let flutterRate = Double.random(in: 1.2...3.2, using: &random)
+            let phase = Double.random(in: 0...(2 * .pi), using: &random)
             var leaf = context
             leaf.translateBy(x: x, y: y)
-            leaf.rotate(by: .radians(time * Double.random(in: 1.5...3.5, using: &random) + phase))
+            leaf.rotate(by: .radians(time * spinRate + phase))
             // Tumbling: squash the leaf as it turns edge-on.
-            leaf.scaleBy(x: 1, y: 0.35 + 0.65 * abs(sin(time * 1.7 + phase)))
+            leaf.scaleBy(x: 1, y: 0.25 + 0.75 * abs(sin(time * flutterRate + phase)))
             var shape = Path()
             shape.move(to: CGPoint(x: -length / 2, y: 0))
             shape.addQuadCurve(to: CGPoint(x: length / 2, y: 0), control: CGPoint(x: 0, y: -length * 0.45))
             shape.addQuadCurve(to: CGPoint(x: -length / 2, y: 0), control: CGPoint(x: 0, y: length * 0.45))
-            leaf.fill(shape, with: .color(color.opacity(isDark ? 0.55 : 0.6)))
+            leaf.fill(shape, with: .color(color.opacity(isDark ? 0.7 : 0.75)))
+            // A faint midrib.
+            var rib = Path()
+            rib.move(to: CGPoint(x: -length / 2, y: 0))
+            rib.addLine(to: CGPoint(x: length / 2, y: 0))
+            leaf.stroke(rib, with: .color(.black.opacity(0.15)), lineWidth: 0.5)
         }
     }
 
@@ -522,5 +522,16 @@ private struct SeededGenerator: RandomNumberGenerator {
             }
         }
         .padding(8)
+    }
+}
+
+extension Color {
+    /// A color that differs between light and dark appearance.
+    init(light: Color, dark: Color) {
+        #if os(iOS)
+        self.init(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(dark) : UIColor(light) })
+        #else
+        self.init(nsColor: NSColor(name: nil) { $0.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? NSColor(dark) : NSColor(light) })
+        #endif
     }
 }
