@@ -8,32 +8,40 @@ struct ContentView: View {
     @State private var isShowingHelp = false
     @State private var isShowingWelcome = false
     @State private var isPickingDate = false
+    @AppStorage("tabletopGrass") private var tabletopGrass = true
+    #if os(iOS)
+    @State private var fold = FoldState()
+    #endif
+
     @AppStorage("hasSeenWelcome") private var hasSeenWelcome = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     var body: some View {
-        NavigationSplitView {
-            sidebar
-                .navigationTitle(viewModel.place?.name ?? String(localized: "Wishcast"))                .toolbar {
-                    ToolbarItem {
-                        Button("Locations", systemImage: "mappin.and.ellipse") { isPickingPlace = true }
-                    }
-                    ToolbarItem {
-                        Button("Settings", systemImage: "slider.horizontal.3") { isShowingSettings = true }
-                    }
-                    ToolbarItem {
-                        Button("How Wishcast Works", systemImage: "questionmark.circle") { isShowingHelp = true }
-                    }
+        #if os(iOS)
+        // iPhone Duo: in the tabletop pose (half-open, lower half on the table) the app moves to the
+        // upper half and the lower half optionally becomes a sunlit lawn with today's best case.
+        Group {
+            if let band = fold.tabletopBand, tabletopGrass {
+                VStack(spacing: 0) {
+                    splitView
+                        .frame(height: band.lowerBound)
+                    Color.clear
+                        .frame(height: band.upperBound - band.lowerBound)
+                    TabletopPanel(day: viewModel.days.first, wish: viewModel.wish, timeZone: viewModel.timeZone)
                 }
-        } detail: {
-            if let day = viewModel.day(for: selectedDate) {
-                DayDetailView(day: day, wish: viewModel.wish, preferences: viewModel.preferences,
-                              timeZone: viewModel.timeZone, official: viewModel.conditions(for: day))
+                .ignoresSafeArea(edges: .vertical)
             } else {
-                ContentUnavailableView("Pick a Day", systemImage: "calendar",
-                                       description: Text("See how each value for that day was picked, and how many forecasts show it."))
+                splitView
             }
         }
+        .background(FoldReader(state: $fold).ignoresSafeArea())
+        #else
+        splitView
+        #endif
+    }
+
+    private var splitView: some View {
+        columns
         .tint(viewModel.wish.tint)
         .sheet(isPresented: $isPickingPlace) {
             PlaceSearchView(
@@ -86,10 +94,87 @@ struct ContentView: View {
         .onChange(of: viewModel.days.map(\.date)) { _, dates in
             // With room for both columns, show today rather than an empty detail pane —
             // including after switching to a place whose days don't include the old selection.
-            if horizontalSizeClass == .regular, !dates.contains(where: { $0 == selectedDate }) {
+            if horizontalSizeClass == .regular || isBookLayout, !dates.contains(where: { $0 == selectedDate }) {
                 selectedDate = dates.first
             }
         }
+    }
+
+    @ViewBuilder
+    private var columns: some View {
+        #if os(iOS)
+        if let division = fold.bookDivision {
+            // iPhone Duo held open like a book: the list on the left page, the day on the right, and
+            // nothing on the hinge. (The system split view slides the list over the day on this screen.)
+            HStack(spacing: 0) {
+                NavigationStack { sidebarColumn }
+                    .frame(width: division.lowerBound)
+                Color.clear
+                    .frame(width: division.upperBound - division.lowerBound)
+                NavigationStack { detailColumn }
+            }
+            .ignoresSafeArea(edges: .horizontal)
+        } else {
+            NavigationSplitView { sidebarColumn } detail: { detailColumn }
+        }
+        #else
+        NavigationSplitView { sidebarColumn } detail: { detailColumn }
+        #endif
+    }
+
+    private var sidebarColumn: some View {
+        sidebar
+            .navigationTitle(viewModel.place?.name ?? String(localized: "Wishcast"))
+            .toolbar {
+                ToolbarItem {
+                    Button("Locations", systemImage: "mappin.and.ellipse") { isPickingPlace = true }
+                }
+                ToolbarItem {
+                    Button("Settings", systemImage: "slider.horizontal.3") { isShowingSettings = true }
+                }
+                ToolbarItem {
+                    Button("How Wishcast Works", systemImage: "questionmark.circle") { isShowingHelp = true }
+                }
+            }
+    }
+
+    @ViewBuilder
+    private var detailColumn: some View {
+        if let day = viewModel.day(for: selectedDate) {
+            DayDetailView(day: day, wish: viewModel.wish, preferences: viewModel.preferences,
+                          timeZone: viewModel.timeZone, official: viewModel.conditions(for: day))
+        } else {
+            ContentUnavailableView("Pick a Day", systemImage: "calendar",
+                                   description: Text("See how each value for that day was picked, and how many forecasts show it."))
+        }
+    }
+
+    /// A day row: a navigation link in the split view, or a selecting button on the hinge's book layout.
+    @ViewBuilder
+    private func dayRow(_ day: WishcastDay) -> some View {
+        if isBookLayout {
+            Button {
+                selectedDate = day.date
+            } label: {
+                DayRow(day: day, timeZone: viewModel.timeZone)
+                    .contentShape(.rect)
+            }
+            .buttonStyle(.plain)
+            .listRowBackground(selectedDate == day.date ? viewModel.wish.tint.opacity(0.18) : nil)
+            .accessibilityAddTraits(selectedDate == day.date ? .isSelected : [])
+        } else {
+            NavigationLink(value: day.date) {
+                DayRow(day: day, timeZone: viewModel.timeZone)
+            }
+        }
+    }
+
+    private var isBookLayout: Bool {
+        #if os(iOS)
+        fold.bookDivision != nil
+        #else
+        false
+        #endif
     }
 
     @ViewBuilder
@@ -139,18 +224,14 @@ struct ContentView: View {
 
                 if let pickedDay = viewModel.pickedDay {
                     Section("Your Date") {
-                        NavigationLink(value: pickedDay.date) {
-                            DayRow(day: pickedDay, timeZone: viewModel.timeZone)
-                        }
+                        dayRow(pickedDay)
                     }
                 }
 
                 if !viewModel.days.isEmpty {
                     Section {
                         ForEach(viewModel.days) { day in
-                            NavigationLink(value: day.date) {
-                                DayRow(day: day, timeZone: viewModel.timeZone)
-                            }
+                            dayRow(day)
                         }
                         Button("Pick a Future Date…", systemImage: "calendar") { isPickingDate = true }
                     } header: {
@@ -178,4 +259,39 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+/// The lower half of a half-open iPhone Duo on a table: sunlit grass with today's best case on glass.
+private struct TabletopPanel: View {
+    let day: WishcastDay?
+    let wish: Wish
+    let timeZone: TimeZone
+
+    var body: some View {
+        SunlitGrass()
+            .overlay {
+                if let day {
+                    VStack(spacing: 6) {
+                        HStack(spacing: 12) {
+                            WeatherSymbol(name: day.symbolName)
+                                .font(.largeTitle)
+                            Text("\(Metric.temperature.format(day.high.value)) / \(Metric.temperature.format(day.low.value))")
+                                .font(.system(.largeTitle, design: .rounded, weight: .bold))
+                                .monospacedDigit()
+                        }
+                        Text(day.weekday(in: timeZone))
+                            .font(.headline)
+                        Text("\(Text(ForecastRange(date: day.date, timeZone: timeZone).title)) for \(Text(wish.title))")
+                            .font(.subheadline)
+                        Text("This is a wish, not a prediction.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 16)
+                    .glassEffect(.regular, in: .rect(cornerRadius: 24))
+                    .accessibilityElement(children: .combine)
+                }
+            }
+    }
 }

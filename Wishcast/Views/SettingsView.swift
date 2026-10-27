@@ -5,6 +5,7 @@ struct SettingsView: View {
     let wish: Wish
     let sourceCount: Int
     let placeName: String?
+    @AppStorage("tabletopGrass") private var tabletopGrass = true
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -24,6 +25,14 @@ struct SettingsView: View {
                     Button("Restore Defaults") { preferences = Preferences() }
                         .disabled(preferences == Preferences())
                 }
+
+                #if os(iOS)
+                Section {
+                    Toggle("Sunlit Grass on Tabletop", isOn: $tabletopGrass)
+                } footer: {
+                    Text("On iPhone Duo standing half-open on a table, show sunlit grass and today’s best case on the lower half.")
+                }
+                #endif
 
                 Section {
                     NavigationLink("How Wishcast Works") {
