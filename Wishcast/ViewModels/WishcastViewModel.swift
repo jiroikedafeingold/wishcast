@@ -60,6 +60,10 @@ final class WishcastViewModel {
     private var longRangePlaceID: Place.ID?
     /// Local midnight (in the location's time zone) of the picked day.
     private var pickedDate: Date?
+    /// The picked calendar day ("2026-12-25"), kept until the user removes it, across launches and places.
+    private var pickedDayKey: String? {
+        didSet { UserDefaults.standard.set(pickedDayKey, forKey: "pickedDay") }
+    }
     private let client = OpenMeteoClient()
 
     init() {
@@ -73,6 +77,7 @@ final class WishcastViewModel {
         savedPlaces = saved
         SharedSettings.savedPlaces = saved
         favorites = SharedSettings.favorites
+        pickedDayKey = UserDefaults.standard.string(forKey: "pickedDay")
     }
 
     /// Recent results per place, so moving between favorites doesn't download everything again.
@@ -126,6 +131,33 @@ final class WishcastViewModel {
         conditions = result.conditions
         forecasts = result.forecasts
         errorMessage = nil
+        restorePickedDay()
+    }
+
+    /// Shows the kept date again for the current place, or lets it go once it's past or has joined
+    /// the 7-day list.
+    private func restorePickedDay() {
+        guard let key = pickedDayKey else { return }
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        let parts = key.split(separator: "-").compactMap { Int($0) }
+        guard parts.count == 3,
+              let local = calendar.date(from: DateComponents(year: parts[0], month: parts[1], day: parts[2])),
+              let lastListDay = days.map(\.date).max(), local > lastListDay
+        else {
+            clearPickedDay()
+            return
+        }
+        pickedDate = local
+        rebuildPickedDay()
+        Task { await loadLongRange() }
+    }
+
+    /// Removes "Your Date" (the user swiped it away).
+    func clearPickedDay() {
+        pickedDayKey = nil
+        pickedDate = nil
+        rebuildPickedDay()
     }
 
     func select(_ chosen: Place) async {
@@ -144,6 +176,7 @@ final class WishcastViewModel {
         longRangeForecasts = []
         longRangePlaceID = nil
         lastPickableDate = nil
+        // The kept date (if any) comes back for the new place once its forecasts load.
         pickedDate = nil
         rebuildPickedDay()
         WidgetCenter.shared.reloadAllTimelines()
@@ -215,15 +248,27 @@ final class WishcastViewModel {
         WidgetCenter.shared.reloadAllTimelines()
     }
 
-    /// Downloads long-range forecasts for the current place, once.
+    /// Long-range forecasts for the current place: from today's saved copy if there is one, otherwise
+    /// downloaded (which uses a large share of the free daily allowance) and saved for the rest of the day.
     func loadLongRange() async {
         guard let place, longRangePlaceID != place.id, !isLoadingLongRange else { return }
+        let today = dayKey(for: .now)
+        if let saved = LongRangeStore.load(for: place), saved.day == today {
+            longRangeForecasts = saved.forecasts
+            isLongRangeMissing = false
+            longRangePlaceID = place.id
+            lastPickableDate = longRangeForecasts.map(\.date).max().map(deviceDate(fromLocal:))
+            rebuildPickedDay()
+            return
+        }
         isLoadingLongRange = true
         defer { isLoadingLongRange = false }
         do {
-            let hourly = try await client.forecasts(for: place, days: 35, includeAppleWeather: true)
-            // The long-range ensemble adds 51 more forecasts to every day after the 7-day list.
             let lastListDay = days.map(\.date).max() ?? .now
+            // Only days after the 7-day list are needed here; the list has its own forecasts.
+            let hourly = try await client.forecasts(for: place, days: 35, includeAppleWeather: true)
+                .forecasts.filter { $0.date > lastListDay }
+            // The long-range ensemble adds 51 more forecasts to every day after the 7-day list.
             let daily: [DayForecast]
             do {
                 daily = try await client.longRangeForecasts(for: place, after: lastListDay)
@@ -232,9 +277,13 @@ final class WishcastViewModel {
                 daily = []
                 isLongRangeMissing = true
             }
-            longRangeForecasts = hourly.forecasts + daily
+            guard place.id == self.place?.id else { return }
+            longRangeForecasts = hourly + daily
             // Without the long-range forecast, try again the next time the picker opens.
             longRangePlaceID = isLongRangeMissing ? nil : place.id
+            if !isLongRangeMissing {
+                LongRangeStore.save(.init(placeID: place.id, day: today, forecasts: longRangeForecasts), for: place)
+            }
             lastPickableDate = longRangeForecasts.map(\.date).max().map(deviceDate(fromLocal:))
             rebuildPickedDay()
         } catch {
@@ -255,8 +304,17 @@ final class WishcastViewModel {
             return local
         }
         pickedDate = local
+        pickedDayKey = dayKey(for: local)
         rebuildPickedDay()
         return pickedDay?.date
+    }
+
+    /// "2026-12-25" for a moment, in the place's time zone.
+    private func dayKey(for date: Date) -> String {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        let day = calendar.dateComponents([.year, .month, .day], from: date)
+        return "\(day.year ?? 0)-\(day.month ?? 0)-\(day.day ?? 0)"
     }
 
     func day(for date: Date?) -> WishcastDay? {
@@ -352,5 +410,34 @@ final class WishcastViewModel {
                 )
             }
         ))
+    }
+}
+
+/// Each place's long-range forecasts, saved for the day they were downloaded so reopening the date
+/// picker doesn't download them again (and use up the free daily limit).
+private enum LongRangeStore {
+    struct Saved: Codable {
+        let placeID: String
+        /// "2026-12-25" in the place's time zone.
+        let day: String
+        let forecasts: [DayForecast]
+    }
+
+    private static func url(for place: Place) -> URL {
+        URL.cachesDirectory.appending(path: "LongRange \(place.id).plist")
+    }
+
+    static func load(for place: Place) -> Saved? {
+        guard let data = try? Data(contentsOf: url(for: place)),
+              let saved = try? PropertyListDecoder().decode(Saved.self, from: data),
+              saved.placeID == place.id
+        else { return nil }
+        return saved
+    }
+
+    static func save(_ saved: Saved, for place: Place) {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .binary
+        try? encoder.encode(saved).write(to: url(for: place), options: .atomic)
     }
 }

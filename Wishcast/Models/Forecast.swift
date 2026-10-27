@@ -30,7 +30,7 @@ struct Preferences: Codable, Equatable {
 }
 
 /// One hour of one forecast source. Values are metric.
-struct HourForecast: Identifiable {
+struct HourForecast: Identifiable, Codable {
     let date: Date
     let localHour: Int
     let temperature: Double
@@ -48,7 +48,7 @@ struct HourForecast: Identifiable {
 }
 
 /// One forecast source's prediction for a single local day. All values are metric.
-struct DayForecast: Identifiable {
+struct DayForecast: Identifiable, Codable {
     let source: String
     /// Local midnight of the day at the forecast location.
     let date: Date

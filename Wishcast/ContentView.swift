@@ -388,8 +388,16 @@ struct ContentView: View {
                 if let pickedDay = viewModel.pickedDay {
                     Section {
                         dayRow(pickedDay)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button("Remove", systemImage: "xmark", role: .destructive) {
+                                    if selectedDate == pickedDay.date { selectedDate = nil }
+                                    viewModel.clearPickedDay()
+                                }
+                            }
                     } header: {
                         Text("Your Date").sceneryLegible()
+                    } footer: {
+                        Text("Swipe left to remove.").sceneryLegible()
                     }
                 }
 
@@ -443,7 +451,8 @@ struct ContentView: View {
     private var favoritesRow: some View {
         let favorites = viewModel.favorites
         let current = viewModel.favoriteIndex
-        if viewModel.place != nil, favorites.count > 1 || (favorites.count == 1 && current == nil) {
+        // Only while showing one of two or more favorites, so the dots always mean "swipe for more".
+        if viewModel.place != nil, current != nil, favorites.count > 1 {
             HStack(spacing: 8) {
                 ForEach(favorites.indices, id: \.self) { index in
                     Button {

@@ -86,7 +86,7 @@ struct DayDetailView: View {
     private func hourly(from source: DayForecast, pick: PickedValue) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Hourly: \(source.source)")
+                Text("Hourly")
                     .font(.headline)
                 Group {
                     if pick.sameValueCount > 1 {

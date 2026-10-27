@@ -5,6 +5,7 @@ Vous ne vous mentez pas. Vous êtes juste optimiste.
 CHOISISSEZ VOTRE SOUHAIT
 - Neige
 - Ensoleillé
+- Pluvieux
 - Météo extrême
 - Soirées fraîches
 - Doux et agréable
