@@ -95,6 +95,13 @@ struct WishcastWidgetEntryView: View {
     @Environment(\.widgetFamily) private var family
 
     var body: some View {
+        content
+            // A little more breathing room above and below than the default margins.
+            .padding(.vertical, family.isAccessory ? 0 : 4)
+    }
+
+    @ViewBuilder
+    private var content: some View {
         if entry.placeName == nil {
             Label("Open Wishcast to choose a location", systemImage: "mappin.and.ellipse")
                 .font(.caption)
@@ -132,7 +139,7 @@ struct WishcastWidgetEntryView: View {
     }
 
     private var bestCaseNote: some View {
-        Text("Best case for \(Text(entry.wish.title)), mixed from many forecasts. Not a prediction.")
+        Text("Best case for \(Text(entry.wish.title)). Not a prediction.")
             .font(.caption2)
             .foregroundStyle(.secondary)
             .lineLimit(1)
@@ -263,4 +270,14 @@ struct WishcastWidget: Widget {
     WishcastWidget()
 } timeline: {
     WishcastEntry.sample
+}
+
+private extension WidgetFamily {
+    var isAccessory: Bool {
+        #if os(iOS)
+        [.accessoryInline, .accessoryRectangular, .accessoryCircular].contains(self)
+        #else
+        false
+        #endif
+    }
 }

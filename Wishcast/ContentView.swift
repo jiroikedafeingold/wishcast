@@ -316,6 +316,32 @@ struct ContentView: View {
             List(selection: $selectedDate) {
                 favoritesRow
 
+                if !viewModel.alerts.isEmpty {
+                    Section {
+                        ForEach(viewModel.alerts.indices, id: \.self) { index in
+                            WeatherAlertRow(alert: viewModel.alerts[index])
+                                .listRowBackground(rowBackground())
+                        }
+                    } header: {
+                        Text("Official Alerts").sceneryLegible()
+                    } footer: {
+                        Text("From national weather services via Apple Weather. Shown as issued, never part of the wish.")
+                            .sceneryLegible()
+                    }
+                }
+
+                if viewModel.precipitationExpectedSoon, let nextHour = viewModel.nextHour {
+                    Section {
+                        NextHourView(forecast: nextHour)
+                            .listRowBackground(rowBackground())
+                    } header: {
+                        Text("Next Hour").sceneryLegible()
+                    } footer: {
+                        Text("One forecast from Apple Weather, not mixed and not a best case.")
+                            .sceneryLegible()
+                    }
+                }
+
                 if let conditions = viewModel.conditions {
                     Section {
                         CurrentConditionsView(conditions: conditions)

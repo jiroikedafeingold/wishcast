@@ -72,6 +72,7 @@ struct HowItWorksView: View {
                 LabeledContent("Hourly forecast", value: String(localized: "Shown from one real forecast: the source of one of the picked values, normally the wish's main one. The other values on that day may come from different forecasts."))
                 LabeledContent("Right Now", value: String(localized: "Open-Meteo's modeled current conditions, not a weather station reading."))
                 LabeledContent("Sunrise, sunset, UV, chance of precipitation", value: String(localized: "From Open-Meteo's single best-match forecast. Not mixed."))
+                LabeledContent("Official alerts and the next hour", value: String(localized: "Weather alerts from national weather services, and the next-hour precipitation forecast, come from Apple Weather where it has them. They're shown as issued, never mixed or made more optimistic."))
                 LabeledContent("Days", value: String(localized: "Midnight to midnight in the location's local time. A forecast with fewer than 20 hours of data for a day is left out of that day."))
                 LabeledContent("Updates", value: String(localized: "The app downloads forecasts when it starts, when you pull to refresh, and when you change location. The widget asks for an update about every three hours; the system decides exactly when."))
             }

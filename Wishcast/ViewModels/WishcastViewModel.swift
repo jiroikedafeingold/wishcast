@@ -29,8 +29,12 @@ final class WishcastViewModel {
     private(set) var sourceCount = 0
     /// Which non-Open-Meteo providers (NWS, MET Norway, Apple Weather) are in the current mix, for attribution.
     private(set) var otherProviders: Set<String> = []
-    /// Apple Weather's required attribution, fetched once its forecast is in the mix.
+    /// Apple Weather's required attribution, fetched once any of its data is shown.
     private(set) var appleWeatherAttribution: WeatherAttribution?
+    /// Official weather alerts for the place (via Apple Weather), shown as issued, never mixed.
+    private(set) var alerts: [WeatherAlert] = []
+    /// Apple Weather's minute-by-minute forecast for the next hour, where available (not mixed).
+    private(set) var nextHour: Forecast<MinuteWeather>?
     private(set) var isLoading = false
     var errorMessage: String?
 
@@ -75,6 +79,7 @@ final class WishcastViewModel {
         guard let place else { return }
         if !force, let recent = recentResults[place.id], Date.now.timeIntervalSince(recent.date) < Self.reuseInterval {
             apply(recent.result)
+            await loadOfficial(for: place)
             return
         }
         isLoading = true
@@ -85,12 +90,29 @@ final class WishcastViewModel {
             // The user may have moved on to another place while this downloaded.
             guard place.id == self.place?.id else { return }
             apply(result)
-            if otherProviders.contains(OpenMeteoClient.appleWeatherName), appleWeatherAttribution == nil {
+            await loadOfficial(for: place)
+            if otherProviders.contains(OpenMeteoClient.appleWeatherName) || !alerts.isEmpty || nextHour != nil,
+               appleWeatherAttribution == nil {
                 appleWeatherAttribution = try? await WeatherService.shared.attribution
             }
         } catch {
             errorMessage = String(localized: "Couldn't load forecasts. Pull to try again.")
         }
+    }
+
+    /// Alerts and the next-hour forecast. Both are optional extras: where Apple Weather has neither,
+    /// or the request fails, they're simply not shown.
+    private func loadOfficial(for place: Place) async {
+        let location = CLLocation(latitude: place.latitude, longitude: place.longitude)
+        let (minute, alerts) = (try? await WeatherService.shared.weather(for: location, including: .minute, .alerts)) ?? (nil, nil)
+        guard place.id == self.place?.id else { return }
+        nextHour = minute
+        self.alerts = alerts ?? []
+    }
+
+    /// Whether rain, snow or other precipitation is expected at some point in the next hour.
+    var precipitationExpectedSoon: Bool {
+        nextHour?.forecast.contains { $0.precipitation != .none && $0.precipitationChance >= 0.3 } ?? false
     }
 
     private func apply(_ result: OpenMeteoClient.Result) {
@@ -109,6 +131,8 @@ final class WishcastViewModel {
         }
         forecasts = []
         conditions = nil
+        alerts = []
+        nextHour = nil
         longRangeForecasts = []
         longRangePlaceID = nil
         lastPickableDate = nil
