@@ -45,7 +45,7 @@ platform iOS (add macOS later if wanted), name **Wishcast**, primary language En
 ## 4. Each release
 
 1. Bump `MARKETING_VERSION` (patch by default); push to `main` → Xcode Cloud archives to TestFlight.
-2. Advance the App Store subtitle to the next line of `fastlane/subtitle_rotation.txt`.
+2. Advance each locale's `subtitle.txt` to the next entry in `fastlane/subtitle_rotation.json`.
 3. `source ~/Projects/AppStoreConnect/credentials.env` then
    `LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 fastlane upload_store version:X.Y.Z`.
 4. Attach the build to the version in App Store Connect and submit for review.

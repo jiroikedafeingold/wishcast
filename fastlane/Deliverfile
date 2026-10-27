@@ -1,0 +1,12 @@
+# Metadata + screenshots only (the binary comes from Xcode Cloud, not here).
+#
+# Wishcast's first release uploads the full listing (name, subtitle, description, keywords, promo text,
+# URLs, categories, copyright, review info) in all 11 locales. For later releases, delete the .txt files
+# you don't want to overwrite — deliver never changes a field it has no file for. The subtitle rotates
+# per release: see fastlane/subtitle_rotation.json.
+app_identifier("com.jirofeingold.Wishcast")
+skip_binary_upload(true)
+overwrite_screenshots(true)   # screenshots REPLACE what's on ASC; never additive
+submit_for_review(false)      # upload only; review + submit is done separately
+force(true)                   # don't open the HTML preview / prompt
+run_precheck_before_submit(false)

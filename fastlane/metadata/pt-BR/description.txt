@@ -1,0 +1,36 @@
+Todo mundo já fez isso: abrir um app de clima, depois outro e mais outro, até que um finalmente diga o que a gente queria ouvir. O Wishcast poupa essa busca. Ele analisa cerca de 170 previsões de uma vez e mostra o melhor cenário para o tempo que você espera.
+
+Você não está se enganando. Só está sendo otimista.
+
+ESCOLHA SEU DESEJO
+- Neve
+- Ensolarado
+- Tempo extremo
+- Fins de tarde frescos
+- Agradável
+
+Defina sua máxima perfeita, seu fim de tarde perfeito e sua mínima perfeita, e o Wishcast vai atrás deles.
+
+COMO FUNCIONA
+O Wishcast baixa previsões de 9 modelos meteorológicos globais e de cada execução de 5 modelos de conjunto: cerca de 170 previsões por dia. Para cada valor (máxima, mínima, chuva, neve, nuvens, vento), ele escolhe o que melhor combina com seu desejo. A máxima pode vir de uma previsão e a mínima de outra, então um dia no Wishcast é um melhor cenário, não uma previsão certa.
+
+E ele é honesto sobre isso:
+- Cada dia mostra quantas previsões realmente indicam sua máxima e sua mínima.
+- Toque em um dia para ver de onde veio cada valor e como ele foi escolhido.
+- A checagem de realidade conta as previsões individuais que realizam totalmente seu desejo.
+- Um gráfico mostra todas as previsões para você ver o quanto seu desejo é ousado.
+- “Como o Wishcast funciona” explica cada regra, com créditos e referências.
+
+TUDO O QUE VOCÊ ESPERA DE UM APP DE CLIMA
+- Condições atuais, tendência de 7 dias e previsão por hora
+- Escolha qualquer data até cerca de seis meses à frente. Depois de uma semana, é uma aposta arriscada; depois de duas semanas, um chute.
+- Nascer e pôr do sol, índice UV e chance de precipitação
+- Locais salvos, busca de cidades e localização atual
+- Widgets para a Tela de Início e, no iPhone, para a Tela Bloqueada
+- Layouts para iPhone e iPad
+
+Sem conta e sem cadastro. Sua localização é usada só para pedir previsões.
+
+Dados meteorológicos do Open-Meteo.com, a partir de previsões publicadas pelo ECMWF, NOAA, Deutscher Wetterdienst, Centro Meteorológico Canadense, Météo-France, Agência Meteorológica do Japão, UK Met Office e Administração Meteorológica da China. O Wishcast não é afiliado nem endossado por nenhum deles.
+
+O Wishcast é para diversão e esperança. Para planos que dependem do tempo, confira uma previsão oficial.

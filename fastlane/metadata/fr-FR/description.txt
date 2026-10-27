@@ -1,0 +1,36 @@
+On l’a tous fait : consulter une app météo, puis une autre, puis encore une autre, jusqu’à ce que l’une d’elles nous dise enfin ce qu’on voulait entendre. Wishcast vous épargne la recherche. Il examine environ 170 prévisions à la fois et vous montre le meilleur cas pour la météo que vous espérez.
+
+Vous ne vous mentez pas. Vous êtes juste optimiste.
+
+CHOISISSEZ VOTRE SOUHAIT
+- Neige
+- Ensoleillé
+- Météo extrême
+- Soirées fraîches
+- Doux et agréable
+
+Définissez votre maximum idéal, votre soirée idéale et votre minimum idéal, et Wishcast part à leur recherche.
+
+COMMENT ÇA MARCHE
+Wishcast télécharge les prévisions de 9 modèles météo mondiaux et de chaque exécution de 5 modèles d’ensemble : environ 170 prévisions par jour. Pour chaque valeur (maximum, minimum, pluie, neige, nuages, vent), il choisit celle qui correspond le mieux à votre souhait. Le maximum peut venir d’une prévision et le minimum d’une autre : une journée Wishcast est donc un meilleur cas, pas une prédiction.
+
+Et il reste honnête :
+- Chaque jour indique combien de prévisions affichent réellement son maximum et son minimum.
+- Touchez un jour pour voir d’où vient chaque valeur et comment elle a été choisie.
+- Un test de réalité compte les prévisions individuelles qui exaucent entièrement votre souhait.
+- Un graphique montre toutes les prévisions pour voir à quel point votre souhait est audacieux.
+- « Comment fonctionne Wishcast » explique chaque règle, avec crédits et références.
+
+TOUT CE QU’ON ATTEND D’UNE APP MÉTÉO
+- Conditions actuelles, tendance sur 7 jours et prévisions heure par heure
+- Choisissez n’importe quelle date jusqu’à environ six mois. Au-delà d’une semaine, c’est un pari risqué ; au-delà de deux semaines, un coup de dés.
+- Lever et coucher du soleil, indice UV et risque de précipitations
+- Lieux enregistrés, recherche de villes et position actuelle
+- Widgets pour l’écran d’accueil et, sur iPhone, pour l’écran verrouillé
+- Mises en page pour iPhone et iPad
+
+Pas de compte, pas d’inscription. Votre position sert uniquement à demander les prévisions.
+
+Données météo par Open-Meteo.com, à partir des prévisions publiées par l’ECMWF, la NOAA, le Deutscher Wetterdienst, le Centre météorologique canadien, Météo-France, l’Agence météorologique du Japon, le UK Met Office et l’Administration météorologique de Chine. Wishcast n’est affilié à aucun d’eux et n’est soutenu par aucun.
+
+Wishcast, c’est pour le plaisir et pour l’espoir. Pour des projets qui dépendent de la météo, consultez une prévision officielle.

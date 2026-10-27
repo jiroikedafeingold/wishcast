@@ -1,0 +1,1 @@
+tempo,clima,previsão,otimista,melhor cenário,neve,sol,tempestade,conjunto,widget,chuva

@@ -1,0 +1,37 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Upload App Store metadata + screenshots (no binary) using an App Store Connect API key"
+  desc "Pass version:X.Y to target/create a specific App Store version, and skip_screenshots:true to skip images."
+  lane :upload_store do |options|
+    api_key = app_store_connect_api_key(
+      key_id: ENV.fetch("ASC_KEY_ID"),
+      issuer_id: ENV.fetch("ASC_ISSUER_ID"),
+      key_filepath: ENV.fetch("ASC_KEY_PATH"),
+      in_house: false
+    )
+
+    deliver(
+      api_key: api_key,
+      app_version: options[:version],   # target/create this version; nil = the current editable one
+      skip_binary_upload: true,         # binary is delivered by Xcode Cloud
+      skip_metadata: false,
+      skip_screenshots: options[:skip_screenshots] || false,
+      # Screenshots REPLACE what's on App Store Connect, never add to it: every set for each
+      # uploaded locale is deleted first. Don't turn this off — an additive push leaves stale shots
+      # beside the new ones and orphans device families we no longer supply (the old 6.7" set would
+      # have kept showing pre-1.7 UI). Look for "Successfully deleted all screenshots" in the log.
+      overwrite_screenshots: true,
+      submit_for_review: false,         # you press submit in App Store Connect
+      run_precheck_before_submit: false,
+      force: true
+    )
+
+    # deliver's overwrite is not enough: three releases running, the tail of the upload registered a
+    # few screenshots twice (same file, same bytes, COMPLETE, nothing in the log). Count what actually
+    # landed and prune the duplicates, failing the lane if a set still looks wrong.
+    unless options[:skip_screenshots]
+      sh("cd .. && tools/verify-screenshots.rb #{options[:version] || ""}")
+    end
+  end
+end

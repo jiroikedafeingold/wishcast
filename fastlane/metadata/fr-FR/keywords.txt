@@ -1,0 +1,1 @@
+météo,prévisions,optimiste,meilleur cas,neige,soleil,orage,ensemble,widget,horaire,pluie

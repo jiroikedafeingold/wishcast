@@ -1,0 +1,1 @@
+wetter,vorhersage,optimistisch,bester fall,schnee,sonne,sturm,ensemble,widget,stündlich,regen

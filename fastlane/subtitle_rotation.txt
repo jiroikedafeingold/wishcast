@@ -1,6 +1,0 @@
-# App Store subtitle rotation (max 30 characters). Advance to the next line with each
-# App Store version upload, wrapping back to the top. The current one is in
-# metadata/en-US/subtitle.txt. Subtitles only change when a new version is submitted.
-Not lying. Just optimistic.
-The weather you're hoping for
-Best-case weather, every day

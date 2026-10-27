@@ -1,0 +1,16 @@
+Wishcast is a weather app with a deliberate twist: for the weather the user is wishing for (Snow, Sunny, Wild Weather, Cool Evenings or Nice & Pleasant), it shows the BEST CASE across about 170 real forecasts from Open-Meteo (9 global models plus every member of 5 ensembles). Values can come from different forecasts, so a Wishcast day is optimistic on purpose.
+
+This is disclosed throughout, so it never passes itself off as an official forecast:
+- A welcome dialog on first launch explains how to read it ("a wish, not a prediction"; check a regular forecast before making plans).
+- Every day says "This is a wish, not a prediction." Past a week it's labeled "Long shot", past two weeks "Wild guess".
+- Each day shows how many forecasts actually show its high and low, and the day screen shows where every value came from.
+- The ? button opens "How Wishcast Works" with every rule, credits and references.
+
+TO REVIEW (no account or sign-in needed):
+1. Launch, read the welcome dialog, tap "Got It".
+2. Tap "Choose Location", search for a city (e.g. Denver) and pick it. Or tap "Use Current Location".
+3. Tap a wish chip (e.g. Snow) to see the 7-day list change. Tap a day for its detail.
+4. At the bottom of the list, tap "Pick a Future Date…" to view any day up to about six months ahead.
+5. Add the Wishcast widget from the Home Screen.
+
+Data: Open-Meteo.com (CC BY 4.0), free non-commercial use; the app has no ads, no purchases and no tracking. Location is used only to request forecasts for the user's current place.
