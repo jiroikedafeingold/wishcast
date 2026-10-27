@@ -101,8 +101,12 @@ struct WishcastWidgetEntryView: View {
             case .systemSmall: small(today)
             case .systemMedium: medium
             case .systemLarge, .systemExtraLarge: large
+            #if os(iOS)
+            // Lock Screen families exist only on iPhone (see supportedFamilies).
             case .accessoryInline: Label("\(today.weekday) \(temperatures(today))", systemImage: entry.wish.symbolName)
-            default: rectangular(today)
+            case .accessoryRectangular: rectangular(today)
+            #endif
+            default: medium
             }
         } else {
             Label("Forecasts unavailable", systemImage: "exclamationmark.triangle")

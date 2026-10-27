@@ -30,10 +30,13 @@ platform iOS (add macOS later if wanted), name **Wishcast**, primary language En
 
 ## 2. Turn on Xcode Cloud (~5 min)
 
-1. In Xcode: **Product ▸ Xcode Cloud ▸ Create Workflow…**
-2. Pick the **Wishcast** app, **Grant Access**, connect **GitHub** and authorize Apple's GitHub app for
-   `jiroikedafeingold/wishcast`.
-3. Review the default workflow and **Start Build**.
+1. In Xcode, open the **Report navigator** (⌘9), click the **Cloud** tab, then **Get Started**.
+   (After the first build, **Integrate ▸ Create Workflow / Manage Workflows** is also available.)
+2. Pick the **Wishcast** product, **Grant Access**, connect **GitHub** and authorize Apple's GitHub app
+   for `jiroikedafeingold/wishcast`.
+3. Review the default workflow (**Details** to add the TestFlight post-action) and **Start First Build**.
+4. Commit and push the files Xcode adds under `Wishcast.xcodeproj/xcshareddata/` (the Xcode Cloud
+   `manifest.json`, and the shared scheme if it creates one).
 
 ## 3. Recommended workflow
 
