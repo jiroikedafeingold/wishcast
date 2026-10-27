@@ -427,9 +427,10 @@ private func lightningIntensity(at time: Double) -> Double {
 
 // MARK: - Hinge
 
-/// The strip over iPhone Duo's hinge: the scene's colors with the app's name set like a title
-/// card, between fine rules. With `blendsIn` (the upright layout, where the pages have plain
-/// backgrounds) the color fades out at the top and bottom edges into the pages.
+/// The strip over iPhone Duo's hinge, with the app's name set like a title card between fine rules.
+/// On a table (the default) it's the horizon where the sky page meets the ground page: the sky's
+/// color fading into far-off rolling hills. With `blendsIn` (the upright layout, where the pages have
+/// plain backgrounds) it's a simple band in the scene's colors that fades into the pages.
 struct HingeHorizon: View {
     let scenery: Scenery
     var blendsIn = false
@@ -452,16 +453,23 @@ struct HingeHorizon: View {
             .padding(.horizontal, 24)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background {
-                LinearGradient(colors: [colors.far, colors.near], startPoint: .top, endPoint: .bottom)
-                    .mask {
-                        if blendsIn {
+                if blendsIn {
+                    LinearGradient(colors: [colors.far, colors.near], startPoint: .top, endPoint: .bottom)
+                        .mask {
                             LinearGradient(stops: [.init(color: .clear, location: 0), .init(color: .black, location: 0.35),
                                                    .init(color: .black, location: 0.65), .init(color: .clear, location: 1)],
                                            startPoint: .top, endPoint: .bottom)
-                        } else {
-                            Color.black
+                        }
+                } else {
+                    ZStack {
+                        LinearGradient(colors: [scenery.skyGradient.last ?? .white, colors.far.opacity(0.6)],
+                                       startPoint: .top, endPoint: .bottom)
+                        Canvas { context, size in
+                            context.fill(hills(in: size, crest: 0.35, seed: 0xFA2), with: .color(colors.far))
+                            context.fill(hills(in: size, crest: 0.6, seed: 0x4EA2), with: .color(colors.near))
                         }
                     }
+                }
             }
         }
         .accessibilityHidden(true)
@@ -474,6 +482,23 @@ struct HingeHorizon: View {
                                             startPoint: .leading, endPoint: .trailing))
     }
 
+    /// A soft line of hills whose crests sit around `crest` (fraction of the height from the top).
+    private func hills(in size: CGSize, crest: Double, seed: UInt64) -> Path {
+        var random = SeededRandom(state: seed)
+        let waves = (0..<3).map { _ in
+            (length: Double.random(in: 60...180, using: &random), phase: Double.random(in: 0...(2 * .pi), using: &random))
+        }
+        var path = Path()
+        path.move(to: CGPoint(x: 0, y: size.height))
+        for x in Array(stride(from: 0.0, to: size.width, by: 4)) + [size.width] {
+            let wave = waves.reduce(0) { $0 + sin(x / $1.length * 2 * .pi + $1.phase) } / Double(waves.count)
+            path.addLine(to: CGPoint(x: x, y: size.height * (crest + 0.18 * wave)))
+        }
+        path.addLine(to: CGPoint(x: size.width, y: size.height))
+        path.closeSubpath()
+        return path
+    }
+
     /// A hairline that fades away from the title.
     private func rule(_ color: Color, leading: Bool) -> some View {
         LinearGradient(colors: [color.opacity(0), color.opacity(0.7)],
@@ -483,7 +508,7 @@ struct HingeHorizon: View {
 }
 
 private extension Scenery {
-    /// The hinge strip's gradient (top, bottom), tinted by the weather, and a title color that stands out on it.
+    /// Far and near hills (also the upright band's gradient), tinted by the weather, and a title color that stands out on them.
     var horizon: (far: Color, near: Color, title: Color) {
         switch self {
         case .sunny, .partlyCloudy, .windy: (rgb(0.42, 0.58, 0.45), rgb(0.20, 0.36, 0.18), .white)
