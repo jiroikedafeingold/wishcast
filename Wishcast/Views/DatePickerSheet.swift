@@ -5,6 +5,8 @@ struct DatePickerSheet: View {
     /// The last day with forecast data, or nil while long-range forecasts are loading.
     let lastDate: Date?
     let isLoading: Bool
+    /// The long-range forecast failed to download, so `lastDate` is only a couple of weeks out.
+    var isLongRangeMissing = false
     let onPick: (Date) -> Void
 
     @State private var date = Calendar.current.date(byAdding: .day, value: 14, to: .now) ?? .now
@@ -25,7 +27,13 @@ struct DatePickerSheet: View {
                     }
                 } footer: {
                     if let lastDate {
-                        Text("Forecasts reach \(lastDate.formatted(date: .long, time: .omitted)). The first 7 days are a best case, days 8–14 a long shot, and anything later a wild guess.")
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Forecasts reach \(lastDate.formatted(date: .long, time: .omitted)). The first 7 days are a best case, days 8–14 a long shot, and anything later a wild guess.")
+                            if isLongRangeMissing {
+                                Label("The long-range forecast, which reaches about six months out, couldn’t be downloaded right now, so later dates aren’t available. Try again later.",
+                                      systemImage: "exclamationmark.triangle")
+                            }
+                        }
                     }
                 }
             }

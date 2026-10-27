@@ -92,6 +92,8 @@ private func rgb(_ red: Double, _ green: Double, _ blue: Double) -> Color {
 extension EnvironmentValues {
     /// True on iPhone Duo's tabletop pages, where content sits over `Scenery` art.
     @Entry var onScenery = false
+    /// True on iPhone Duo's two-page layouts (tabletop and upright), where each page scrolls on its own.
+    @Entry var showsScrollHints = false
 }
 
 extension View {
@@ -104,13 +106,13 @@ extension View {
     /// A small frosted backing for list headers, footers and the tag line over scenery.
     func sceneryLegible() -> some View { modifier(SceneryLegible()) }
 
-    /// Over scenery, makes it obvious a page scrolls: the scroll bars flash when it appears, and a
-    /// chevron shows at each edge with more content beyond it. Unchanged elsewhere.
+    /// On the Duo's two-page layouts, makes it obvious a page scrolls: the scroll bars flash when it
+    /// appears, and a chevron shows at each edge with more content beyond it. Unchanged elsewhere.
     func sceneryScrollHints() -> some View { modifier(SceneryScrollHints()) }
 }
 
 private struct SceneryScrollHints: ViewModifier {
-    @Environment(\.onScenery) private var onScenery
+    @Environment(\.showsScrollHints) private var showsScrollHints
     @State private var more = MoreContent()
 
     struct MoreContent: Equatable {
@@ -119,7 +121,7 @@ private struct SceneryScrollHints: ViewModifier {
     }
 
     func body(content: Content) -> some View {
-        if onScenery {
+        if showsScrollHints {
             content
                 .scrollIndicatorsFlash(onAppear: true)
                 .onScrollGeometryChange(for: MoreContent.self) { geometry in
@@ -425,53 +427,32 @@ private func lightningIntensity(at time: Double) -> Double {
 
 // MARK: - Hinge
 
-/// The strip over iPhone Duo's hinge in tabletop mode, where the sky meets the ground: a far-off
-/// horizon of rolling hills with the app's title across it.
+/// The strip over iPhone Duo's hinge: a soft gradient from the scene's sky into its ground, with
+/// the app's title across it.
 struct HingeHorizon: View {
     let scenery: Scenery
 
     var body: some View {
         let colors = scenery.horizon
         GeometryReader { proxy in
-            ZStack {
-                LinearGradient(colors: [scenery.skyGradient.last ?? .white, colors.far.opacity(0.6)],
-                               startPoint: .top, endPoint: .bottom)
-                Canvas { context, size in
-                    context.fill(hills(in: size, crest: 0.35, seed: 0xFA2), with: .color(colors.far))
-                    context.fill(hills(in: size, crest: 0.6, seed: 0x4EA2), with: .color(colors.near))
+            Text(verbatim: "Wishcast")
+                .font(.system(size: min(max(proxy.size.height * 0.68, 15), 30), weight: .semibold, design: .serif))
+                .italic()
+                .tracking(1.5)
+                .foregroundStyle(colors.title)
+                .shadow(color: colors.title == .white ? .black.opacity(0.35) : .white.opacity(0.5), radius: 2)
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background {
+                    LinearGradient(colors: [colors.far, colors.near], startPoint: .top, endPoint: .bottom)
                 }
-                Text(verbatim: "Wishcast")
-                    .font(.system(size: min(max(proxy.size.height * 0.5, 11), 22), weight: .semibold, design: .serif))
-                    .italic()
-                    .tracking(1.5)
-                    .foregroundStyle(colors.title)
-                    .shadow(color: colors.title == .white ? .black.opacity(0.45) : .white.opacity(0.6), radius: 3)
-                    .lineLimit(1)
-            }
         }
         .accessibilityHidden(true)
-    }
-
-    /// A soft line of hills whose crests sit around `crest` (fraction of the height from the top).
-    private func hills(in size: CGSize, crest: Double, seed: UInt64) -> Path {
-        var random = SeededRandom(state: seed)
-        let waves = (0..<3).map { _ in
-            (length: Double.random(in: 60...180, using: &random), phase: Double.random(in: 0...(2 * .pi), using: &random))
-        }
-        var path = Path()
-        path.move(to: CGPoint(x: 0, y: size.height))
-        for x in Array(stride(from: 0.0, to: size.width, by: 4)) + [size.width] {
-            let wave = waves.reduce(0) { $0 + sin(x / $1.length * 2 * .pi + $1.phase) } / Double(waves.count)
-            path.addLine(to: CGPoint(x: x, y: size.height * (crest + 0.18 * wave)))
-        }
-        path.addLine(to: CGPoint(x: size.width, y: size.height))
-        path.closeSubpath()
-        return path
     }
 }
 
 private extension Scenery {
-    /// Distant hills tinted by the weather, and a title color that stands out against them.
+    /// The hinge strip's gradient (top, bottom), tinted by the weather, and a title color that stands out on it.
     var horizon: (far: Color, near: Color, title: Color) {
         switch self {
         case .sunny, .partlyCloudy, .windy: (rgb(0.42, 0.58, 0.45), rgb(0.20, 0.36, 0.18), .white)

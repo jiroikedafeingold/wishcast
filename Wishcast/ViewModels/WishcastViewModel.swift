@@ -35,6 +35,8 @@ final class WishcastViewModel {
     /// The day the user picked beyond the 7-day list, if any.
     private(set) var pickedDay: WishcastDay?
     private(set) var isLoadingLongRange = false
+    /// True when the ~6-month long-range forecast couldn't be downloaded, so the picker stops early.
+    private(set) var isLongRangeMissing = false
     /// The last calendar day (in the device calendar, for the date picker) that has forecast data.
     private(set) var lastPickableDate: Date?
 
@@ -105,9 +107,17 @@ final class WishcastViewModel {
             let hourly = try await client.forecasts(for: place, days: 35, includeAppleWeather: true)
             // The long-range ensemble adds 51 more forecasts to every day after the 7-day list.
             let lastListDay = days.map(\.date).max() ?? .now
-            let daily = (try? await client.longRangeForecasts(for: place, after: lastListDay)) ?? []
+            let daily: [DayForecast]
+            do {
+                daily = try await client.longRangeForecasts(for: place, after: lastListDay)
+                isLongRangeMissing = false
+            } catch {
+                daily = []
+                isLongRangeMissing = true
+            }
             longRangeForecasts = hourly.forecasts + daily
-            longRangePlaceID = place.id
+            // Without the long-range forecast, try again the next time the picker opens.
+            longRangePlaceID = isLongRangeMissing ? nil : place.id
             lastPickableDate = longRangeForecasts.map(\.date).max().map(deviceDate(fromLocal:))
             rebuildPickedDay()
         } catch {

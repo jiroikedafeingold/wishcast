@@ -60,7 +60,8 @@ struct ContentView: View {
             .tint(viewModel.wish.tint)
         }
         .sheet(isPresented: $isPickingDate) {
-            DatePickerSheet(lastDate: viewModel.lastPickableDate, isLoading: viewModel.isLoadingLongRange) { date in
+            DatePickerSheet(lastDate: viewModel.lastPickableDate, isLoading: viewModel.isLoadingLongRange,
+                            isLongRangeMissing: viewModel.isLongRangeMissing) { date in
                 selectedDate = viewModel.pick(date)
             }
             .task { await viewModel.loadLongRange() }
@@ -125,6 +126,7 @@ struct ContentView: View {
                 .environment(\.colorScheme, scenery.groundColorScheme)
             }
             .environment(\.onScenery, true)
+            .environment(\.showsScrollHints, true)
             .ignoresSafeArea(edges: .vertical)
         } else if let division = fold.bookDivision {
             // iPhone Duo held open like a book: the list on the left page, the day on the right, and
@@ -151,6 +153,7 @@ struct ContentView: View {
                         .toolbarTitleDisplayMode(.inline)
                 }
             }
+            .environment(\.showsScrollHints, true)
             .ignoresSafeArea(edges: .vertical)
         } else {
             // Wide enough that each day's "H: … · L: …" count fits on one line.
