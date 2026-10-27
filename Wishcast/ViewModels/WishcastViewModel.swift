@@ -21,6 +21,8 @@ final class WishcastViewModel {
     }
     private(set) var place: Place?
     private(set) var savedPlaces: [Place]
+    /// Starred places, in the user's order; swiping on the main screen moves between them.
+    private(set) var favorites: [Place]
     private(set) var days: [WishcastDay] = []
     private(set) var conditions: Conditions?
     private(set) var timeZone: TimeZone = .current
@@ -60,24 +62,42 @@ final class WishcastViewModel {
         preferences = SharedSettings.preferences
         place = SharedSettings.place
         savedPlaces = SharedSettings.savedPlaces
+        favorites = SharedSettings.favorites
     }
 
-    func refresh() async {
+    /// Recent results per place, so moving between favorites doesn't download everything again.
+    /// A full download costs about 180 of Open-Meteo's free daily calls.
+    private var recentResults: [Place.ID: (date: Date, result: OpenMeteoClient.Result)] = [:]
+    private static let reuseInterval: TimeInterval = 15 * 60
+
+    /// `force` (pull to refresh) always downloads; otherwise a result from the last 15 minutes is reused.
+    func refresh(force: Bool = true) async {
         guard let place else { return }
+        if !force, let recent = recentResults[place.id], Date.now.timeIntervalSince(recent.date) < Self.reuseInterval {
+            apply(recent.result)
+            return
+        }
         isLoading = true
         defer { isLoading = false }
         do {
             let result = try await client.forecasts(for: place, includeAppleWeather: true)
-            timeZone = result.timeZone
-            conditions = result.conditions
-            forecasts = result.forecasts
-            errorMessage = nil
+            recentResults[place.id] = (.now, result)
+            // The user may have moved on to another place while this downloaded.
+            guard place.id == self.place?.id else { return }
+            apply(result)
             if otherProviders.contains(OpenMeteoClient.appleWeatherName), appleWeatherAttribution == nil {
                 appleWeatherAttribution = try? await WeatherService.shared.attribution
             }
         } catch {
             errorMessage = String(localized: "Couldn't load forecasts. Pull to try again.")
         }
+    }
+
+    private func apply(_ result: OpenMeteoClient.Result) {
+        timeZone = result.timeZone
+        conditions = result.conditions
+        forecasts = result.forecasts
+        errorMessage = nil
     }
 
     func select(_ newPlace: Place) async {
@@ -95,7 +115,72 @@ final class WishcastViewModel {
         pickedDate = nil
         rebuildPickedDay()
         WidgetCenter.shared.reloadAllTimelines()
-        await refresh()
+        await refresh(force: false)
+    }
+
+    // MARK: - Favorites
+
+    func isFavorite(_ place: Place) -> Bool {
+        favorites.contains { $0.id == place.id }
+    }
+
+    /// Saved places that aren't starred.
+    var otherSavedPlaces: [Place] {
+        savedPlaces.filter { !isFavorite($0) }
+    }
+
+    func toggleFavorite(_ place: Place) {
+        if isFavorite(place) {
+            favorites.removeAll { $0.id == place.id }
+        } else {
+            favorites.append(place)
+            if !savedPlaces.contains(where: { $0.id == place.id }) { savedPlaces.append(place) }
+        }
+        saveFavorites()
+    }
+
+    func moveFavorites(from source: IndexSet, to destination: Int) {
+        // `Array.move(fromOffsets:)` lives in SwiftUI; do the same by hand.
+        let moving = source.sorted().map { favorites[$0] }
+        var remaining = favorites
+        for index in source.sorted(by: >) { remaining.remove(at: index) }
+        let insertAt = destination - source.filter { $0 < destination }.count
+        remaining.insert(contentsOf: moving, at: insertAt)
+        favorites = remaining
+        saveFavorites()
+    }
+
+    /// Removes places from the saved list (and favorites).
+    func removePlaces(_ places: [Place]) {
+        let ids = Set(places.map(\.id))
+        savedPlaces.removeAll { ids.contains($0.id) }
+        favorites.removeAll { ids.contains($0.id) }
+        saveFavorites()
+    }
+
+    /// Where the current place sits among favorites, if it's one of them.
+    var favoriteIndex: Int? {
+        guard let place else { return nil }
+        return favorites.firstIndex { $0.id == place.id }
+    }
+
+    /// Moves to the next (`step` 1) or previous (-1) favorite, wrapping around. From a place
+    /// that isn't a favorite, goes to the first one.
+    func showFavorite(step: Int) async {
+        guard !favorites.isEmpty else { return }
+        let next = favoriteIndex.map { ($0 + step + favorites.count) % favorites.count } ?? 0
+        await select(favorites[next])
+    }
+
+    func showFavorite(at index: Int) async {
+        guard favorites.indices.contains(index) else { return }
+        await select(favorites[index])
+    }
+
+    private func saveFavorites() {
+        SharedSettings.savedPlaces = savedPlaces
+        SharedSettings.favorites = favorites
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     /// Downloads long-range forecasts for the current place, once.
@@ -160,13 +245,6 @@ final class WishcastViewModel {
             return
         }
         pickedDay = WishcastDay.build(from: longRangeForecasts.filter { $0.date == pickedDate }, wish: wish, preferences: preferences).first
-    }
-
-    func removePlaces(at offsets: IndexSet) {
-        for index in offsets.sorted(by: >) {
-            savedPlaces.remove(at: index)
-        }
-        SharedSettings.savedPlaces = savedPlaces
     }
 
     func useCurrentLocation() async {

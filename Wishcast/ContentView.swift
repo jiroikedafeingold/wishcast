@@ -8,6 +8,8 @@ struct ContentView: View {
     @State private var isShowingHelp = false
     @State private var isShowingWelcome = false
     @State private var isPickingDate = false
+    /// True while the wish chips are being scrolled, so that sideways drag doesn't change place.
+    @State private var isScrollingWishes = false
     @AppStorage("tabletopGrass") private var tabletopGrass = true
     #if os(iOS)
     @State private var fold = FoldState()
@@ -30,10 +32,13 @@ struct ContentView: View {
         .tint(viewModel.wish.tint)
         .sheet(isPresented: $isPickingPlace) {
             PlaceSearchView(
-                savedPlaces: viewModel.savedPlaces,
+                favorites: viewModel.favorites,
+                otherPlaces: viewModel.otherSavedPlaces,
                 onSelect: { place in Task { await viewModel.select(place) } },
                 onUseCurrentLocation: { Task { await viewModel.useCurrentLocation() } },
-                onDelete: viewModel.removePlaces(at:)
+                onToggleFavorite: viewModel.toggleFavorite,
+                onMoveFavorites: viewModel.moveFavorites,
+                onDelete: viewModel.removePlaces
             )
             .tint(viewModel.wish.tint)
         }
@@ -137,15 +142,6 @@ struct ContentView: View {
                     sidebarColumn
                         .toolbarTitleDisplayMode(.inline)
                         .listSectionSpacing(.compact)
-                        .toolbar {
-                            // Bigger than the system's inline title, so the place still reads as the heading.
-                            ToolbarItem(placement: .title) {
-                                Text(viewModel.place?.name ?? String(localized: "Wishcast"))
-                                    .font(.title.bold())
-                                    .lineLimit(1)
-                                    .minimumScaleFactor(0.7)
-                            }
-                        }
                 }
                 .frame(height: division.lowerBound - Self.hingeBarOverlap)
                 // The title strip reaches a little onto each page, so it's more than a sliver.
@@ -171,6 +167,15 @@ struct ContentView: View {
         sidebar
             .navigationTitle(viewModel.place?.name ?? String(localized: "Wishcast"))
             .toolbar {
+                // The place name with its favorite star, large or (upright Duo) inline. The inline one is
+                // bigger than the system's, so the place still reads as the heading.
+                ToolbarItem(placement: .largeTitle) {
+                    placeTitle(font: .largeTitle.bold())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                ToolbarItem(placement: .title) {
+                    placeTitle(font: .title.bold())
+                }
                 ToolbarItem {
                     Button("Pick a Future Date…", systemImage: "calendar") { isPickingDate = true }
                         .disabled(viewModel.days.isEmpty)
@@ -309,6 +314,7 @@ struct ContentView: View {
             }
         } else {
             List(selection: $selectedDate) {
+                favoritesRow
 
                 if let conditions = viewModel.conditions {
                     Section {
@@ -321,7 +327,7 @@ struct ContentView: View {
                 }
 
                 Section {
-                    WishPicker(selection: $viewModel.wish)
+                    WishPicker(selection: $viewModel.wish) { isScrollingWishes = $0 }
                         .listRowInsets(EdgeInsets(top: isUprightPages ? 2 : 8, leading: 0, bottom: isUprightPages ? 2 : 8, trailing: 0))
                         .listRowBackground(rowBackground(clear: true))
                 } header: {
@@ -379,6 +385,68 @@ struct ContentView: View {
             }
             .refreshable { await viewModel.refresh() }
             .sceneryScrollHints()
+            // Swipe sideways to move between favorites (not while scrolling the wish chips).
+            .simultaneousGesture(DragGesture(minimumDistance: 40).onEnded { drag in
+                let dx = drag.translation.width, dy = drag.translation.height
+                guard !isScrollingWishes, !viewModel.favorites.isEmpty, abs(dx) > 80, abs(dx) > 2 * abs(dy) else { return }
+                Task { await viewModel.showFavorite(step: dx < 0 ? 1 : -1) }
+            })
+        }
+    }
+
+    /// One dot per favorite, the current one filled; tap a dot to jump to that place. Only shown when
+    /// there's somewhere to swipe to.
+    @ViewBuilder
+    private var favoritesRow: some View {
+        let favorites = viewModel.favorites
+        let current = viewModel.favoriteIndex
+        if viewModel.place != nil, favorites.count > 1 || (favorites.count == 1 && current == nil) {
+            HStack(spacing: 8) {
+                ForEach(favorites.indices, id: \.self) { index in
+                    Button {
+                        Task { await viewModel.showFavorite(at: index) }
+                    } label: {
+                        Circle()
+                            .fill(index == current ? AnyShapeStyle(.primary) : AnyShapeStyle(.tertiary))
+                            .frame(width: 8, height: 8)
+                            .padding(4)
+                            .contentShape(.rect)
+                    }
+                }
+            }
+            .buttonStyle(.borderless)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(current.map { String(localized: "Favorite \($0 + 1) of \(favorites.count)") }
+                                ?? String(localized: "\(favorites.count) favorites"))
+            .accessibilityHint("Swipe up or down to change place.")
+            .accessibilityAdjustableAction { direction in
+                Task { await viewModel.showFavorite(step: direction == .increment ? 1 : -1) }
+            }
+            .sceneryLegible()
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+        }
+    }
+
+    /// The place name with a star beside it to add or remove it from favorites.
+    private func placeTitle(font: Font) -> some View {
+        HStack(spacing: 8) {
+            Text(viewModel.place?.name ?? String(localized: "Wishcast"))
+                .font(font)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+            if let place = viewModel.place {
+                let isFavorite = viewModel.isFavorite(place)
+                Button(isFavorite ? "Remove from Favorites" : "Add to Favorites",
+                       systemImage: isFavorite ? "star.fill" : "star") {
+                    viewModel.toggleFavorite(place)
+                }
+                .labelStyle(.iconOnly)
+                .font(.title3)
+                .foregroundStyle(isFavorite ? .yellow : .secondary)
+                .buttonStyle(.borderless)
+            }
         }
     }
 }

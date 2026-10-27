@@ -244,9 +244,9 @@ struct OpenMeteoClient {
 
     // MARK: - Other providers
 
-    static let nwsName = "National Weather Service"
-    static let metNorwayName = "MET Norway"
-    static let appleWeatherName = "Apple Weather"
+    nonisolated static let nwsName = "National Weather Service"
+    nonisolated static let metNorwayName = "MET Norway"
+    nonisolated static let appleWeatherName = "Apple Weather"
 
     /// NWS and MET Norway both ask apps to identify themselves with contact details.
     private static let userAgent = "Wishcast/1.0 (https://jiroikedafeingold.github.io/wishcast/; apps@feingold5.com)"

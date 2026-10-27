@@ -574,6 +574,12 @@ enum SharedSettings {
         set { encode(newValue, "savedPlaces") }
     }
 
+    /// Starred places, in the user's order. Always also in `savedPlaces`.
+    static var favorites: [Place] {
+        get { decode("favorites") ?? [] }
+        set { encode(newValue, "favorites") }
+    }
+
     private static func decode<T: Decodable>(_ key: String) -> T? {
         defaults.data(forKey: key).flatMap { try? JSONDecoder().decode(T.self, from: $0) }
     }
