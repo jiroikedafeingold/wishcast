@@ -22,6 +22,7 @@ struct DayDetailView: View {
                     Text("Only daily values are available this far out: no hourly forecast or evening temperature, and cloud cover is a 24-hour average.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
+                        .sceneryCard()
                 }
                 realityCheck
                 ForecastSpreadChart(day: day, wish: wish)
@@ -34,6 +35,7 @@ struct DayDetailView: View {
             .frame(maxWidth: 720)
             .frame(maxWidth: .infinity)
         }
+        .sceneryScrollHints()
         .navigationTitle(day.weekday(in: timeZone))
     }
 
@@ -70,6 +72,7 @@ struct DayDetailView: View {
         }
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity)
+        .sceneryCard()
     }
 
     private var pickedValues: some View {
@@ -82,17 +85,20 @@ struct DayDetailView: View {
 
     private func hourly(from source: DayForecast, pick: PickedValue) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Hourly: \(source.source)")
-                .font(.headline)
-            Group {
-                if pick.sameValueCount > 1 {
-                    Text("One of the \(pick.sameValueCount) forecasts that show this day's \(Text(pick.field.title)) value. The other values above may come from different forecasts, so these hours can look worse than the best case above.")
-                } else {
-                    Text("The forecast that supplied this day's \(Text(pick.field.title)) value. The other values above may come from different forecasts, so these hours can look worse than the best case above.")
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Hourly: \(source.source)")
+                    .font(.headline)
+                Group {
+                    if pick.sameValueCount > 1 {
+                        Text("One of the \(pick.sameValueCount) forecasts that show this day's \(Text(pick.field.title)) value. The other values above may come from different forecasts, so these hours can look worse than the best case above.")
+                    } else {
+                        Text("The forecast that supplied this day's \(Text(pick.field.title)) value. The other values above may come from different forecasts, so these hours can look worse than the best case above.")
+                    }
                 }
+                .font(.caption)
+                .foregroundStyle(.secondary)
             }
-            .font(.caption)
-            .foregroundStyle(.secondary)
+            .sceneryCard()
             HourlyStrip(hours: source.hours, timeZone: timeZone)
         }
     }
@@ -115,16 +121,19 @@ struct DayDetailView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.fill.quaternary, in: .rect(cornerRadius: 16))
+        .tileBackground()
     }
 
     private func officialDetails(_ official: Conditions.Daily) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("From Open-Meteo's Best-Match Forecast")
-                .font(.headline)
-            Text("Not part of the wish: these come from a single standard forecast.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 8) {
+                Text("From Open-Meteo's Best-Match Forecast")
+                    .font(.headline)
+                Text("Not part of the wish: these come from a single standard forecast.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .sceneryCard()
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 12)], spacing: 12) {
                 StatTile(title: "Sunrise", value: time(official.sunrise), symbol: "sunrise.fill")
                 StatTile(title: "Sunset", value: time(official.sunset), symbol: "sunset.fill")
@@ -175,7 +184,7 @@ private struct ValueTile: View {
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.fill.quaternary, in: .rect(cornerRadius: 16))
+        .tileBackground()
         .accessibilityElement(children: .combine)
     }
 }
@@ -195,7 +204,7 @@ private struct StatTile: View {
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.fill.quaternary, in: .rect(cornerRadius: 16))
+        .tileBackground()
         .accessibilityElement(children: .combine)
     }
 }
@@ -230,7 +239,7 @@ private struct HourlyStrip: View {
             .padding()
         }
         .scrollIndicators(.hidden)
-        .background(.fill.quaternary, in: .rect(cornerRadius: 16))
+        .tileBackground()
     }
 
     private func label(for date: Date) -> String {
@@ -292,6 +301,6 @@ private struct ForecastSpreadChart: View {
             .frame(minHeight: 200)
         }
         .padding()
-        .background(.fill.quaternary, in: .rect(cornerRadius: 16))
+        .tileBackground()
     }
 }

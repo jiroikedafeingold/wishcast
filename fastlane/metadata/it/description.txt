@@ -27,7 +27,7 @@ TUTTO QUELLO CHE TI ASPETTI DA UN’APP METEO
 - Alba, tramonto, indice UV e probabilità di precipitazioni
 - Luoghi salvati, ricerca delle città e posizione attuale
 - Widget per la schermata Home e, su iPhone, per la schermata di blocco
-- Layout per iPhone, iPad e iPhone Duo. Appoggia il Duo semiaperto su un tavolo e può mostrare in alto il giorno su un cielo azzurro e in basso l’elenco dei giorni su un prato soleggiato.
+- Layout per iPhone, iPad e iPhone Duo. Appoggia il Duo semiaperto su un tavolo e può mostrare in alto il giorno e in basso l’elenco dei giorni, su un cielo e un terreno disegnati in base al meteo del giorno.
 
 Nessun account e nessuna registrazione. La tua posizione serve solo a richiedere le previsioni.
 

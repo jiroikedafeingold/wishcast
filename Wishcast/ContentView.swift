@@ -12,6 +12,10 @@ struct ContentView: View {
     #if os(iOS)
     @State private var fold = FoldState()
     #endif
+    #if DEBUG
+    /// Set by the tabletop "Test" button to preview each scene; nil follows the day's weather.
+    @State private var testScenery: Scenery?
+    #endif
 
     @AppStorage("hasSeenWelcome") private var hasSeenWelcome = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -92,24 +96,35 @@ struct ContentView: View {
     private var columns: some View {
         #if os(iOS)
         if let band = fold.tabletopBand, tabletopGrass {
-            // iPhone Duo half-open on a table: the day stands up under a blue sky, and the list lies
-            // flat on the table over sunlit grass.
+            // iPhone Duo half-open on a table: the day stands up against the sky, and the list lies
+            // flat on the table over the ground, both drawn to match the day's weather.
+            let scenery = currentScenery
             VStack(spacing: 0) {
                 NavigationStack {
                     detailColumn
-                        .containerBackground(for: .navigation) { BlueSky() }
+                        .containerBackground(for: .navigation) { SkyScenery(scenery: scenery) }
+                        #if DEBUG
+                        .toolbar {
+                            ToolbarItem {
+                                Button(action: cycleTestScenery) {
+                                    Text(verbatim: "Test: " + (testScenery?.debugName ?? "Auto (\(scenery.debugName))"))
+                                }
+                            }
+                        }
+                        #endif
                 }
-                .environment(\.colorScheme, .light)
+                .environment(\.colorScheme, scenery.skyColorScheme)
                 .frame(height: band.lowerBound)
-                Color.clear
+                HingeHorizon(scenery: scenery)
                     .frame(height: band.upperBound - band.lowerBound)
                 NavigationStack {
                     sidebarColumn
                         .scrollContentBackground(.hidden)
-                        .containerBackground(for: .navigation) { SunlitGrass() }
+                        .containerBackground(for: .navigation) { GroundScenery(scenery: scenery) }
                 }
-                .environment(\.colorScheme, .dark)
+                .environment(\.colorScheme, scenery.groundColorScheme)
             }
+            .environment(\.onScenery, true)
             .ignoresSafeArea(edges: .vertical)
         } else if let division = fold.bookDivision {
             // iPhone Duo held open like a book: the list on the left page, the day on the right, and
@@ -179,7 +194,7 @@ struct ContentView: View {
                     .contentShape(.rect)
             }
             .buttonStyle(.plain)
-            .listRowBackground(selectedDate == day.date ? viewModel.wish.tint.opacity(0.18) : nil)
+            .listRowBackground(rowBackground(isSelected: selectedDate == day.date))
             .accessibilityAddTraits(selectedDate == day.date ? .isSelected : [])
         } else {
             NavigationLink(value: day.date) {
@@ -187,6 +202,48 @@ struct ContentView: View {
             }
         }
     }
+
+    #if os(iOS)
+    /// Whether the tabletop scenery is showing behind the list and the day.
+    private var isOnScenery: Bool { fold.tabletopBand != nil && tabletopGrass }
+    #else
+    private var isOnScenery: Bool { false }
+    #endif
+
+    /// A list row's background: frosted over tabletop scenery so rows stay readable, tinted when selected.
+    /// `nil` keeps the system's (or, with `clear`, no) background elsewhere.
+    private func rowBackground(isSelected: Bool = false, clear: Bool = false) -> AnyView? {
+        if isOnScenery {
+            return AnyView(ZStack {
+                Rectangle().fill(.regularMaterial)
+                if isSelected { viewModel.wish.tint.opacity(0.25) }
+            })
+        }
+        if isSelected { return AnyView(viewModel.wish.tint.opacity(0.18)) }
+        return clear ? AnyView(Color.clear) : nil
+    }
+
+    /// The scene for the day on the upper page (today by default). After dark, today's clear and
+    /// partly cloudy skies turn to night.
+    private var currentScenery: Scenery {
+        #if DEBUG
+        if let testScenery { return testScenery }
+        #endif
+        guard let day = viewModel.day(for: selectedDate) ?? viewModel.days.first else { return .sunny }
+        return Scenery(symbolName: day.symbolName, isNight: viewModel.isNightNow(on: day))
+    }
+
+    #if DEBUG
+    /// Auto, then each scene in turn, then back to Auto.
+    private func cycleTestScenery() {
+        let all = Scenery.allCases
+        if let testScenery, let index = all.firstIndex(of: testScenery) {
+            self.testScenery = index + 1 < all.count ? all[index + 1] : nil
+        } else {
+            testScenery = all.first
+        }
+    }
+    #endif
 
     private var isScreenshotRun: Bool {
         #if DEBUG
@@ -249,34 +306,41 @@ struct ContentView: View {
                     .fontDesign(.serif)
                     .italic()
                     .foregroundStyle(.secondary)
+                    .sceneryLegible()
                     .listRowBackground(Color.clear)
                     // A little leading room so the italic slant isn't clipped at the row edge.
                     .listRowInsets(EdgeInsets(top: 0, leading: 3, bottom: 0, trailing: 0))
 
                 if let conditions = viewModel.conditions {
-                    Section("Right Now") {
+                    Section {
                         CurrentConditionsView(conditions: conditions)
+                            .listRowBackground(rowBackground())
+                    } header: {
+                        Text("Right Now").sceneryLegible()
                     }
                 }
 
                 Section {
                     WishPicker(selection: $viewModel.wish)
                         .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
-                        .listRowBackground(Color.clear)
+                        .listRowBackground(rowBackground(clear: true))
                 } header: {
-                    Text("I'm Wishing For")
+                    Text("I'm Wishing For").sceneryLegible()
                 }
 
                 if let errorMessage = viewModel.errorMessage {
                     Section {
                         Label(errorMessage, systemImage: "exclamationmark.triangle")
                             .foregroundStyle(.secondary)
+                            .listRowBackground(rowBackground())
                     }
                 }
 
                 if let pickedDay = viewModel.pickedDay {
-                    Section("Your Date") {
+                    Section {
                         dayRow(pickedDay)
+                    } header: {
+                        Text("Your Date").sceneryLegible()
                     }
                 }
 
@@ -286,8 +350,9 @@ struct ContentView: View {
                             dayRow(day)
                         }
                         Button("Pick a Future Date…", systemImage: "calendar") { isPickingDate = true }
+                            .listRowBackground(rowBackground())
                     } header: {
-                        Text("7-Day Wishcast")
+                        Text("7-Day Wishcast").sceneryLegible()
                     } footer: {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("This is a wish, not a prediction.")
@@ -305,6 +370,7 @@ struct ContentView: View {
                                 AppleWeatherAttribution(attribution: attribution)
                             }
                         }
+                        .sceneryLegible()
                     }
                 }
             }
@@ -314,6 +380,7 @@ struct ContentView: View {
                 }
             }
             .refreshable { await viewModel.refresh() }
+            .sceneryScrollHints()
         }
     }
 }

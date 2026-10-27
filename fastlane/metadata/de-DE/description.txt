@@ -27,7 +27,7 @@ ALLES, WAS DU VON EINER WETTER-APP ERWARTEST
 - Sonnenaufgang, Sonnenuntergang, UV-Index und Regenrisiko
 - Gespeicherte Orte, Ortssuche und aktueller Standort
 - Widgets für den Home-Bildschirm und auf dem iPhone auch für den Sperrbildschirm
-- Layouts für iPhone, iPad und iPhone Duo. Stell das Duo halb geöffnet auf einen Tisch, und es kann oben den Tag vor blauem Himmel und unten die Liste der Tage auf sonnigem Rasen zeigen.
+- Layouts für iPhone, iPad und iPhone Duo. Stell das Duo halb geöffnet auf einen Tisch, und es kann oben den Tag und unten die Liste der Tage zeigen, vor Himmel und Boden passend zum Wetter des Tages.
 
 Kein Account, keine Anmeldung. Dein Standort wird nur verwendet, um Prognosen abzurufen.
 

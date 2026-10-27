@@ -27,7 +27,7 @@ TUDO O QUE VOCÊ ESPERA DE UM APP DE CLIMA
 - Nascer e pôr do sol, índice UV e chance de precipitação
 - Locais salvos, busca de cidades e localização atual
 - Widgets para a Tela de Início e, no iPhone, para a Tela Bloqueada
-- Layouts para iPhone, iPad e iPhone Duo. Deixe o Duo meio aberto sobre uma mesa e ele pode mostrar em cima o dia sobre um céu azul e embaixo a lista de dias sobre grama ensolarada.
+- Layouts para iPhone, iPad e iPhone Duo. Deixe o Duo meio aberto sobre uma mesa e ele pode mostrar em cima o dia e embaixo a lista de dias, sobre um céu e um chão desenhados de acordo com o tempo do dia.
 
 Sem conta e sem cadastro. Sua localização é usada só para pedir previsões.
 

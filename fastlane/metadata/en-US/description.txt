@@ -27,7 +27,7 @@ EVERYTHING YOU EXPECT FROM A WEATHER APP
 - Sunrise, sunset, UV index and chance of precipitation
 - Saved places, city search and current location
 - Home Screen widgets, plus Lock Screen widgets on iPhone
-- Layouts for iPhone, iPad and iPhone Duo. Stand the Duo half-open on a table and it can show the day over a blue sky on top and the list of days over sunlit grass below.
+- Layouts for iPhone, iPad and iPhone Duo. Stand the Duo half-open on a table and it can show the day on top and the list of days below, over a sky and ground drawn to match the day's weather.
 
 No account and no sign-in. Your location is only used to request forecasts.
 

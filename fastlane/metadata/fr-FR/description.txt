@@ -27,7 +27,7 @@ TOUT CE QU’ON ATTEND D’UNE APP MÉTÉO
 - Lever et coucher du soleil, indice UV et risque de précipitations
 - Lieux enregistrés, recherche de villes et position actuelle
 - Widgets pour l’écran d’accueil et, sur iPhone, pour l’écran verrouillé
-- Mises en page pour iPhone, iPad et iPhone Duo. Posez le Duo à demi ouvert sur une table : il peut afficher en haut le jour sur un ciel bleu et en bas la liste des jours sur une pelouse ensoleillée.
+- Mises en page pour iPhone, iPad et iPhone Duo. Posez le Duo à demi ouvert sur une table : il peut afficher en haut le jour et en bas la liste des jours, sur un ciel et un sol dessinés selon la météo du jour.
 
 Pas de compte, pas d’inscription. Votre position sert uniquement à demander les prévisions.
 

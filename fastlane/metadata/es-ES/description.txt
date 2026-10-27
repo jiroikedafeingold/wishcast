@@ -27,7 +27,7 @@ TODO LO QUE ESPERAS DE UNA APP DEL TIEMPO
 - Amanecer, atardecer, índice UV y probabilidad de precipitación
 - Lugares guardados, búsqueda de ciudades y ubicación actual
 - Widgets para la pantalla de inicio y, en el iPhone, para la pantalla bloqueada
-- Diseños para iPhone, iPad y iPhone Duo. Deja el Duo medio abierto sobre una mesa y puede mostrar arriba el día sobre un cielo azul y abajo la lista de días sobre césped soleado.
+- Diseños para iPhone, iPad y iPhone Duo. Deja el Duo medio abierto sobre una mesa y puede mostrar arriba el día y abajo la lista de días, sobre un cielo y un suelo dibujados según el tiempo de ese día.
 
 Sin cuenta y sin registro. Tu ubicación solo se usa para pedir previsiones.
 

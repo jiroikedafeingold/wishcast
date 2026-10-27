@@ -28,9 +28,9 @@ struct SettingsView: View {
 
                 #if os(iOS)
                 Section {
-                    Toggle("Sunlit Grass on Tabletop", isOn: $tabletopGrass)
+                    Toggle("Weather Scenery on Tabletop", isOn: $tabletopGrass)
                 } footer: {
-                    Text("On iPhone Duo standing half-open on a table, show the day over a blue sky on the upper half and the list of days over sunlit grass on the lower half.")
+                    Text("On iPhone Duo standing half-open on a table, show the day on the upper half and the list of days on the lower half, over a sky and ground drawn to match the day’s weather.")
                 }
                 #endif
 

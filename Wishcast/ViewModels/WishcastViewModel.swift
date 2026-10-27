@@ -182,6 +182,12 @@ final class WishcastViewModel {
         conditions?.daily[day.date]
     }
 
+    /// Whether it's dark at the place right now and `day` is today (only today has a "now").
+    func isNightNow(on day: WishcastDay) -> Bool {
+        guard day.date == days.first?.date, let daily = conditions(for: day) else { return false }
+        return Date.now < daily.sunrise || Date.now > daily.sunset
+    }
+
     private func settingsChanged() {
         rebuildDays()
         WidgetCenter.shared.reloadAllTimelines()
