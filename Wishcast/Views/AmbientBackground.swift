@@ -10,12 +10,13 @@ import UIKit
 /// readable. Still with Reduce Motion; off entirely with the Settings switch.
 struct AmbientBackground: View {
     let scenery: Scenery
-    /// Only one copy on screen should rumble (the list and the day can both show a background).
-    var playsThunder = false
+    /// Whether this copy plays the thunder rumble. When the list and the day are both on screen,
+    /// each strike still rumbles only once (see `ThunderHaptics.rumble(forStrikeAt:)`).
+    var playsThunder = true
 
     /// The page color behind the animation: a light grey in light mode (so white cards stand out
     /// and the weather shows), the system's dark grouped background in dark mode.
-    static let base = Color(light: Color(red: 0.88, green: 0.89, blue: 0.91),
+    static let base = Color.adaptive(light: Color(red: 0.88, green: 0.89, blue: 0.91),
                                     dark: Color(red: 0, green: 0, blue: 0))
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.colorScheme) private var colorScheme
@@ -41,10 +42,10 @@ struct AmbientBackground: View {
             ThunderHaptics.shared.prepare()
             while !Task.isCancelled {
                 let now = Date.timeIntervalSinceReferenceDate
-                let wait = Lightning.nextStrike(after: now) - now + 0.35
-                try? await Task.sleep(for: .seconds(max(wait, 0.1)))
+                let strike = Lightning.nextStrike(after: now)
+                try? await Task.sleep(for: .seconds(max(strike - now + 0.35, 0.1)))
                 guard !Task.isCancelled else { return }
-                ThunderHaptics.shared.rumble()
+                ThunderHaptics.shared.rumble(forStrikeAt: strike)
             }
         }
     }
@@ -98,9 +99,14 @@ nonisolated private final class ThunderHaptics: @unchecked Sendable {
         queue.async { [self] in _ = readyEngine() }
     }
 
-    /// A sharp crack, then a rolling rumble.
-    func rumble() {
+    /// The strike that last rumbled, so two backgrounds on screen don't both play it.
+    private var lastStrike: Double = -1
+
+    /// A sharp crack, then a rolling rumble, once per strike.
+    func rumble(forStrikeAt strike: Double) {
         queue.async { [self] in
+            guard strike != lastStrike else { return }
+            lastStrike = strike
             guard let engine = readyEngine(), let pattern = makePattern() else { return }
             do {
                 try engine.makePlayer(with: pattern).start(atTime: CHHapticTimeImmediate)
@@ -161,7 +167,7 @@ nonisolated private final class ThunderHaptics: @unchecked Sendable {
     }
     #else
     func prepare() {}
-    func rumble() {}
+    func rumble(forStrikeAt strike: Double) {}
     #endif
 }
 
@@ -258,7 +264,7 @@ private struct AmbientLayer: View {
             let swing = sin(time * (0.05 + 0.02 * Double(index)) + Double(index) * 2.4)
             let point = CGPoint(x: center.x - width * 0.5 + swing * width * 0.6,
                                 y: center.y + width * (0.02 + 0.12 * Double(index)))
-            drawCloud(in: &context, at: point, width: width, opacity: 0.95, darkness: 0)
+            drawCloud(in: &context, at: point, width: width, opacity: 0.95, darkness: 0, shape: 900 + UInt64(index))
         }
     }
 
@@ -267,7 +273,7 @@ private struct AmbientLayer: View {
     private func drawClouds(in context: inout GraphicsContext, size: CGSize, count: Int, opacity: Double,
                             seed: UInt64, darkness: Double = 0) {
         var random = SeededGenerator(seed: seed)
-        for _ in 0..<count {
+        for index in 0..<count {
             let width = Double.random(in: 0.35...0.75, using: &random) * size.width
             let speed = Double.random(in: 3...8, using: &random)
             let span = size.width + width * 2
@@ -275,30 +281,55 @@ private struct AmbientLayer: View {
             let y = Double.random(in: -0.05...0.95, using: &random) * size.height
             let bob = 4 * sin(time * 0.2 + y)
             drawCloud(in: &context, at: CGPoint(x: x, y: y + bob), width: width,
-                      opacity: opacity * Double.random(in: 0.6...1, using: &random), darkness: darkness)
+                      opacity: opacity * Double.random(in: 0.6...1, using: &random), darkness: darkness,
+                      shape: seed &+ UInt64(index))
         }
     }
 
-    /// A soft, puffy cloud: overlapping billows with a lighter top and a darker base.
-    private func drawCloud(in context: inout GraphicsContext, at origin: CGPoint, width: Double, opacity: Double, darkness: Double) {
+    /// A soft, irregular cumulus: a lumpy base, a random number of uneven billows piled highest
+    /// off-center, and a ragged trailing wisp. `shape` seeds the outline, so each cloud keeps its own.
+    private func drawCloud(in context: inout GraphicsContext, at origin: CGPoint, width: Double, opacity: Double,
+                           darkness: Double, shape: UInt64) {
+        var random = SeededGenerator(seed: shape &* 0x2545_F491_4F6C_DD1D &+ 1)
         var cloud = context
-        cloud.addFilter(.blur(radius: width * 0.06))
+        cloud.addFilter(.blur(radius: width * 0.05))
         // On light backgrounds clouds are a soft blue-grey, so they stand out from the page.
         let lightTone = isDark ? 0.62 - darkness : 0.86 - darkness * 0.5
         let baseTone = isDark ? 0.42 - darkness : 0.7 - darkness * 0.5
         let alpha = opacity * (isDark ? 0.6 : 0.75)
-        let height = width * 0.28
-        cloud.fill(Path(ellipseIn: CGRect(x: origin.x, y: origin.y + height * 0.45, width: width, height: height * 0.7)),
-                   with: .color(Color(red: baseTone * 0.96, green: baseTone * 0.98, blue: baseTone * 1.06).opacity(alpha)))
-        let billows = 5
-        for index in 0..<billows {
-            let along = (Double(index) + 0.5) / Double(billows)
-            let lift = sin(along * .pi)
-            let diameter = height * (0.9 + 0.9 * lift)
-            cloud.fill(Path(ellipseIn: CGRect(x: origin.x + along * width - diameter / 2,
-                                              y: origin.y + height * 0.75 - diameter * 0.75,
-                                              width: diameter, height: diameter * 0.85)),
-                       with: .color(Color(red: lightTone * 0.97, green: lightTone * 0.99, blue: min(lightTone * 1.05, 1)).opacity(alpha)))
+        let light = Color(red: lightTone * 0.97, green: lightTone * 0.99, blue: min(lightTone * 1.05, 1)).opacity(alpha)
+        let base = Color(red: baseTone * 0.96, green: baseTone * 0.98, blue: baseTone * 1.06).opacity(alpha)
+        let height = width * Double.random(in: 0.22...0.34, using: &random)
+        // Lumpy base: a few overlapping flat ellipses rather than one.
+        for _ in 0..<Int.random(in: 3...5, using: &random) {
+            let w = width * Double.random(in: 0.35...0.65, using: &random)
+            let x = origin.x + Double.random(in: 0...(width - w), using: &random)
+            let h = height * Double.random(in: 0.45...0.7, using: &random)
+            cloud.fill(Path(ellipseIn: CGRect(x: x, y: origin.y + height * Double.random(in: 0.5...0.7, using: &random), width: w, height: h)),
+                       with: .color(base))
+        }
+        // Billows: uneven sizes and spacing, tallest around a random peak.
+        let peak = Double.random(in: 0.25...0.75, using: &random)
+        let billows = Int.random(in: 4...8, using: &random)
+        var along = Double.random(in: 0.02...0.12, using: &random)
+        for _ in 0..<billows {
+            guard along < 0.98 else { break }
+            let lift = max(0, 1 - abs(along - peak) * Double.random(in: 1.4...2.4, using: &random))
+            let diameter = height * (0.6 + 1.3 * lift) * Double.random(in: 0.75...1.25, using: &random)
+            let x = origin.x + along * width - diameter / 2
+            let y = origin.y + height * 0.8 - diameter * Double.random(in: 0.65...0.9, using: &random)
+            cloud.fill(Path(ellipseIn: CGRect(x: x, y: y, width: diameter * Double.random(in: 0.9...1.2, using: &random),
+                                              height: diameter * Double.random(in: 0.75...0.95, using: &random))),
+                       with: .color(light))
+            along += Double.random(in: 0.1...0.24, using: &random)
+        }
+        // A trailing wisp on some clouds, stretched out on one side.
+        if Bool.random(using: &random) {
+            let side = Bool.random(using: &random)
+            let w = width * Double.random(in: 0.3...0.5, using: &random)
+            let x = side ? origin.x + width * 0.8 : origin.x - w * 0.6
+            cloud.fill(Path(ellipseIn: CGRect(x: x, y: origin.y + height * 0.6, width: w, height: height * 0.25)),
+                       with: .color(light.opacity(0.6)))
         }
     }
 
@@ -607,11 +638,11 @@ private struct SeededGenerator: RandomNumberGenerator {
 
 extension Color {
     /// A color that differs between light and dark appearance.
-    init(light: Color, dark: Color) {
+    static func adaptive(light: Color, dark: Color) -> Color {
         #if os(iOS)
-        self.init(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(dark) : UIColor(light) })
+        Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(dark) : UIColor(light) })
         #else
-        self.init(nsColor: NSColor(name: nil) { $0.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? NSColor(dark) : NSColor(light) })
+        Color(nsColor: NSColor(name: nil) { $0.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? NSColor(dark) : NSColor(light) })
         #endif
     }
 }
