@@ -511,9 +511,8 @@ struct GroundScenery: View {
             case .snow:
                 SnowField()
             case .windy:
-                GrassBlades(palette: .overcast)
-                // Lighter undersides show as gusts sweep across the lawn.
-                GrassBlades(palette: .windswept).mask { animated { WindMask(time: $0) } }
+                // The blades themselves bend as gusts sweep across the lawn; the light doesn't change.
+                animated { GrassBlades(palette: .overcast, time: $0) }
             case .clearNight:
                 GrassBlades(palette: .night)
                 GrassBlades(palette: .moonlit).mask {
@@ -560,7 +559,6 @@ private struct GrassPalette {
     /// Under a full overcast: dark, grey-green and flat.
     static let dull = GrassPalette(ground: [rgb(0.10, 0.16, 0.10), rgb(0.06, 0.10, 0.07)], hueShift: 0.02, saturation: 0.3, brightness: 0.72)
     static let bright = GrassPalette(ground: [rgb(0.20, 0.34, 0.14), rgb(0.12, 0.24, 0.09)], hueShift: -0.01, saturation: 0.55, brightness: 1.2)
-    static let windswept = GrassPalette(ground: [rgb(0.30, 0.42, 0.24), rgb(0.22, 0.34, 0.18)], hueShift: -0.02, saturation: 0.35, brightness: 1.55)
     static let night = GrassPalette(ground: [rgb(0.04, 0.09, 0.10), rgb(0.02, 0.05, 0.07)], hueShift: 0.12, saturation: 0.45, brightness: 0.5)
     static let moonlit = GrassPalette(ground: [rgb(0.12, 0.20, 0.24), rgb(0.08, 0.14, 0.18)], hueShift: 0.15, saturation: 0.3, brightness: 0.95)
 }
@@ -578,8 +576,10 @@ private struct SeededRandom: RandomNumberGenerator {
 }
 
 /// A lawn seen from above. The same blades every time (same seed); the palette sets the light.
+/// With a `time`, wind bends the blades: gusts roll across left to right over a gentle flutter.
 private struct GrassBlades: View {
     let palette: GrassPalette
+    var time: Double?
 
     var body: some View {
         Canvas { context, size in
@@ -593,13 +593,22 @@ private struct GrassBlades: View {
                 let x = Double.random(in: -10...(size.width + 10), using: &random)
                 let base = size.height * (0.05 + 0.98 * depth) + Double.random(in: -12...12, using: &random)
                 let length = (10 + 26 * depth) * Double.random(in: 0.7...1.3, using: &random)
-                let lean = Double.random(in: -0.45...0.45, using: &random) * length
+                var lean = Double.random(in: -0.45...0.45, using: &random) * length
+                var reach = length
+                if let time {
+                    // A gust is a soft crest travelling across the lawn; blades it reaches lie over and
+                    // look shorter from above.
+                    let gust = pow(0.5 + 0.5 * sin((x - time * 110) / 85 + base * 0.012), 3)
+                    let flutter = 0.07 * sin(time * 3.1 + x * 0.09 + base * 0.05)
+                    lean += length * (0.55 * gust + flutter)
+                    reach = length * (1 - 0.25 * gust)
+                }
                 var blade = Path()
                 blade.move(to: CGPoint(x: x - 1.6, y: base))
-                blade.addQuadCurve(to: CGPoint(x: x + lean, y: base - length),
-                                   control: CGPoint(x: x + lean * 0.2, y: base - length * 0.6))
+                blade.addQuadCurve(to: CGPoint(x: x + lean, y: base - reach),
+                                   control: CGPoint(x: x + lean * 0.2, y: base - reach * 0.6))
                 blade.addQuadCurve(to: CGPoint(x: x + 1.6, y: base),
-                                   control: CGPoint(x: x + lean * 0.3, y: base - length * 0.5))
+                                   control: CGPoint(x: x + lean * 0.3, y: base - reach * 0.5))
                 blade.closeSubpath()
                 let hue = Double.random(in: 0.25...0.32, using: &random)
                 let shade = (0.30 + 0.30 * depth) * Double.random(in: 0.8...1.15, using: &random)
@@ -639,29 +648,6 @@ private struct DappleMask: View {
                                          .init(color: .clear, location: 1)]),
                         center: center, startRadius: 0, endRadius: radius))
                 }
-            }
-        }
-    }
-}
-
-/// Gusts seen from above: soft, slightly diagonal bands sweeping across the lawn.
-private struct WindMask: View {
-    let time: Double
-
-    var body: some View {
-        Canvas { context, size in
-            let rect = CGRect(origin: .zero, size: size)
-            let span = size.width + 400
-            for band in 0..<3 {
-                let speed = 70.0 + Double(band) * 18
-                let center = (time * speed + Double(band) * span / 3).truncatingRemainder(dividingBy: span) - 200
-                let width = 90.0 + Double(band) * 30
-                context.fill(Path(rect), with: .linearGradient(
-                    Gradient(stops: [.init(color: .clear, location: 0),
-                                     .init(color: .white.opacity(0.75), location: 0.5),
-                                     .init(color: .clear, location: 1)]),
-                    startPoint: CGPoint(x: center - width, y: 0),
-                    endPoint: CGPoint(x: center + width, y: width * 0.5)))
             }
         }
     }
