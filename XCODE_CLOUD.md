@@ -42,7 +42,9 @@ platform iOS (add macOS later if wanted), name **Wishcast**, primary language En
 
 - **Start condition**: Branch Changes on `main`.
 - **Environment**: latest released Xcode.
-- **Actions**: **Archive** (scheme *Wishcast*, platform iOS, distribution **TestFlight (Internal)**).
+- **Actions** (current "Default" workflow): **Archive – iOS** (scheme *Wishcast*, distribution
+  *App Store eligible*, so builds appear in TestFlight and can be attached to a version) and
+  **Build – macOS**. There is no visionOS action: the app target doesn't support visionOS.
 - **Post-action**: **TestFlight Internal Testing** → add yourself as a tester.
 
 ## 4. Each release
