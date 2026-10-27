@@ -50,7 +50,7 @@ struct DayDetailView: View {
                 .font(.system(.largeTitle, design: .rounded, weight: .bold))
                 .monospacedDigit()
             Label {
-                Text("\(Text(range.title)) for \(Text(wish.title))")
+                Text("\(Text(range.title)) for \(Text(wish.label))")
             } icon: {
                 Image(systemName: range == .near ? wish.symbolName : "questionmark.circle")
             }

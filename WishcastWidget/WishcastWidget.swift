@@ -157,8 +157,9 @@ struct WishcastWidgetEntryView: View {
     }
 
     private var medium: some View {
-        // Kept compact so the whole layout fits inside the margins of the shorter medium widget.
-        VStack(alignment: .leading, spacing: 4) {
+        // Kept compact so the whole layout fits inside the margins of the shorter medium widget, with
+        // a clear gap between the place/current temperature and the days.
+        VStack(alignment: .leading, spacing: 10) {
             header
             HStack {
                 ForEach(entry.days.prefix(5)) { day in
@@ -182,6 +183,7 @@ struct WishcastWidgetEntryView: View {
     private var large: some View {
         VStack(alignment: .leading, spacing: 8) {
             header
+                .padding(.bottom, 4)
             ForEach(entry.days) { day in
                 HStack {
                     Text(day.weekday)

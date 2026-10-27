@@ -35,9 +35,10 @@ struct AmbientBackground: View {
         .ignoresSafeArea()
         .allowsHitTesting(false)
         .accessibilityHidden(true)
-        // Thunder follows each lightning strike: a short, soft rumble.
+        // Thunder follows each lightning strike: a short, strong rumble.
         .task(id: playsThunder && scenery == .thunderstorm && !reduceMotion) {
             guard playsThunder, scenery == .thunderstorm, !reduceMotion else { return }
+            ThunderHaptics.shared.prepare()
             while !Task.isCancelled {
                 let now = Date.timeIntervalSinceReferenceDate
                 let wait = Lightning.nextStrike(after: now) - now + 0.35
@@ -83,56 +84,83 @@ private enum Lightning {
     }
 }
 
-/// A short rumble that fades out, like distant thunder.
-private final class ThunderHaptics {
+/// A short, strong thunder rumble. Everything runs on its own queue, so starting the haptic engine
+/// (which can take a moment the first time) never stalls the screen.
+nonisolated private final class ThunderHaptics: @unchecked Sendable {
     static let shared = ThunderHaptics()
+    private let queue = DispatchQueue(label: "Sunnyside.thunder", qos: .userInitiated)
     #if os(iOS)
     private var engine: CHHapticEngine?
+    private var pattern: CHHapticPattern?
 
-    private let fallback = UIImpactFeedbackGenerator(style: .rigid)
+    /// Creates and starts the engine ahead of the first strike.
+    func prepare() {
+        queue.async { [self] in _ = readyEngine() }
+    }
 
-    /// A sharp crack, then a rolling rumble that fades out over about a second.
+    /// A sharp crack, then a rolling rumble.
     func rumble() {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        queue.async { [self] in
+            guard let engine = readyEngine(), let pattern = makePattern() else { return }
+            do {
+                try engine.makePlayer(with: pattern).start(atTime: CHHapticTimeImmediate)
+            } catch {
+                self.engine = nil
+                // If Core Haptics fails right now, at least give a single strong tap.
+                DispatchQueue.main.async {
+                    UIImpactFeedbackGenerator(style: .rigid).impactOccurred(intensity: 1)
+                }
+            }
+        }
+    }
+
+    /// On `queue` only.
+    private func readyEngine() -> CHHapticEngine? {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return nil }
         do {
             if engine == nil {
                 let engine = try CHHapticEngine()
                 engine.isAutoShutdownEnabled = true
-                // After the system resets the engine (e.g. the app was in the background), make a new one.
-                engine.resetHandler = { [weak self] in self?.engine = nil }
-                engine.stoppedHandler = { [weak self] _ in self?.engine = nil }
+                // After the system resets or stops the engine (e.g. in the background), make a new one.
+                engine.resetHandler = { [weak self] in self?.queue.async { self?.engine = nil } }
+                engine.stoppedHandler = { [weak self] _ in self?.queue.async { self?.engine = nil } }
                 self.engine = engine
             }
             try engine?.start()
-            // As strong as the Taptic Engine allows: a full-strength, sharp crack, then a full-strength
-            // rumble with hard knocks rolling through it.
-            var events = [CHHapticEvent(eventType: .hapticTransient, parameters: [
-                CHHapticEventParameter(parameterID: .hapticIntensity, value: 1),
-                CHHapticEventParameter(parameterID: .hapticSharpness, value: 1)
-            ], relativeTime: 0)]
-            events.append(CHHapticEvent(eventType: .hapticContinuous, parameters: [
-                CHHapticEventParameter(parameterID: .hapticIntensity, value: 1),
-                CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.5)
-            ], relativeTime: 0.03, duration: 1.2))
-            for offset in [0.12, 0.3, 0.5, 0.75, 1.0] {
-                events.append(CHHapticEvent(eventType: .hapticTransient, parameters: [
-                    CHHapticEventParameter(parameterID: .hapticIntensity, value: 1),
-                    CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.7)
-                ], relativeTime: offset))
-            }
-            // Full strength for most of it, tapering only at the very end.
-            let fade = CHHapticParameterCurve(parameterID: .hapticIntensityControl, controlPoints: [
-                .init(relativeTime: 0, value: 1), .init(relativeTime: 0.9, value: 1), .init(relativeTime: 1.23, value: 0.3)
-            ], relativeTime: 0.03)
-            let player = try engine?.makePlayer(with: CHHapticPattern(events: events, parameterCurves: [fade]))
-            try player?.start(atTime: CHHapticTimeImmediate)
+            return engine
         } catch {
-            // If Core Haptics isn't available right now, at least give a single heavy tap.
             engine = nil
-            fallback.impactOccurred(intensity: 1)
+            return nil
         }
     }
+
+    /// As strong as the Taptic Engine allows: a full-strength, sharp crack, then a full-strength
+    /// rumble with hard knocks rolling through it. Built once.
+    private func makePattern() -> CHHapticPattern? {
+        if let pattern { return pattern }
+        var events = [CHHapticEvent(eventType: .hapticTransient, parameters: [
+            CHHapticEventParameter(parameterID: .hapticIntensity, value: 1),
+            CHHapticEventParameter(parameterID: .hapticSharpness, value: 1)
+        ], relativeTime: 0)]
+        events.append(CHHapticEvent(eventType: .hapticContinuous, parameters: [
+            CHHapticEventParameter(parameterID: .hapticIntensity, value: 1),
+            CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.5)
+        ], relativeTime: 0.03, duration: 1.2))
+        for offset in [0.12, 0.3, 0.5, 0.75, 1.0] {
+            events.append(CHHapticEvent(eventType: .hapticTransient, parameters: [
+                CHHapticEventParameter(parameterID: .hapticIntensity, value: 1),
+                CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.7)
+            ], relativeTime: offset))
+        }
+        // Full strength for most of it, tapering only at the very end.
+        let fade = CHHapticParameterCurve(parameterID: .hapticIntensityControl, controlPoints: [
+            .init(relativeTime: 0, value: 1), .init(relativeTime: 0.9, value: 1), .init(relativeTime: 1.23, value: 0.3)
+        ], relativeTime: 0.03)
+        pattern = try? CHHapticPattern(events: events, parameterCurves: [fade])
+        return pattern
+    }
     #else
+    func prepare() {}
     func rumble() {}
     #endif
 }

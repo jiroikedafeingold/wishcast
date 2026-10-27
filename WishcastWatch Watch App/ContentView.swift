@@ -26,8 +26,6 @@ struct ContentView: View {
                                     .font(.caption2)
                                     .foregroundStyle(.secondary)
                             }
-                        } footer: {
-                            Text(summary.note)
                         }
                     }
                     Section {
