@@ -26,14 +26,14 @@ struct HourForecast: Identifiable {
     let localHour: Int
     let temperature: Double
     let precipitation: Double
-    let snowfall: Double
+    let snowfall: Double?
     let cloudCover: Double?
     let gust: Double?
 
     var id: Date { date }
 
     var symbolName: String {
-        conditionSymbol(snowfall: snowfall * 10, precipitation: precipitation * 10, cape: nil,
+        conditionSymbol(snowfall: (snowfall ?? 0) * 10, precipitation: precipitation * 10, cape: nil,
                         gust: gust, cloudCover: cloudCover, isNight: localHour < 7 || localHour >= 19)
     }
 }
@@ -47,7 +47,7 @@ struct DayForecast: Identifiable {
     let low: Double             // °C
     let eveningTemp: Double?    // °C, mean of 6–10 pm; nil for long-range daily-only forecasts
     let precipitation: Double   // mm
-    let snowfall: Double        // cm
+    let snowfall: Double?       // cm; nil when the source doesn't forecast snow
     let cloudCover: Double?     // %, daytime mean
     let maxGust: Double?        // km/h
     let maxCAPE: Double?        // J/kg, thunderstorm energy
@@ -56,7 +56,7 @@ struct DayForecast: Identifiable {
     var id: String { "\(source)-\(date.timeIntervalSince1970)" }
 
     var symbolName: String {
-        conditionSymbol(snowfall: snowfall, precipitation: precipitation, cape: maxCAPE,
+        conditionSymbol(snowfall: snowfall ?? 0, precipitation: precipitation, cape: maxCAPE,
                         gust: maxGust, cloudCover: cloudCover, isNight: false)
     }
 }
@@ -174,15 +174,15 @@ enum Wish: String, CaseIterable, Identifiable, Codable {
     }
 
     /// Whether a single, unmixed forecast delivers the wish. Used for the "N of M forecasts match" count.
-    /// Missing gusts or thunderstorm energy count as calm; missing cloud cover counts as cloudy.
+    /// Missing snowfall, gusts or thunderstorm energy count as none; missing cloud cover counts as cloudy.
     func isMatched(by day: DayForecast, preferences: Preferences) -> Bool {
         switch self {
         case .snow:
-            day.snowfall >= 0.5
+            (day.snowfall ?? 0) >= 0.5
         case .sunny:
             (day.cloudCover ?? 100) <= 30 && day.precipitation < 0.5
         case .wild:
-            (day.maxGust ?? 0) >= 60 || day.precipitation >= 15 || day.snowfall >= 10 || (day.maxCAPE ?? 0) >= 1000
+            (day.maxGust ?? 0) >= 60 || day.precipitation >= 15 || (day.snowfall ?? 0) >= 10 || (day.maxCAPE ?? 0) >= 1000
         case .coolEvenings:
             day.eveningTemp.map { abs($0 - preferences.idealEvening) <= 3 } ?? false
         case .pleasant:

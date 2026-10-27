@@ -20,8 +20,13 @@ struct WelcomeView: View {
 
                 point("eye", title: "It looks like a weather app",
                       text: "Current conditions, a 7-day outlook, hourly forecasts and a widget, all laid out like any other weather app.")
+                // Counts come from the source lists. The organizations (ECMWF, Apple, and NOAA, DWD, ECCC,
+                // Météo-France, JMA, UK Met Office, CMA, MET Norway, KNMI, DMI, MeteoSwiss, ItaliaMeteo, KMA)
+                // are in the credits; keep "13" in sync with them.
+                point("globe", title: "Many forecasters, not just one",
+                      text: "Wishcast draws on \(OpenMeteoClient.modelNames.count) weather models, \(OpenMeteoClient.ensembleNames.count) ensembles and \(OpenMeteoClient.providerNames.count) forecasts straight from their providers, made by ECMWF, Apple and 13 national weather services across North America, Europe and East Asia. They include global and high-resolution regional models, physics-based and AI models, and ensembles that rerun a model up to 51 times. Regional models only count where they reach.")
                 point("sparkles", title: "But it shows the best case",
-                      text: "For each day, Wishcast looks at about 170 forecasts from global weather models and their ensemble runs. For every value (high, low, rain, clouds) it picks the one that best fits the weather you’re wishing for. The high can come from one forecast and the low from another.")
+                      text: "For each day of the week ahead, Wishcast looks at more than 200 forecasts from weather models around the world and their ensemble runs. For every value (high, low, rain, clouds) it picks the one that best fits the weather you’re wishing for. The high can come from one forecast and the low from another.")
                 point("exclamationmark.bubble", title: "So it isn’t a prediction",
                       text: "A sunny day in Wishcast means at least one forecast shows mostly clear skies, not that it will be sunny. Each day shows how many forecasts actually show its high and low. Check a regular forecast before making plans that depend on the weather.")
                 point("checkmark.seal", title: "The rest is straight",

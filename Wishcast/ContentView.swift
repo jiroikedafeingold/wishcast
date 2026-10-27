@@ -235,7 +235,7 @@ struct ContentView: View {
             ContentUnavailableView {
                 Label("Where To?", systemImage: "mappin.and.ellipse")
             } description: {
-                Text("Choose a place and Wishcast will compare forecasts from \(OpenMeteoClient.modelNames.count) weather models and every member of \(OpenMeteoClient.ensembleNames.count) ensembles to find the best case for the weather you're hoping for.")
+                Text("Choose a place and Wishcast will compare more than 200 forecasts from weather services around the world to find the best case for the weather you're hoping for.")
             } actions: {
                 Button("Choose Location") { isPickingPlace = true }
                     .buttonStyle(.borderedProminent)
@@ -294,6 +294,15 @@ struct ContentView: View {
                             // Open-Meteo's CC BY 4.0 licence requires this link wherever its data is shown.
                             if let url = URL(string: "https://open-meteo.com/") {
                                 Link("Weather data by Open-Meteo.com", destination: url)
+                            }
+                            // MET Norway's licence (CC BY 4.0) and Apple's WeatherKit terms ask for the same.
+                            if viewModel.otherProviders.contains(OpenMeteoClient.metNorwayName),
+                               let url = URL(string: "https://www.met.no/en") {
+                                Link("Data from MET Norway", destination: url)
+                            }
+                            if viewModel.otherProviders.contains(OpenMeteoClient.appleWeatherName),
+                               let attribution = viewModel.appleWeatherAttribution {
+                                AppleWeatherAttribution(attribution: attribution)
                             }
                         }
                     }

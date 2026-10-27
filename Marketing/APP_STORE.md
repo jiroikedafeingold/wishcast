@@ -28,7 +28,7 @@ LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 fastlane upload_store version:1.0.1
 **Subtitle:** Not lying. Just optimistic.
 
 **Promotional text:** Tired of checking app after app for the forecast you want? Wishcast finds the best
-case for your wish across about 170 forecasts, and shows how many of them agree.
+case for your wish across more than 200 forecasts, and shows how many of them agree.
 
 **Keywords:** weather,forecast,optimistic,best case,snow,sunny,storm,ensemble,widget,hourly,temperature,rain
 
@@ -39,9 +39,10 @@ case for your wish across about 170 forecasts, and shows how many of them agree.
 - **App Privacy:** declare **Location → Precise Location**: purpose *App Functionality*, **not linked** to the
   user, **not used for tracking**. Wishcast itself has no analytics, ads, accounts or tracking and the
   developer receives nothing, but “Use Current Location” sends exact coordinates (and every forecast request
-  sends the place’s coordinates) to Open-Meteo, a third party that sees the device’s IP address. Apple counts
+  sends the place’s coordinates) to Open-Meteo, the US National Weather Service, MET Norway (which logs IP
+  and coordinates) and Apple WeatherKit, third parties that see the device’s IP address. Apple counts
   data as collected unless it’s only processed in real time and not retained, which Wishcast can’t promise
-  for Open-Meteo — so declaring it is the honest choice. Nothing else is collected.
+  for them, so declaring it is the honest choice. Nothing else is collected.
 - **Age rating:** answer “None” to every content question (no user content, no web browsing, no ads).
 - **Pricing:** Free, all territories. (Open-Meteo’s free API is for non-commercial use: no ads, no
   subscriptions.)

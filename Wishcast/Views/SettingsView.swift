@@ -30,7 +30,7 @@ struct SettingsView: View {
                 Section {
                     Toggle("Sunlit Grass on Tabletop", isOn: $tabletopGrass)
                 } footer: {
-                    Text("On iPhone Duo standing half-open on a table, show sunlit grass and today’s best case on the lower half.")
+                    Text("On iPhone Duo standing half-open on a table, show the day over a blue sky on the upper half and the list of days over sunlit grass on the lower half.")
                 }
                 #endif
 

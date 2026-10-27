@@ -1,4 +1,4 @@
-On l’a tous fait : consulter une app météo, puis une autre, puis encore une autre, jusqu’à ce que l’une d’elles nous dise enfin ce qu’on voulait entendre. Wishcast vous épargne la recherche. Il examine environ 170 prévisions à la fois et vous montre le meilleur cas pour la météo que vous espérez.
+On l’a tous fait : consulter une app météo, puis une autre, puis encore une autre, jusqu’à ce que l’une d’elles nous dise enfin ce qu’on voulait entendre. Wishcast vous épargne la recherche. Il examine plus de 200 prévisions à la fois et vous montre le meilleur cas pour la météo que vous espérez.
 
 Vous ne vous mentez pas. Vous êtes juste optimiste.
 
@@ -12,7 +12,7 @@ CHOISISSEZ VOTRE SOUHAIT
 Définissez votre maximum idéal, votre soirée idéale et votre minimum idéal, et Wishcast part à leur recherche.
 
 COMMENT ÇA MARCHE
-Wishcast télécharge les prévisions de 9 modèles météo mondiaux et de chaque exécution de 5 modèles d’ensemble : environ 170 prévisions par jour. Pour chaque valeur (maximum, minimum, pluie, neige, nuages, vent), il choisit celle qui correspond le mieux à votre souhait. Le maximum peut venir d’une prévision et le minimum d’une autre : une journée Wishcast est donc un meilleur cas, pas une prédiction.
+Wishcast télécharge les prévisions de jusqu’à 26 modèles météo mondiaux et régionaux, de chaque exécution de jusqu’à 11 ensembles, et directement auprès du National Weather Service américain, de MET Norway et d’Apple Météo : plus de 200 prévisions pour chaque jour de la semaine à venir. On y trouve des modèles physiques et d’IA du CEPMMT (ECMWF) et de 13 services météorologiques nationaux d’Amérique du Nord, d’Europe et d’Asie de l’Est. Pour chaque valeur (maximum, minimum, pluie, neige, nuages, vent), il choisit celle qui correspond le mieux à votre souhait. Le maximum peut venir d’une prévision et le minimum d’une autre : une journée Wishcast est donc un meilleur cas, pas une prédiction.
 
 Et il reste honnête :
 - Chaque jour indique combien de prévisions affichent réellement son maximum et son minimum.
@@ -27,10 +27,10 @@ TOUT CE QU’ON ATTEND D’UNE APP MÉTÉO
 - Lever et coucher du soleil, indice UV et risque de précipitations
 - Lieux enregistrés, recherche de villes et position actuelle
 - Widgets pour l’écran d’accueil et, sur iPhone, pour l’écran verrouillé
-- Mises en page pour iPhone, iPad et iPhone Duo. Posez le Duo à demi ouvert sur une table : la moitié inférieure peut afficher une pelouse ensoleillée avec le meilleur cas du jour.
+- Mises en page pour iPhone, iPad et iPhone Duo. Posez le Duo à demi ouvert sur une table : il peut afficher en haut le jour sur un ciel bleu et en bas la liste des jours sur une pelouse ensoleillée.
 
 Pas de compte, pas d’inscription. Votre position sert uniquement à demander les prévisions.
 
-Données météo par Open-Meteo.com, à partir des prévisions publiées par l’ECMWF, la NOAA, le Deutscher Wetterdienst, le Centre météorologique canadien, Météo-France, l’Agence météorologique du Japon, le UK Met Office et l’Administration météorologique de Chine. Wishcast n’est affilié à aucun d’eux et n’est soutenu par aucun.
+Données météo par Open-Meteo.com, MET Norway, le National Weather Service américain et Apple Météo, à partir des prévisions publiées par l’ECMWF, la NOAA, le Deutscher Wetterdienst, Environnement et Changement climatique Canada, Météo-France, l’Agence météorologique du Japon, le UK Met Office, l’Administration météorologique de Chine, MET Norway, le KNMI, le DMI, MétéoSuisse, ItaliaMeteo et l’Administration météorologique de Corée. Wishcast n’est affilié à aucun d’eux et n’est soutenu par aucun.
 
 Wishcast, c’est pour le plaisir et pour l’espoir. Pour des projets qui dépendent de la météo, consultez une prévision officielle.

@@ -13,8 +13,10 @@ struct Provider: AppIntentTimelineProvider {
 
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<WishcastEntry> {
         let entry = await entry(for: configuration)
-        // Models update every few hours; hourly refreshes keep "right now" fresh without hammering the API.
-        return Timeline(entries: [entry], policy: .after(.now.addingTimeInterval(3600)))
+        // Models update every 6–12 hours. Open-Meteo weighs each ensemble member like extra variables, so
+        // a full download costs about 180 of the free 10,000 daily calls; refreshing every 3 hours keeps
+        // the widget to about 1,500 a day, leaving room for the app.
+        return Timeline(entries: [entry], policy: .after(.now.addingTimeInterval(3 * 3600)))
     }
 
     private func entry(for configuration: ConfigurationAppIntent) async -> WishcastEntry {
@@ -47,7 +49,7 @@ struct Provider: AppIntentTimelineProvider {
     }
 }
 
-/// A trimmed-down snapshot: widgets only need the picks, not all ~170 forecasts.
+/// A trimmed-down snapshot: widgets only need the picks, not all 200-plus forecasts.
 struct WishcastEntry: TimelineEntry {
     struct Current {
         let temperature: Double
@@ -83,7 +85,7 @@ struct WishcastEntry: TimelineEntry {
         days: ["Today", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].enumerated().map { index, weekday in
             Day(date: .now.addingTimeInterval(Double(index) * 86_400), weekday: weekday,
                 symbolName: index % 3 == 2 ? "cloud.sun.fill" : "sun.max.fill",
-                high: 22 + Double(index % 3), low: 8 + Double(index % 2), highCount: 3, lowCount: 9, forecastCount: 170)
+                high: 22 + Double(index % 3), low: 8 + Double(index % 2), highCount: 3, lowCount: 9, forecastCount: 220)
         }
     )
 }
@@ -232,7 +234,7 @@ struct WishcastWidget: Widget {
                 .containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("Wishcast")
-        .description("Best-case weather for your wish, mixed from global weather models and their ensemble members.")
+        .description("Best-case weather for your wish, mixed from many weather models and their ensemble members.")
         .supportedFamilies(supportedFamilies)
     }
 

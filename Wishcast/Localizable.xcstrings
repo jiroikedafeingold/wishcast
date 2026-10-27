@@ -65,66 +65,66 @@
         }
       }
     },
-    "“H: 3 of 170 · L: 12 of 170” under a day means 3 of that day’s 170 forecasts show the same high as displayed (rounded to the degree shown), and 12 show the same low. A small number means the value is an outlier. The tiles on a day’s screen count the same way (“12 of 170 forecasts show this”).": {
+    "“H: 3 of 220 · L: 12 of 220” under a day means 3 of that day’s 220 forecasts show the same high as displayed (rounded to the degree shown), and 12 show the same low. A small number means the value is an outlier. The tiles on a day’s screen count the same way (“12 of 220 forecasts show this”).": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "„H 3/170 · T 12/170“ unter einem Tag bedeutet: 3 der 170 Prognosen dieses Tages zeigen dasselbe Hoch wie angezeigt (auf ganze Grad gerundet) und 12 dasselbe Tief. Eine kleine Zahl bedeutet, dass der Wert ein Ausreißer ist. Die Kacheln auf der Tagesansicht zählen genauso („12 von 170 Prognosen zeigen diesen Wert“)."
+            "value": "„H 3/220 · T 12/220“ unter einem Tag bedeutet: 3 der 220 Prognosen dieses Tages zeigen dasselbe Hoch wie angezeigt (auf ganze Grad gerundet) und 12 dasselbe Tief. Eine kleine Zahl bedeutet, dass der Wert ein Ausreißer ist. Die Kacheln auf der Tagesansicht zählen genauso („12 von 220 Prognosen zeigen diesen Wert“)."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "«Máx. 3/170 · Mín. 12/170» bajo un día significa que 3 de las 170 previsiones de ese día muestran la misma máxima que se ve (redondeada al grado mostrado) y 12 la misma mínima. Un número pequeño significa que el valor es atípico. Las fichas de la pantalla de un día cuentan igual («12 de 170 previsiones muestran esto»)."
+            "value": "«Máx. 3/220 · Mín. 12/220» bajo un día significa que 3 de las 220 previsiones de ese día muestran la misma máxima que se ve (redondeada al grado mostrado) y 12 la misma mínima. Un número pequeño significa que el valor es atípico. Las fichas de la pantalla de un día cuentan igual («12 de 220 previsiones muestran esto»)."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "« Max 3/170 · Min 12/170 » sous un jour signifie que 3 des 170 prévisions de ce jour indiquent le même maximum qu’affiché (arrondi au degré affiché), et 12 le même minimum. Un petit nombre signifie que la valeur est atypique. Les tuiles de l’écran d’un jour comptent de la même façon (« 12 prévisions sur 170 indiquent cette valeur »)."
+            "value": "« Max 3/220 · Min 12/220 » sous un jour signifie que 3 des 220 prévisions de ce jour indiquent le même maximum qu’affiché (arrondi au degré affiché), et 12 le même minimum. Un petit nombre signifie que la valeur est atypique. Les tuiles de l’écran d’un jour comptent de la même façon (« 12 prévisions sur 220 indiquent cette valeur »)."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "«Max 3/170 · Min 12/170» sotto un giorno significa che 3 delle 170 previsioni di quel giorno mostrano la stessa massima visualizzata (arrotondata al grado mostrato) e 12 la stessa minima. Un numero piccolo significa che il valore è anomalo. Le schede nella schermata di un giorno contano allo stesso modo («12 previsioni su 170 mostrano questo valore»)."
+            "value": "«Max 3/220 · Min 12/220» sotto un giorno significa che 3 delle 220 previsioni di quel giorno mostrano la stessa massima visualizzata (arrotondata al grado mostrato) e 12 la stessa minima. Un numero piccolo significa che il valore è anomalo. Le schede nella schermata di un giorno contano allo stesso modo («12 previsioni su 220 mostrano questo valore»)."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "日の下の「最高 3/170 · 最低 12/170」は、その日の170件の予報のうち3件が表示と同じ最高気温（表示の単位で四捨五入）を、12件が同じ最低気温を示しているという意味です。数が少ないほど、その値は外れ値です。日の画面のタイルも同じ方法で数えます（「170件中12件の予報がこの値」）。"
+            "value": "日の下の「最高 3/220 · 最低 12/220」は、その日の220件の予報のうち3件が表示と同じ最高気温（表示の単位で四捨五入）を、12件が同じ最低気温を示しているという意味です。数が少ないほど、その値は外れ値です。日の画面のタイルも同じ方法で数えます（「220件中12件の予報がこの値」）。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "날짜 아래의 '최고 3/170 · 최저 12/170'는 그날의 예보 170개 중 3개가 표시된 것과 같은 최고 기온(표시 단위로 반올림)을, 12개가 같은 최저 기온을 보여 준다는 뜻입니다. 숫자가 작으면 그 값이 이상값이라는 뜻입니다. 날짜 화면의 타일도 같은 방식으로 셉니다('예보 170개 중 12개가 이 값을 보여 줌')."
+            "value": "날짜 아래의 '최고 3/220 · 최저 12/220'는 그날의 예보 220개 중 3개가 표시된 것과 같은 최고 기온(표시 단위로 반올림)을, 12개가 같은 최저 기온을 보여 준다는 뜻입니다. 숫자가 작으면 그 값이 이상값이라는 뜻입니다. 날짜 화면의 타일도 같은 방식으로 셉니다('예보 220개 중 12개가 이 값을 보여 줌')."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "“Máx. 3/170 · Mín. 12/170” abaixo de um dia significa que 3 das 170 previsões desse dia mostram a mesma máxima exibida (arredondada para o grau mostrado), e 12 a mesma mínima. Um número pequeno significa que o valor é atípico. Os blocos da tela de um dia contam da mesma forma (“12 de 170 previsões mostram isto”)."
+            "value": "“Máx. 3/220 · Mín. 12/220” abaixo de um dia significa que 3 das 220 previsões desse dia mostram a mesma máxima exibida (arredondada para o grau mostrado), e 12 a mesma mínima. Um número pequeno significa que o valor é atípico. Os blocos da tela de um dia contam da mesma forma (“12 de 220 previsões mostram isto”)."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "«Макс. 3/170 · Мин. 12/170» под днём означает, что 3 из 170 прогнозов на этот день показывают тот же максимум, что и на экране (с округлением до показанного градуса), а 12 — тот же минимум. Маленькое число означает, что значение — выброс. Плитки на экране дня считаются так же («Это значение показывают: 12 из 170»)."
+            "value": "«Макс. 3/220 · Мин. 12/220» под днём означает, что 3 из 220 прогнозов на этот день показывают тот же максимум, что и на экране (с округлением до показанного градуса), а 12 — тот же минимум. Маленькое число означает, что значение — выброс. Плитки на экране дня считаются так же («Это значение показывают: 12 из 220»)."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "日期下方的“高 3/170 · 低 12/170”表示当天 170 个预报中有 3 个给出与显示相同的最高气温（按显示的度数四舍五入），12 个给出相同的最低气温。数字越小，说明这个数值越是离群值。日期页面上的卡片也按同样方式统计（“170 个预报中有 12 个显示此值”）。"
+            "value": "日期下方的“高 3/220 · 低 12/220”表示当天 220 个预报中有 3 个给出与显示相同的最高气温（按显示的度数四舍五入），12 个给出相同的最低气温。数字越小，说明这个数值越是离群值。日期页面上的卡片也按同样方式统计（“220 个预报中有 12 个显示此值”）。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "日期下方的「高 3/170 · 低 12/170」表示當天 170 個預報中有 3 個給出與顯示相同的最高溫（依顯示的度數四捨五入），12 個給出相同的最低溫。數字越小，代表這個數值越是離群值。日期頁面上的卡片也以相同方式計算（「170 個預報中有 12 個顯示此值」）。"
+            "value": "日期下方的「高 3/220 · 低 12/220」表示當天 220 個預報中有 3 個給出與顯示相同的最高溫（依顯示的度數四捨五入），12 個給出相同的最低溫。數字越小，代表這個數值越是離群值。日期頁面上的卡片也以相同方式計算（「220 個預報中有 12 個顯示此值」）。"
           }
         }
       }
@@ -1405,134 +1405,6 @@
         }
       }
     },
-    "All data comes from Open-Meteo.com, which republishes forecasts from national and international weather services.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle Daten stammen von Open-Meteo.com, das Prognosen nationaler und internationaler Wetterdienste weitergibt."
-          }
-        },
-        "es-ES": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos los datos proceden de Open-Meteo.com, que redistribuye previsiones de servicios meteorológicos nacionales e internacionales."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toutes les données proviennent d’Open-Meteo.com, qui rediffuse les prévisions de services météorologiques nationaux et internationaux."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tutti i dati provengono da Open-Meteo.com, che ridistribuisce le previsioni dei servizi meteorologici nazionali e internazionali."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "すべてのデータは、各国・国際気象機関の予報を再配信しているOpen-Meteo.comから取得しています。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "모든 데이터는 국가 및 국제 기상 기관의 예보를 재배포하는 Open-Meteo.com에서 가져옵니다."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos os dados vêm do Open-Meteo.com, que redistribui previsões de serviços meteorológicos nacionais e internacionais."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Все данные получены от Open-Meteo.com, который распространяет прогнозы национальных и международных метеослужб."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "所有数据都来自 Open-Meteo.com，它转发各国及国际气象机构的预报。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "所有資料都來自 Open-Meteo.com，它轉發各國及國際氣象機構的預報。"
-          }
-        }
-      }
-    },
-    "All weather data and the location search. Data licensed under CC BY 4.0. Wishcast changes it: values from different forecasts are mixed, and daily totals and averages are computed from hourly data.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle Wetterdaten und die Ortssuche. Daten lizenziert unter CC BY 4.0. Wishcast verändert sie: Werte aus verschiedenen Prognosen werden gemischt, und Tagessummen und -mittel werden aus Stundendaten berechnet."
-          }
-        },
-        "es-ES": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos los datos meteorológicos y la búsqueda de lugares. Datos con licencia CC BY 4.0. Wishcast los modifica: mezcla valores de distintas previsiones y calcula totales y medias diarias a partir de datos horarios."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toutes les données météo et la recherche de lieux. Données sous licence CC BY 4.0. Wishcast les modifie : les valeurs de différentes prévisions sont mélangées, et les totaux et moyennes quotidiens sont calculés à partir des données horaires."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tutti i dati meteo e la ricerca dei luoghi. Dati con licenza CC BY 4.0. Wishcast li modifica: i valori di previsioni diverse vengono mescolati, e totali e medie giornaliere sono calcolati dai dati orari."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "すべての気象データと地点検索。データはCC BY 4.0ライセンス。Wishcastはデータを加工しています：異なる予報の値を組み合わせ、日ごとの合計と平均を毎時データから計算しています。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "모든 기상 데이터와 위치 검색. 데이터는 CC BY 4.0 라이선스입니다. Wishcast는 데이터를 변경합니다: 서로 다른 예보의 값을 섞고, 일일 합계와 평균을 시간별 데이터로 계산합니다."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos os dados meteorológicos e a busca de locais. Dados licenciados sob CC BY 4.0. O Wishcast os modifica: valores de previsões diferentes são misturados, e totais e médias diárias são calculados a partir de dados horários."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Все метеоданные и поиск мест. Данные распространяются по лицензии CC BY 4.0. Wishcast их изменяет: значения из разных прогнозов смешиваются, а суточные суммы и средние вычисляются по почасовым данным."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "所有天气数据和地点搜索。数据采用 CC BY 4.0 许可。Wishcast 对数据做了改动：混合了不同预报的数值，并根据逐小时数据计算每日总量和平均值。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "所有天氣資料和地點搜尋。資料採用 CC BY 4.0 授權。Wishcast 對資料做了更動：混合不同預報的數值，並依逐時資料計算每日總量和平均值。"
-          }
-        }
-      }
-    },
     "An ensemble runs one model many times from slightly different starting conditions. Wishcast counts each run (\"member\", including the unchanged \"control\" run) as one forecast. Members of the same ensemble are variations of one model, so they are not independent opinions.": {
       "localizations": {
         "de": {
@@ -1667,6 +1539,70 @@
         }
       }
     },
+    "Apple's hourly forecast, via WeatherKit. Its data sources are listed on Apple's attribution page.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die stündliche Prognose von Apple über WeatherKit. Ihre Datenquellen stehen auf Apples Quellenseite."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La previsión por horas de Apple, mediante WeatherKit. Sus fuentes de datos figuran en la página de atribución de Apple."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La prévision horaire d’Apple, via WeatherKit. Ses sources de données sont indiquées sur la page d’attribution d’Apple."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La previsione oraria di Apple, tramite WeatherKit. Le sue fonti di dati sono elencate nella pagina di attribuzione di Apple."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WeatherKitによるAppleの1時間ごとの予報。データソースはAppleの帰属情報ページに記載されています。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WeatherKit을 통한 Apple의 시간별 예보. 데이터 출처는 Apple의 출처 표기 페이지에 나와 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A previsão por hora da Apple, via WeatherKit. As fontes de dados estão listadas na página de atribuição da Apple."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Почасовой прогноз Apple через WeatherKit. Его источники данных перечислены на странице атрибуции Apple."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple 通过 WeatherKit 提供的逐小时预报。其数据来源列在 Apple 的数据来源页面上。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple 透過 WeatherKit 提供的逐時預報。其資料來源列於 Apple 的資料來源頁面。"
+          }
+        }
+      }
+    },
     "Best case": {
       "localizations": {
         "de": {
@@ -1795,66 +1731,66 @@
         }
       }
     },
-    "Best case. All the models above, about 170 forecasts.": {
+    "Best case. More than 200 forecasts a day, more where regional models reach.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bester Fall. Alle oben genannten Modelle, etwa 170 Prognosen."
+            "value": "Bester Fall. Mehr als 200 Prognosen pro Tag, mehr, wo regionale Modelle hinreichen."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mejor caso. Todos los modelos anteriores, unas 170 previsiones."
+            "value": "Mejor caso. Más de 200 previsiones al día, más donde llegan los modelos regionales."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meilleur cas. Tous les modèles ci-dessus, environ 170 prévisions."
+            "value": "Meilleur cas. Plus de 200 prévisions par jour, davantage là où les modèles régionaux s’étendent."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Caso migliore. Tutti i modelli sopra, circa 170 previsioni."
+            "value": "Caso migliore. Più di 200 previsioni al giorno, di più dove arrivano i modelli regionali."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "ベストケース。上記すべてのモデル、約170件の予報。"
+            "value": "ベストケース。1日あたり200件以上の予報。地域モデルの範囲内ではさらに多くなります。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "최상의 경우. 위의 모든 모델, 약 170개의 예보."
+            "value": "최상의 경우. 하루 200개 이상의 예보, 지역 모델이 닿는 곳에서는 더 많습니다."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Melhor cenário. Todos os modelos acima, cerca de 170 previsões."
+            "value": "Melhor cenário. Mais de 200 previsões por dia, mais onde os modelos regionais alcançam."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Лучший случай. Все модели выше, около 170 прогнозов."
+            "value": "Лучший случай. Более 200 прогнозов в день, больше там, где действуют региональные модели."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "最佳情况。以上所有模型，约 170 个预报。"
+            "value": "最佳情况。每天 200 多个预报，区域模型覆盖的地方更多。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "最佳情況。以上所有模式，約 170 個預報。"
+            "value": "最佳情況。每天 200 多個預報，區域模式涵蓋的地方更多。"
           }
         }
       }
@@ -1919,6 +1855,72 @@
           "stringUnit": {
             "state": "translated",
             "value": "為你的願望呈現的最佳情況天氣，混合自全球天氣模式及其系集成員。"
+          }
+        }
+      }
+    },
+    "Best-case weather for your wish, mixed from many weather models and their ensemble members.": {
+      "comment": "Description of the widget.",
+      "isCommentAutoGenerated": true,
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wetter im besten Fall für deinen Wunsch, gemischt aus vielen Wettermodellen und ihren Ensemble-Mitgliedern."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El mejor caso del tiempo para tu deseo, mezclado de muchos modelos meteorológicos y sus miembros de conjunto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La météo dans le meilleur cas pour votre souhait, mélangée à partir de nombreux modèles météo et de leurs membres d’ensemble."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il meteo nel caso migliore per il tuo desiderio, mescolato da molti modelli meteo e dai loro membri d’ensemble."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "多くの気象モデルとそのアンサンブルメンバーを組み合わせた、望みどおりのベストケースの天気。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "여러 기상 모델과 그 앙상블 멤버를 섞어 만든, 바라는 날씨의 최상의 경우."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O melhor cenário do tempo para o seu desejo, misturado de muitos modelos meteorológicos e seus membros de conjunto."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Погода в лучшем случае для вашего желания, собранная из множества метеомоделей и участников их ансамблей."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根据你的心愿，从众多天气模型及其集合成员中混合出的最佳天气。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依你的心願，從眾多天氣模式及其系集成員中混合出的最佳天氣。"
           }
         }
       }
@@ -2051,72 +2053,68 @@
         }
       }
     },
-    "Choose a place and Wishcast will compare forecasts from %lld weather models and every member of %lld ensembles to find the best case for the weather you're hoping for.": {
+    "Choose a place and Wishcast will compare more than 200 forecasts from weather services around the world to find the best case for the weather you're hoping for.": {
+      "comment": "A description of the content of the view.",
+      "isCommentAutoGenerated": true,
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wähle einen Ort, und Wishcast vergleicht Prognosen von %lld Wettermodellen und allen Mitgliedern von %lld Ensembles, um den besten Fall für das Wetter zu finden, auf das du hoffst."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Choose a place and Wishcast will compare forecasts from %1$lld weather models and every member of %2$lld ensembles to find the best case for the weather you're hoping for."
+            "value": "Wähle einen Ort, und Wishcast vergleicht mehr als 200 Prognosen von Wetterdiensten auf der ganzen Welt, um den besten Fall für das Wetter zu finden, auf das du hoffst."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "Elige un lugar y Wishcast comparará previsiones de %lld modelos meteorológicos y de todos los miembros de %lld conjuntos para encontrar el mejor caso del tiempo que esperas."
+            "value": "Elige un lugar y Wishcast comparará más de 200 previsiones de servicios meteorológicos de todo el mundo para encontrar el mejor caso del tiempo que esperas."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choisissez un lieu et Wishcast comparera les prévisions de %lld modèles météo et de tous les membres de %lld ensembles pour trouver le meilleur cas de la météo que vous espérez."
+            "value": "Choisissez un lieu et Wishcast comparera plus de 200 prévisions de services météo du monde entier pour trouver le meilleur cas de la météo que vous espérez."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Scegli un luogo e Wishcast confronterà le previsioni di %lld modelli meteo e di tutti i membri di %lld ensemble per trovare il caso migliore del tempo che speri."
+            "value": "Scegli un luogo e Wishcast confronterà più di 200 previsioni di servizi meteo di tutto il mondo per trovare il caso migliore del tempo che speri."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "地点を選ぶと、Wishcastが%1$lld個の気象モデルと%2$lld個のアンサンブルの全メンバーの予報を比べ、望む天気のベストケースを見つけます。"
+            "value": "地点を選ぶと、Wishcastが世界中の気象機関による200件以上の予報を比べ、望む天気のベストケースを見つけます。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "장소를 선택하면 Wishcast가 기상 모델 %1$lld개와 앙상블 %2$lld개의 모든 멤버의 예보를 비교해 바라는 날씨의 최상의 경우를 찾아 줍니다."
+            "value": "장소를 선택하면 Wishcast가 전 세계 기상 기관의 예보 200개 이상을 비교해 바라는 날씨의 최상의 경우를 찾아 줍니다."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Escolha um local e o Wishcast vai comparar previsões de %lld modelos meteorológicos e de todos os membros de %lld conjuntos para encontrar o melhor cenário do tempo que você espera."
+            "value": "Escolha um local e o Wishcast vai comparar mais de 200 previsões de serviços meteorológicos do mundo todo para encontrar o melhor cenário do tempo que você espera."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выберите место, и Wishcast сравнит прогнозы метеомоделей (%lld) и всех участников ансамблей (%lld), чтобы найти лучший случай для погоды, на которую вы надеетесь."
+            "value": "Выберите место, и Wishcast сравнит более 200 прогнозов метеослужб со всего мира, чтобы найти лучший случай для погоды, на которую вы надеетесь."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "选择一个地点，Wishcast 会比较 %1$lld 个天气模型以及 %2$lld 个集合的全部成员的预报，为你期盼的天气找出最佳情况。"
+            "value": "选择一个地点，Wishcast 会比较来自全球气象机构的 200 多个预报，为你期盼的天气找出最佳情况。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "選擇一個地點，Wishcast 會比較 %1$lld 個天氣模式以及 %2$lld 個系集的所有成員的預報，為你期盼的天氣找出最佳情況。"
+            "value": "選擇一個地點，Wishcast 會比較來自全球氣象機構的 200 多個預報，為你期盼的天氣找出最佳情況。"
           }
         }
       }
@@ -2953,6 +2951,72 @@
         }
       }
     },
+    "Data from MET Norway": {
+      "comment": "A link to the Norwegian Meteorological Institute.",
+      "isCommentAutoGenerated": true,
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daten von MET Norway"
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datos de MET Norway"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Données de MET Norway"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dati di MET Norway"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "データ提供：MET Norway"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "데이터 제공: MET Norway"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dados de MET Norway"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Данные MET Norway"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "数据来自 MET Norway"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料來自 MET Norway"
+          }
+        }
+      }
+    },
     "Date": {
       "localizations": {
         "de": {
@@ -3401,6 +3465,70 @@
         }
       }
     },
+    "Direct from providers (%lld)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Direkt von Anbietern (%lld)"
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Directamente de los proveedores (%lld)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Directement des fournisseurs (%lld)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Direttamente dai fornitori (%lld)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "提供元から直接（%lld）"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "제공처에서 직접(%lld)"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Direto dos provedores (%lld)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Напрямую от поставщиков (%lld)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "直接来自提供方（%lld）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "直接來自提供者（%lld）"
+          }
+        }
+      }
+    },
     "Done": {
       "localizations": {
         "de": {
@@ -3785,130 +3913,130 @@
         }
       }
     },
-    "Environment and Climate Change Canada: the GEM and GEM Ensemble forecasts.": {
+    "Environment and Climate Change Canada: the GEM, GEM Regional, GEM HRDPS and GEM Ensemble forecasts.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Environment and Climate Change Canada: die Prognosen GEM und GEM Ensemble."
+            "value": "Environment and Climate Change Canada: die Prognosen GEM, GEM Regional, GEM HRDPS und GEM Ensemble."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "Environment and Climate Change Canada: las previsiones GEM y GEM Ensemble."
+            "value": "Environment and Climate Change Canada: las previsiones GEM, GEM Regional, GEM HRDPS y GEM Ensemble."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Environnement et Changement climatique Canada : les prévisions GEM et GEM Ensemble."
+            "value": "Environnement et Changement climatique Canada : les prévisions GEM, GEM Regional, GEM HRDPS et GEM Ensemble."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Environment and Climate Change Canada: le previsioni GEM e GEM Ensemble."
+            "value": "Environment and Climate Change Canada: le previsioni GEM, GEM Regional, GEM HRDPS e GEM Ensemble."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "カナダ環境・気候変動省：GEMおよびGEMアンサンブルの予報。"
+            "value": "カナダ環境・気候変動省：GEM、GEM Regional、GEM HRDPS、GEMアンサンブルの予報。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "캐나다 환경기후변화부: GEM 및 GEM 앙상블 예보."
+            "value": "캐나다 환경기후변화부: GEM, GEM Regional, GEM HRDPS 및 GEM 앙상블 예보."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Environment and Climate Change Canada: as previsões GEM e GEM Ensemble."
+            "value": "Environment and Climate Change Canada: as previsões GEM, GEM Regional, GEM HRDPS e GEM Ensemble."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Министерство окружающей среды и изменения климата Канады: прогнозы GEM и GEM Ensemble."
+            "value": "Министерство окружающей среды и изменения климата Канады: прогнозы GEM, GEM Regional, GEM HRDPS и GEM Ensemble."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "加拿大环境与气候变化部：GEM 和 GEM 集合预报。"
+            "value": "加拿大环境与气候变化部：GEM、GEM Regional、GEM HRDPS 和 GEM 集合预报。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "加拿大環境與氣候變遷部：GEM 和 GEM 系集預報。"
+            "value": "加拿大環境與氣候變遷部：GEM、GEM Regional、GEM HRDPS 和 GEM 系集預報。"
           }
         }
       }
     },
-    "European Centre for Medium-Range Weather Forecasts: the ECMWF, ECMWF AI, ECMWF Ensemble and ECMWF Long-Range (EC46 and SEAS5) forecasts (CC BY).": {
+    "European Centre for Medium-Range Weather Forecasts: the ECMWF, ECMWF AI, ECMWF Ensemble, ECMWF AI Ensemble and ECMWF Long-Range (EC46 and SEAS5) forecasts (CC BY).": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Europäisches Zentrum für mittelfristige Wettervorhersage: die Prognosen ECMWF, ECMWF AI, ECMWF Ensemble und ECMWF Long-Range (EC46 und SEAS5) (CC BY)."
+            "value": "Europäisches Zentrum für mittelfristige Wettervorhersage: die Prognosen ECMWF, ECMWF AI, ECMWF Ensemble, ECMWF AI Ensemble und ECMWF Long-Range (EC46 und SEAS5) (CC BY)."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "Centro Europeo de Previsiones Meteorológicas a Plazo Medio: las previsiones ECMWF, ECMWF AI, ECMWF Ensemble y ECMWF Long-Range (EC46 y SEAS5) (CC BY)."
+            "value": "Centro Europeo de Previsiones Meteorológicas a Plazo Medio: las previsiones ECMWF, ECMWF AI, ECMWF Ensemble, ECMWF AI Ensemble y ECMWF Long-Range (EC46 y SEAS5) (CC BY)."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Centre européen pour les prévisions météorologiques à moyen terme : les prévisions ECMWF, ECMWF AI, ECMWF Ensemble et ECMWF Long-Range (EC46 et SEAS5) (CC BY)."
+            "value": "Centre européen pour les prévisions météorologiques à moyen terme : les prévisions ECMWF, ECMWF AI, ECMWF Ensemble, ECMWF AI Ensemble et ECMWF Long-Range (EC46 et SEAS5) (CC BY)."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Centro europeo per le previsioni meteorologiche a medio termine: le previsioni ECMWF, ECMWF AI, ECMWF Ensemble ed ECMWF Long-Range (EC46 e SEAS5) (CC BY)."
+            "value": "Centro europeo per le previsioni meteorologiche a medio termine: le previsioni ECMWF, ECMWF AI, ECMWF Ensemble, ECMWF AI Ensemble ed ECMWF Long-Range (EC46 e SEAS5) (CC BY)."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "欧州中期予報センター：ECMWF、ECMWF AI、ECMWFアンサンブル、ECMWF長期（EC46・SEAS5）の予報（CC BY）。"
+            "value": "欧州中期予報センター：ECMWF、ECMWF AI、ECMWFアンサンブル、ECMWF AIアンサンブル、ECMWF長期（EC46・SEAS5）の予報（CC BY）。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "유럽 중기 예보 센터: ECMWF, ECMWF AI, ECMWF 앙상블, ECMWF 장기(EC46 및 SEAS5) 예보(CC BY)."
+            "value": "유럽 중기 예보 센터: ECMWF, ECMWF AI, ECMWF 앙상블, ECMWF AI 앙상블, ECMWF 장기(EC46 및 SEAS5) 예보(CC BY)."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Centro Europeu de Previsões Meteorológicas de Médio Prazo: as previsões ECMWF, ECMWF AI, ECMWF Ensemble e ECMWF Long-Range (EC46 e SEAS5) (CC BY)."
+            "value": "Centro Europeu de Previsões Meteorológicas de Médio Prazo: as previsões ECMWF, ECMWF AI, ECMWF Ensemble, ECMWF AI Ensemble e ECMWF Long-Range (EC46 e SEAS5) (CC BY)."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Европейский центр среднесрочных прогнозов погоды: прогнозы ECMWF, ECMWF AI, ECMWF Ensemble и ECMWF Long-Range (EC46 и SEAS5) (CC BY)."
+            "value": "Европейский центр среднесрочных прогнозов погоды: прогнозы ECMWF, ECMWF AI, ECMWF Ensemble, ECMWF AI Ensemble и ECMWF Long-Range (EC46 и SEAS5) (CC BY)."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "欧洲中期天气预报中心：ECMWF、ECMWF AI、ECMWF 集合和 ECMWF 长期（EC46 和 SEAS5）预报（CC BY）。"
+            "value": "欧洲中期天气预报中心：ECMWF、ECMWF AI、ECMWF 集合、ECMWF AI 集合和 ECMWF 长期（EC46 和 SEAS5）预报（CC BY）。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "歐洲中期天氣預報中心：ECMWF、ECMWF AI、ECMWF 系集和 ECMWF 長期（EC46 與 SEAS5）預報（CC BY）。"
+            "value": "歐洲中期天氣預報中心：ECMWF、ECMWF AI、ECMWF 系集、ECMWF AI 系集和 ECMWF 長期（EC46 與 SEAS5）預報（CC BY）。"
           }
         }
       }
@@ -4303,66 +4431,68 @@
         }
       }
     },
-    "For each day, Wishcast looks at about 170 forecasts from global weather models and their ensemble runs. For every value (high, low, rain, clouds) it picks the one that best fits the weather you’re wishing for. The high can come from one forecast and the low from another.": {
+    "For each day of the week ahead, Wishcast looks at more than 200 forecasts from weather models around the world and their ensemble runs. For every value (high, low, rain, clouds) it picks the one that best fits the weather you’re wishing for. The high can come from one forecast and the low from another.": {
+      "comment": "A description of how Wishcast picks the best weather forecast for each day.",
+      "isCommentAutoGenerated": true,
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Für jeden Tag betrachtet Wishcast etwa 170 Prognosen globaler Wettermodelle und ihrer Ensemble-Läufe. Für jeden Wert (Hoch, Tief, Regen, Wolken) wählt es den, der am besten zum erhofften Wetter passt. Das Hoch kann aus einer Prognose stammen und das Tief aus einer anderen."
+            "value": "Für jeden Tag der kommenden Woche betrachtet Wishcast mehr als 200 Prognosen von Wettermodellen aus aller Welt und ihren Ensemble-Läufen. Für jeden Wert (Hoch, Tief, Regen, Wolken) wählt es den, der am besten zum erhofften Wetter passt. Das Hoch kann aus einer Prognose stammen und das Tief aus einer anderen."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "Para cada día, Wishcast examina unas 170 previsiones de modelos meteorológicos globales y sus ejecuciones de conjunto. Para cada valor (máxima, mínima, lluvia, nubes) elige el que mejor encaja con el tiempo que deseas. La máxima puede venir de una previsión y la mínima de otra."
+            "value": "Para cada día de la próxima semana, Wishcast examina más de 200 previsiones de modelos meteorológicos de todo el mundo y sus ejecuciones de conjunto. Para cada valor (máxima, mínima, lluvia, nubes) elige el que mejor encaja con el tiempo que deseas. La máxima puede venir de una previsión y la mínima de otra."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pour chaque jour, Wishcast examine environ 170 prévisions issues de modèles météo mondiaux et de leurs exécutions d’ensemble. Pour chaque valeur (maximum, minimum, pluie, nuages), il choisit celle qui correspond le mieux à la météo que vous souhaitez. Le maximum peut venir d’une prévision et le minimum d’une autre."
+            "value": "Pour chaque jour de la semaine à venir, Wishcast examine plus de 200 prévisions issues de modèles météo du monde entier et de leurs exécutions d’ensemble. Pour chaque valeur (maximum, minimum, pluie, nuages), il choisit celle qui correspond le mieux à la météo que vous souhaitez. Le maximum peut venir d’une prévision et le minimum d’une autre."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Per ogni giorno Wishcast esamina circa 170 previsioni di modelli meteo globali e delle loro esecuzioni d’ensemble. Per ogni valore (massima, minima, pioggia, nuvole) sceglie quello che si adatta meglio al tempo che desideri. La massima può venire da una previsione e la minima da un’altra."
+            "value": "Per ogni giorno della prossima settimana Wishcast esamina più di 200 previsioni di modelli meteo di tutto il mondo e delle loro esecuzioni d’ensemble. Per ogni valore (massima, minima, pioggia, nuvole) sceglie quello che si adatta meglio al tempo che desideri. La massima può venire da una previsione e la minima da un’altra."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wishcastは毎日、世界の気象モデルとそのアンサンブル計算から約170件の予報を調べます。各値（最高気温、最低気温、雨、雲）について、望む天気に最も合うものを選びます。最高気温はある予報から、最低気温は別の予報から来ることもあります。"
+            "value": "Wishcastは今後1週間の毎日について、世界中の気象モデルとそのアンサンブル計算から200件以上の予報を調べます。各値（最高気温、最低気温、雨、雲）について、望む天気に最も合うものを選びます。最高気温はある予報から、最低気温は別の予報から来ることもあります。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wishcast는 매일 전 세계 기상 모델과 그 앙상블 실행에서 나온 약 170개의 예보를 살펴봅니다. 각 값(최고 기온, 최저 기온, 비, 구름)마다 바라는 날씨에 가장 잘 맞는 것을 고릅니다. 최고 기온은 한 예보에서, 최저 기온은 다른 예보에서 올 수 있습니다."
+            "value": "Wishcast는 앞으로 일주일 동안 매일 전 세계 기상 모델과 그 앙상블 실행에서 나온 200개 이상의 예보를 살펴봅니다. 각 값(최고 기온, 최저 기온, 비, 구름)마다 바라는 날씨에 가장 잘 맞는 것을 고릅니다. 최고 기온은 한 예보에서, 최저 기온은 다른 예보에서 올 수 있습니다."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Para cada dia, o Wishcast analisa cerca de 170 previsões de modelos meteorológicos globais e suas execuções de conjunto. Para cada valor (máxima, mínima, chuva, nuvens), ele escolhe o que melhor combina com o tempo que você deseja. A máxima pode vir de uma previsão e a mínima de outra."
+            "value": "Para cada dia da próxima semana, o Wishcast analisa mais de 200 previsões de modelos meteorológicos do mundo todo e suas execuções de conjunto. Para cada valor (máxima, mínima, chuva, nuvens), ele escolhe o que melhor combina com o tempo que você deseja. A máxima pode vir de uma previsão e a mínima de outra."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Для каждого дня Wishcast просматривает около 170 прогнозов глобальных метеомоделей и их ансамблевых запусков. Для каждого значения (максимум, минимум, дождь, облака) он выбирает то, которое лучше всего подходит к желаемой погоде. Максимум может быть взят из одного прогноза, а минимум — из другого."
+            "value": "Для каждого дня ближайшей недели Wishcast просматривает более 200 прогнозов метеомоделей со всего мира и их ансамблевых запусков. Для каждого значения (максимум, минимум, дождь, облака) он выбирает то, которое лучше всего подходит к желаемой погоде. Максимум может быть взят из одного прогноза, а минимум — из другого."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wishcast 每天会查看来自全球天气模型及其集合运行的约 170 个预报。对每个数值（最高气温、最低气温、雨、云），它会选出最符合你期盼天气的那个。最高气温可能来自一个预报，最低气温来自另一个。"
+            "value": "对于未来一周的每一天，Wishcast 会查看来自世界各地天气模型及其集合运行的 200 多个预报。对每个数值（最高气温、最低气温、雨、云），它会选出最符合你期盼天气的那个。最高气温可能来自一个预报，最低气温来自另一个。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wishcast 每天會查看來自全球天氣模式及其系集執行的約 170 個預報。對每個數值（最高溫、最低溫、雨、雲），它會選出最符合你期盼天氣的那一個。最高溫可能來自一個預報，最低溫來自另一個。"
+            "value": "對於未來一週的每一天，Wishcast 會查看來自世界各地天氣模式及其系集執行的 200 多個預報。對每個數值（最高溫、最低溫、雨、雲），它會選出最符合你期盼天氣的那一個。最高溫可能來自一個預報，最低溫來自另一個。"
           }
         }
       }
@@ -4559,66 +4689,66 @@
         }
       }
     },
-    "France's national weather service: the Météo-France forecast.": {
+    "France's national weather service: the ARPEGE and AROME forecasts.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Der nationale Wetterdienst Frankreichs: die Prognose Météo-France."
+            "value": "Der nationale Wetterdienst Frankreichs: die Prognosen ARPEGE und AROME."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "El servicio meteorológico nacional de Francia: la previsión de Météo-France."
+            "value": "El servicio meteorológico nacional de Francia: las previsiones ARPEGE y AROME."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Le service météorologique national français : la prévision Météo-France."
+            "value": "Le service météorologique national français : les prévisions ARPEGE et AROME."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Il servizio meteorologico nazionale francese: la previsione Météo-France."
+            "value": "Il servizio meteorologico nazionale francese: le previsioni ARPEGE e AROME."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "フランスの国立気象機関：Météo-Franceの予報。"
+            "value": "フランスの国立気象機関：ARPEGEおよびAROMEの予報。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "프랑스 국립 기상청: Météo-France 예보."
+            "value": "프랑스 국립 기상청: ARPEGE 및 AROME 예보."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "O serviço meteorológico nacional da França: a previsão Météo-France."
+            "value": "O serviço meteorológico nacional da França: as previsões ARPEGE e AROME."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Национальная метеослужба Франции: прогноз Météo-France."
+            "value": "Национальная метеослужба Франции: прогнозы ARPEGE и AROME."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "法国国家气象局：Météo-France 预报。"
+            "value": "法国国家气象局：ARPEGE 和 AROME 预报。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "法國國家氣象局：Météo-France 預報。"
+            "value": "法國國家氣象局：ARPEGE 和 AROME 預報。"
           }
         }
       }
@@ -4815,66 +4945,66 @@
         }
       }
     },
-    "Germany's national weather service: the ICON and ICON Ensemble forecasts (CC BY).": {
+    "Germany's national weather service: the ICON, ICON-EU and ICON-D2 forecasts and their ensembles (CC BY).": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Der nationale Wetterdienst Deutschlands: die Prognosen ICON und ICON Ensemble (CC BY)."
+            "value": "Der nationale Wetterdienst Deutschlands: die Prognosen ICON, ICON-EU und ICON-D2 und ihre Ensembles (CC BY)."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "El servicio meteorológico nacional de Alemania: las previsiones ICON e ICON Ensemble (CC BY)."
+            "value": "El servicio meteorológico nacional de Alemania: las previsiones ICON, ICON-EU e ICON-D2 y sus conjuntos (CC BY)."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Le service météorologique national allemand : les prévisions ICON et ICON Ensemble (CC BY)."
+            "value": "Le service météorologique national allemand : les prévisions ICON, ICON-EU et ICON-D2 et leurs ensembles (CC BY)."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Il servizio meteorologico nazionale tedesco: le previsioni ICON e ICON Ensemble (CC BY)."
+            "value": "Il servizio meteorologico nazionale tedesco: le previsioni ICON, ICON-EU e ICON-D2 e i loro ensemble (CC BY)."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "ドイツの国立気象機関：ICONおよびICONアンサンブルの予報（CC BY）。"
+            "value": "ドイツの国立気象機関：ICON、ICON-EU、ICON-D2の予報とそれぞれのアンサンブル（CC BY）。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "독일 국립 기상청: ICON 및 ICON 앙상블 예보(CC BY)."
+            "value": "독일 국립 기상청: ICON, ICON-EU, ICON-D2 예보와 각각의 앙상블(CC BY)."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "O serviço meteorológico nacional da Alemanha: as previsões ICON e ICON Ensemble (CC BY)."
+            "value": "O serviço meteorológico nacional da Alemanha: as previsões ICON, ICON-EU e ICON-D2 e seus conjuntos (CC BY)."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Национальная метеослужба Германии: прогнозы ICON и ICON Ensemble (CC BY)."
+            "value": "Национальная метеослужба Германии: прогнозы ICON, ICON-EU и ICON-D2 и их ансамбли (CC BY)."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "德国国家气象局：ICON 和 ICON 集合预报（CC BY）。"
+            "value": "德国国家气象局：ICON、ICON-EU 和 ICON-D2 预报及其集合（CC BY）。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "德國國家氣象局：ICON 和 ICON 系集預報（CC BY）。"
+            "value": "德國國家氣象局：ICON、ICON-EU 和 ICON-D2 預報及其系集（CC BY）。"
           }
         }
       }
@@ -5787,66 +5917,130 @@
         }
       }
     },
-    "Licences as listed on Open-Meteo's licence page. Wishcast isn't affiliated with or endorsed by any of these organizations.": {
+    "Italy's national weather agency, with Arpae: the ICON-2I forecast.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lizenzen wie auf der Lizenzseite von Open-Meteo angegeben. Wishcast ist mit keiner dieser Organisationen verbunden und wird von keiner unterstützt."
+            "value": "Die nationale Wetteragentur Italiens, mit Arpae: die Prognose ICON-2I."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "Licencias según la página de licencias de Open-Meteo. Wishcast no está afiliada ni respaldada por ninguna de estas organizaciones."
+            "value": "La agencia meteorológica nacional de Italia, con Arpae: la previsión ICON-2I."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Licences telles qu’indiquées sur la page de licence d’Open-Meteo. Wishcast n’est affilié à aucune de ces organisations et n’est soutenu par aucune d’elles."
+            "value": "L’agence météorologique nationale italienne, avec Arpae : la prévision ICON-2I."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Licenze come indicate nella pagina delle licenze di Open-Meteo. Wishcast non è affiliata né sostenuta da nessuna di queste organizzazioni."
+            "value": "L’agenzia meteorologica nazionale italiana, con Arpae: la previsione ICON-2I."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "ライセンスはOpen-Meteoのライセンスページの記載に基づきます。Wishcastはこれらの組織と提携しておらず、支持も受けていません。"
+            "value": "イタリアの国立気象機関（Arpaeと共同）：ICON-2Iの予報。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "라이선스는 Open-Meteo 라이선스 페이지에 명시된 내용을 따릅니다. Wishcast는 이들 기관과 제휴하거나 보증을 받지 않습니다."
+            "value": "이탈리아 국립 기상청(Arpae와 공동): ICON-2I 예보."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Licenças conforme a página de licenças do Open-Meteo. O Wishcast não é afiliado nem endossado por nenhuma dessas organizações."
+            "value": "A agência meteorológica nacional da Itália, com a Arpae: a previsão ICON-2I."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Лицензии указаны по странице лицензий Open-Meteo. Wishcast не связан ни с одной из этих организаций и не одобрен ими."
+            "value": "Национальное метеоагентство Италии совместно с Arpae: прогноз ICON-2I."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "许可信息以 Open-Meteo 许可页面所列为准。Wishcast 与这些组织均无关联，也未获得其认可。"
+            "value": "意大利国家气象机构（与 Arpae 合作）：ICON-2I 预报。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "授權資訊以 Open-Meteo 授權頁面所列為準。Wishcast 與這些組織均無關聯，也未獲得其背書。"
+            "value": "義大利國家氣象機構（與 Arpae 合作）：ICON-2I 預報。"
+          }
+        }
+      }
+    },
+    "Licences for data via Open-Meteo as listed on its licence page. Wishcast isn't affiliated with or endorsed by any of these organizations.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lizenzen für Daten über Open-Meteo wie auf dessen Lizenzseite angegeben. Wishcast ist mit keiner dieser Organisationen verbunden und wird von keiner unterstützt."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Licencias de los datos obtenidos mediante Open-Meteo según su página de licencias. Wishcast no está afiliada ni respaldada por ninguna de estas organizaciones."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Licences des données obtenues via Open-Meteo telles qu’indiquées sur sa page de licence. Wishcast n’est affilié à aucune de ces organisations et n’est soutenu par aucune d’elles."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Licenze dei dati ottenuti tramite Open-Meteo come indicate nella sua pagina delle licenze. Wishcast non è affiliata né sostenuta da nessuna di queste organizzazioni."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open-Meteo経由のデータのライセンスは、同サイトのライセンスページの記載に基づきます。Wishcastはこれらの組織と提携しておらず、支持も受けていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open-Meteo를 통한 데이터의 라이선스는 해당 라이선스 페이지에 명시된 내용을 따릅니다. Wishcast는 이들 기관과 제휴하거나 보증을 받지 않습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Licenças dos dados obtidos via Open-Meteo conforme a página de licenças dele. O Wishcast não é afiliado nem endossado por nenhuma dessas organizações."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лицензии на данные, полученные через Open-Meteo, указаны на его странице лицензий. Wishcast не связан ни с одной из этих организаций и не одобрен ими."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "经由 Open-Meteo 获取的数据，其许可信息以 Open-Meteo 许可页面所列为准。Wishcast 与这些组织均无关联，也未获得其认可。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "經由 Open-Meteo 取得的資料，其授權資訊以 Open-Meteo 授權頁面所列為準。Wishcast 與這些組織均無關聯，也未獲得其背書。"
           }
         }
       }
@@ -6299,6 +6493,72 @@
         }
       }
     },
+    "Many forecasters, not just one": {
+      "comment": "A heading that describes the number of weather services that contribute to the weather forecasts in Wishcast.",
+      "isCommentAutoGenerated": true,
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viele Vorhersager, nicht nur einer"
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muchos pronosticadores, no solo uno"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De nombreux prévisionnistes, pas un seul"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanti previsori, non uno solo"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "予報元はひとつではなく、たくさん"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "예보처는 하나가 아니라 여럿"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muitos previsores, não apenas um"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Много прогнозистов, а не один"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "众多预报来源，而不只一个"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "眾多預報來源，而不只一個"
+          }
+        }
+      }
+    },
     "Median of %lld forecasts": {
       "localizations": {
         "de": {
@@ -6359,6 +6619,70 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld 個預報的中位數"
+          }
+        }
+      }
+    },
+    "MET Norway Locationforecast documentation": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dokumentation zu MET Norway Locationforecast"
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documentación de Locationforecast de MET Norway"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documentation de Locationforecast de MET Norway"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documentazione di Locationforecast di MET Norway"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MET Norway Locationforecastのドキュメント"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MET Norway Locationforecast 문서"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documentação do Locationforecast da MET Norway"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Документация MET Norway Locationforecast"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MET Norway Locationforecast 文档"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MET Norway Locationforecast 文件"
           }
         }
       }
@@ -6555,6 +6879,134 @@
         }
       }
     },
+    "Most data comes from Open-Meteo.com, which republishes forecasts from national and international weather services. Wishcast also downloads forecasts directly from the US National Weather Service, MET Norway and Apple Weather.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die meisten Daten stammen von Open-Meteo.com, das Prognosen nationaler und internationaler Wetterdienste weitergibt. Wishcast lädt außerdem Prognosen direkt vom US National Weather Service, von MET Norway und von Apple Wetter."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La mayoría de los datos proceden de Open-Meteo.com, que redistribuye previsiones de servicios meteorológicos nacionales e internacionales. Wishcast también descarga previsiones directamente del National Weather Service de EE. UU., de MET Norway y de Apple Weather."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La plupart des données proviennent d’Open-Meteo.com, qui rediffuse les prévisions de services météorologiques nationaux et internationaux. Wishcast télécharge aussi des prévisions directement auprès du National Weather Service américain, de MET Norway et d’Apple Météo."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La maggior parte dei dati proviene da Open-Meteo.com, che ridistribuisce le previsioni dei servizi meteorologici nazionali e internazionali. Wishcast scarica anche previsioni direttamente dal National Weather Service statunitense, da MET Norway e da Apple Meteo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ほとんどのデータは、各国・国際気象機関の予報を再配信しているOpen-Meteo.comから取得しています。Wishcastは米国国立気象局（NWS）、MET Norway、Apple天気からも直接予報をダウンロードします。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "대부분의 데이터는 국가 및 국제 기상 기관의 예보를 재배포하는 Open-Meteo.com에서 가져옵니다. Wishcast는 미국 국립기상청(NWS), MET Norway, Apple 날씨에서도 직접 예보를 다운로드합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A maioria dos dados vem do Open-Meteo.com, que redistribui previsões de serviços meteorológicos nacionais e internacionais. O Wishcast também baixa previsões diretamente do National Weather Service dos EUA, da MET Norway e do Apple Tempo."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Большая часть данных получена от Open-Meteo.com, который распространяет прогнозы национальных и международных метеослужб. Wishcast также загружает прогнозы напрямую от Национальной метеослужбы США, MET Norway и Apple Погоды."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "大部分数据来自 Open-Meteo.com，它转发各国及国际气象机构的预报。Wishcast 还直接从美国国家气象局、MET Norway 和 Apple 天气下载预报。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "大部分資料來自 Open-Meteo.com，它轉發各國及國際氣象機構的預報。Wishcast 也直接從美國國家氣象局、MET Norway 和 Apple 天氣下載預報。"
+          }
+        }
+      }
+    },
+    "Most weather data and the location search. Data licensed under CC BY 4.0. Wishcast changes it: values from different forecasts are mixed, and daily totals and averages are computed from hourly data.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die meisten Wetterdaten und die Ortssuche. Daten lizenziert unter CC BY 4.0. Wishcast verändert sie: Werte aus verschiedenen Prognosen werden gemischt, und Tagessummen und -mittel werden aus Stundendaten berechnet."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La mayoría de los datos meteorológicos y la búsqueda de lugares. Datos con licencia CC BY 4.0. Wishcast los modifica: mezcla valores de distintas previsiones y calcula totales y medias diarias a partir de datos horarios."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La plupart des données météo et la recherche de lieux. Données sous licence CC BY 4.0. Wishcast les modifie : les valeurs de différentes prévisions sont mélangées, et les totaux et moyennes quotidiens sont calculés à partir des données horaires."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La maggior parte dei dati meteo e la ricerca dei luoghi. Dati con licenza CC BY 4.0. Wishcast li modifica: i valori di previsioni diverse vengono mescolati, e totali e medie giornaliere sono calcolati dai dati orari."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ほとんどの気象データと地点検索。データはCC BY 4.0ライセンス。Wishcastはデータを加工しています：異なる予報の値を組み合わせ、日ごとの合計と平均を毎時データから計算しています。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "대부분의 기상 데이터와 위치 검색. 데이터는 CC BY 4.0 라이선스입니다. Wishcast는 데이터를 변경합니다: 서로 다른 예보의 값을 섞고, 일일 합계와 평균을 시간별 데이터로 계산합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A maioria dos dados meteorológicos e a busca de locais. Dados licenciados sob CC BY 4.0. O Wishcast os modifica: valores de previsões diferentes são misturados, e totais e médias diárias são calculados a partir de dados horários."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Большая часть метеоданных и поиск мест. Данные распространяются по лицензии CC BY 4.0. Wishcast их изменяет: значения из разных прогнозов смешиваются, а суточные суммы и средние вычисляются по почасовым данным."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "大部分天气数据和地点搜索。数据采用 CC BY 4.0 许可。Wishcast 对数据做了改动：混合了不同预报的数值，并根据逐小时数据计算每日总量和平均值。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "大部分天氣資料和地點搜尋。資料採用 CC BY 4.0 授權。Wishcast 對資料做了更動：混合不同預報的數值，並依逐時資料計算每日總量和平均值。"
+          }
+        }
+      }
+    },
     "Mostly Clear": {
       "localizations": {
         "de": {
@@ -6615,6 +7067,70 @@
           "stringUnit": {
             "state": "translated",
             "value": "大致晴朗"
+          }
+        }
+      }
+    },
+    "National Weather Service API documentation": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dokumentation zur API des National Weather Service"
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documentación de la API del National Weather Service"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documentation de l’API du National Weather Service"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documentazione dell’API del National Weather Service"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "National Weather Service APIのドキュメント"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "National Weather Service API 문서"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documentação da API do National Weather Service"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Документация API National Weather Service"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "National Weather Service API 文档"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "National Weather Service API 文件"
           }
         }
       }
@@ -6747,68 +7263,68 @@
         }
       }
     },
-    "On iPhone Duo standing half-open on a table, show sunlit grass and today’s best case on the lower half.": {
-      "comment": "A description of the setting for the sunlit grass on the iPhone Duo.",
+    "On iPhone Duo standing half-open on a table, show the day over a blue sky on the upper half and the list of days over sunlit grass on the lower half.": {
+      "comment": "A description of the setting of the sunlit grass on the iPhone Duo.",
       "isCommentAutoGenerated": true,
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wenn das iPhone Duo halb geöffnet auf einem Tisch steht, zeigt die untere Hälfte sonnigen Rasen und den besten Fall für heute."
+            "value": "Wenn das iPhone Duo halb geöffnet auf einem Tisch steht, zeigt die obere Hälfte den Tag vor blauem Himmel und die untere Hälfte die Liste der Tage auf sonnigem Rasen."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cuando el iPhone Duo está medio abierto sobre una mesa, la mitad inferior muestra césped soleado y el mejor caso de hoy."
+            "value": "Cuando el iPhone Duo está medio abierto sobre una mesa, la mitad superior muestra el día sobre un cielo azul y la inferior la lista de días sobre césped soleado."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quand l’iPhone Duo est posé à demi ouvert sur une table, la moitié inférieure affiche une pelouse ensoleillée et le meilleur cas du jour."
+            "value": "Quand l’iPhone Duo est posé à demi ouvert sur une table, la moitié supérieure affiche le jour sur un ciel bleu et la moitié inférieure la liste des jours sur une pelouse ensoleillée."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quando iPhone Duo è appoggiato semiaperto su un tavolo, la metà inferiore mostra un prato soleggiato e il caso migliore di oggi."
+            "value": "Quando iPhone Duo è appoggiato semiaperto su un tavolo, la metà superiore mostra il giorno su un cielo azzurro e quella inferiore l’elenco dei giorni su un prato soleggiato."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "iPhone Duoを半開きにしてテーブルに置くと、下半分に日だまりの芝生と今日のベストケースを表示します。"
+            "value": "iPhone Duoを半開きにしてテーブルに置くと、上半分に青空を背景にその日を、下半分に日だまりの芝生を背景に日の一覧を表示します。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "iPhone Duo를 반쯤 펼쳐 테이블에 세우면 아래쪽 절반에 햇살 든 잔디와 오늘의 최상의 경우를 보여 줍니다."
+            "value": "iPhone Duo를 반쯤 펼쳐 테이블에 세우면 위쪽 절반에는 파란 하늘 위로 그날을, 아래쪽 절반에는 햇살 든 잔디 위로 날짜 목록을 보여 줍니다."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Com o iPhone Duo meio aberto sobre uma mesa, a metade de baixo mostra grama ensolarada e o melhor cenário de hoje."
+            "value": "Com o iPhone Duo meio aberto sobre uma mesa, a metade de cima mostra o dia sobre um céu azul e a de baixo mostra a lista de dias sobre grama ensolarada."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Когда iPhone Duo стоит на столе полуоткрытым, на нижней половине показываются солнечная трава и лучший случай на сегодня."
+            "value": "Когда iPhone Duo стоит на столе полуоткрытым, на верхней половине показывается день на фоне голубого неба, а на нижней — список дней на фоне солнечной травы."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "iPhone Duo 半开立在桌上时，下半屏显示阳光草地和今天的最佳情况。"
+            "value": "iPhone Duo 半开立在桌上时，上半屏以蓝天为背景显示当天，下半屏以阳光草地为背景显示日期列表。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "iPhone Duo 半開立在桌上時，下半部顯示陽光草地和今天的最佳情況。"
+            "value": "iPhone Duo 半開立在桌上時，上半部以藍天為背景顯示當天，下半部以陽光草地為背景顯示日期列表。"
           }
         }
       }
@@ -7327,6 +7843,72 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open-Meteo 模擬的目前天氣，並非氣象站實測讀數。"
+          }
+        }
+      }
+    },
+    "Other data sources": {
+      "comment": "A link to a page that provides information about other data sources.",
+      "isCommentAutoGenerated": true,
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Andere Datenquellen"
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otras fuentes de datos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autres sources de données"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altre fonti di dati"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "その他のデータソース"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기타 데이터 출처"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outras fontes de dados"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Другие источники данных"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "其他数据来源"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "其他資料來源"
           }
         }
       }
@@ -8291,6 +8873,70 @@
         }
       }
     },
+    "Regional models and ensembles (such as NOAA HRRR, ICON-D2 or Météo-France AROME) only cover their own area, and the National Weather Service only covers the US, so each place gets the ones that reach it. Apple Weather isn't used in the widget.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regionale Modelle und Ensembles (etwa NOAA HRRR, ICON-D2 oder Météo-France AROME) decken nur ihr eigenes Gebiet ab, und der National Weather Service nur die USA, daher bekommt jeder Ort nur die, die ihn erreichen. Apple Wetter wird im Widget nicht verwendet."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los modelos y conjuntos regionales (como NOAA HRRR, ICON-D2 o Météo-France AROME) solo cubren su propia zona, y el National Weather Service solo cubre EE. UU., así que cada lugar recibe los que llegan hasta él. Apple Weather no se usa en el widget."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les modèles et ensembles régionaux (comme NOAA HRRR, ICON-D2 ou Météo-France AROME) ne couvrent que leur propre zone, et le National Weather Service seulement les États-Unis : chaque lieu reçoit donc ceux qui l’atteignent. Apple Météo n’est pas utilisé dans le widget."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I modelli e gli ensemble regionali (come NOAA HRRR, ICON-D2 o Météo-France AROME) coprono solo la propria area, e il National Weather Service solo gli Stati Uniti, quindi ogni luogo riceve quelli che lo raggiungono. Apple Meteo non viene usato nel widget."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "地域モデルとアンサンブル（NOAA HRRR、ICON-D2、Météo-France AROMEなど）は対象地域だけを、米国国立気象局は米国だけをカバーするため、各地点ではそこに届くものだけが使われます。ウィジェットではApple天気は使われません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지역 모델과 앙상블(NOAA HRRR, ICON-D2, Météo-France AROME 등)은 해당 지역만, 미국 국립기상청은 미국만 다루므로 각 장소에는 그곳에 닿는 것만 사용됩니다. 위젯에서는 Apple 날씨를 사용하지 않습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modelos e conjuntos regionais (como NOAA HRRR, ICON-D2 ou Météo-France AROME) só cobrem a própria área, e o National Weather Service só cobre os EUA, então cada local recebe os que chegam até ele. O Apple Tempo não é usado no widget."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Региональные модели и ансамбли (например, NOAA HRRR, ICON-D2 или Météo-France AROME) охватывают только свою территорию, а Национальная метеослужба США — только США, поэтому каждое место получает те, что до него доходят. В виджете Apple Погода не используется."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "区域模型和集合（如 NOAA HRRR、ICON-D2 或 Météo-France AROME）只覆盖各自的区域，美国国家气象局只覆盖美国，因此每个地点只会用到覆盖它的那些。小组件不使用 Apple 天气。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "區域模式和系集（如 NOAA HRRR、ICON-D2 或 Météo-France AROME）只涵蓋各自的區域，美國國家氣象局只涵蓋美國，因此每個地點只會用到涵蓋它的那些。小工具不使用 Apple 天氣。"
+          }
+        }
+      }
+    },
     "Restore Defaults": {
       "localizations": {
         "de": {
@@ -9059,66 +9705,66 @@
         }
       }
     },
-    "Some models don't report gusts or CAPE. For the Reality Check those are treated as calm, and missing cloud cover is treated as cloudy. When picking and counting values, forecasts missing a value are left out for that value.": {
+    "Some sources don't report snowfall, gusts or CAPE. For the Reality Check those are treated as none, and missing cloud cover is treated as cloudy. When picking and counting values, forecasts missing a value are left out for that value.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Manche Modelle melden keine Böen oder CAPE. Für den Realitätscheck gelten sie dann als ruhig, und fehlende Bewölkung gilt als bewölkt. Beim Auswählen und Zählen werden Prognosen ohne einen Wert für diesen Wert weggelassen."
+            "value": "Manche Quellen melden keinen Schneefall, keine Böen oder kein CAPE. Für den Realitätscheck gelten diese dann als null, und fehlende Bewölkung gilt als bewölkt. Beim Auswählen und Zählen werden Prognosen ohne einen Wert für diesen Wert weggelassen."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "Algunos modelos no indican rachas ni CAPE. Para la comprobación de realidad se consideran en calma, y la nubosidad que falta se considera nublado. Al elegir y contar valores, las previsiones a las que les falta un valor se omiten para ese valor."
+            "value": "Algunas fuentes no indican nevada, rachas ni CAPE. Para la comprobación de realidad se consideran nulos, y la nubosidad que falta se considera nublado. Al elegir y contar valores, las previsiones a las que les falta un valor se omiten para ese valor."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Certains modèles n’indiquent ni rafales ni CAPE. Pour le test de réalité, ils sont considérés comme calmes, et une nébulosité manquante est considérée comme nuageuse. Pour choisir et compter les valeurs, les prévisions auxquelles il manque une valeur sont écartées pour cette valeur."
+            "value": "Certaines sources n’indiquent ni chutes de neige, ni rafales, ni CAPE. Pour le test de réalité, ils sont considérés comme nuls, et une nébulosité manquante est considérée comme nuageuse. Pour choisir et compter les valeurs, les prévisions auxquelles il manque une valeur sont écartées pour cette valeur."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alcuni modelli non riportano raffiche o CAPE. Per la verifica di realtà sono considerati calmi, e la nuvolosità mancante è considerata nuvolosa. Nello scegliere e contare i valori, le previsioni a cui manca un valore vengono escluse per quel valore."
+            "value": "Alcune fonti non riportano nevicate, raffiche o CAPE. Per la verifica di realtà sono considerati nulli, e la nuvolosità mancante è considerata nuvolosa. Nello scegliere e contare i valori, le previsioni a cui manca un valore vengono escluse per quel valore."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "突風やCAPEを報告しないモデルもあります。リアリティチェックではそれらを無風として扱い、雲量がない場合は曇りとして扱います。値を選んだり数えたりするときは、その値がない予報は除外されます。"
+            "value": "降雪量、突風、CAPEを報告しないソースもあります。リアリティチェックではそれらをなしとして扱い、雲量がない場合は曇りとして扱います。値を選んだり数えたりするときは、その値がない予報は除外されます。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "일부 모델은 돌풍이나 CAPE를 제공하지 않습니다. 현실 점검에서는 이를 바람 없음으로, 구름양이 없으면 흐림으로 간주합니다. 값을 고르거나 셀 때 해당 값이 없는 예보는 그 값에서 제외됩니다."
+            "value": "일부 출처는 적설량, 돌풍, CAPE를 제공하지 않습니다. 현실 점검에서는 이를 없음으로, 구름양이 없으면 흐림으로 간주합니다. 값을 고르거나 셀 때 해당 값이 없는 예보는 그 값에서 제외됩니다."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alguns modelos não informam rajadas nem CAPE. Na checagem de realidade, eles são tratados como calmos, e a nebulosidade ausente é tratada como nublado. Ao escolher e contar valores, previsões sem um valor ficam de fora desse valor."
+            "value": "Algumas fontes não informam neve, rajadas nem CAPE. Na checagem de realidade, eles são tratados como nulos, e a nebulosidade ausente é tratada como nublado. Ao escolher e contar valores, previsões sem um valor ficam de fora desse valor."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Некоторые модели не сообщают порывы ветра или CAPE. Для проверки реальностью они считаются безветренными, а отсутствующая облачность — облачно. При выборе и подсчёте значений прогнозы без значения для него не учитываются."
+            "value": "Некоторые источники не сообщают снегопад, порывы ветра или CAPE. Для проверки реальностью они считаются отсутствующими, а отсутствующая облачность — облачно. При выборе и подсчёте значений прогнозы без значения для него не учитываются."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "有些模型不提供阵风或 CAPE。在现实检验中，这些按无风处理，缺失的云量按阴天处理。挑选和统计数值时，缺少该数值的预报会被排除。"
+            "value": "有些来源不提供降雪、阵风或 CAPE。在现实检验中，这些按无处理，缺失的云量按阴天处理。挑选和统计数值时，缺少该数值的预报会被排除。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "有些模式不提供陣風或 CAPE。在現實檢驗中，這些以無風處理，缺少的雲量以陰天處理。挑選和計算數值時，缺少該數值的預報會被排除。"
+            "value": "有些來源不提供降雪、陣風或 CAPE。在現實檢驗中，這些以無處理，缺少的雲量以陰天處理。挑選和計算數值時，缺少該數值的預報會被排除。"
           }
         }
       }
@@ -9445,66 +10091,130 @@
         }
       }
     },
-    "The app downloads forecasts when it starts, when you pull to refresh, and when you change location. The widget asks for an update about once an hour; the system decides exactly when.": {
+    "Switzerland's national weather service: the ICON-CH1 and ICON-CH2 forecasts and their ensembles.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die App lädt Prognosen beim Start, beim Aktualisieren durch Herunterziehen und beim Ortswechsel. Das Widget fragt etwa einmal pro Stunde nach Updates; wann genau, entscheidet das System."
+            "value": "Der nationale Wetterdienst der Schweiz: die Prognosen ICON-CH1 und ICON-CH2 und ihre Ensembles."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "La app descarga previsiones al abrirse, al deslizar para actualizar y al cambiar de ubicación. El widget pide una actualización aproximadamente cada hora; el sistema decide el momento exacto."
+            "value": "El servicio meteorológico nacional de Suiza: las previsiones ICON-CH1 e ICON-CH2 y sus conjuntos."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "L’app télécharge les prévisions à son lancement, quand vous tirez pour actualiser et quand vous changez de lieu. Le widget demande une mise à jour environ une fois par heure ; le système décide du moment exact."
+            "value": "Le service météorologique national suisse : les prévisions ICON-CH1 et ICON-CH2 et leurs ensembles."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "L’app scarica le previsioni all’avvio, quando trascini per aggiornare e quando cambi luogo. Il widget chiede un aggiornamento circa una volta all’ora; il momento esatto lo decide il sistema."
+            "value": "Il servizio meteorologico nazionale svizzero: le previsioni ICON-CH1 e ICON-CH2 e i loro ensemble."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "アプリは起動時、引っぱって更新したとき、地点を変更したときに予報をダウンロードします。ウィジェットは約1時間ごとに更新を要求しますが、正確なタイミングはシステムが決めます。"
+            "value": "スイスの国立気象機関：ICON-CH1、ICON-CH2の予報とそれぞれのアンサンブル。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "앱은 시작할 때, 당겨서 새로 고칠 때, 위치를 바꿀 때 예보를 다운로드합니다. 위젯은 약 1시간마다 업데이트를 요청하며, 정확한 시점은 시스템이 결정합니다."
+            "value": "스위스 국립 기상청: ICON-CH1, ICON-CH2 예보와 각각의 앙상블."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "O app baixa previsões ao abrir, quando você puxa para atualizar e quando muda de local. O widget pede uma atualização cerca de uma vez por hora; o sistema decide o momento exato."
+            "value": "O serviço meteorológico nacional da Suíça: as previsões ICON-CH1 e ICON-CH2 e seus conjuntos."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Приложение загружает прогнозы при запуске, при обновлении жестом вниз и при смене места. Виджет запрашивает обновление примерно раз в час; точное время определяет система."
+            "value": "Национальная метеослужба Швейцарии: прогнозы ICON-CH1 и ICON-CH2 и их ансамбли."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "App 会在启动、下拉刷新和切换地点时下载预报。小组件大约每小时请求一次更新，具体时间由系统决定。"
+            "value": "瑞士国家气象局：ICON-CH1 和 ICON-CH2 预报及其集合。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "App 會在啟動、下拉重新整理和切換地點時下載預報。小工具大約每小時要求一次更新，確切時間由系統決定。"
+            "value": "瑞士國家氣象局：ICON-CH1 和 ICON-CH2 預報及其系集。"
+          }
+        }
+      }
+    },
+    "The app downloads forecasts when it starts, when you pull to refresh, and when you change location. The widget asks for an update about every three hours; the system decides exactly when.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die App lädt Prognosen beim Start, beim Aktualisieren durch Herunterziehen und beim Ortswechsel. Das Widget fragt etwa alle drei Stunden nach Updates; wann genau, entscheidet das System."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La app descarga previsiones al abrirse, al deslizar para actualizar y al cambiar de ubicación. El widget pide una actualización aproximadamente cada tres horas; el sistema decide el momento exacto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’app télécharge les prévisions à son lancement, quand vous tirez pour actualiser et quand vous changez de lieu. Le widget demande une mise à jour environ toutes les trois heures ; le système décide du moment exact."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’app scarica le previsioni all’avvio, quando trascini per aggiornare e quando cambi luogo. Il widget chiede un aggiornamento circa ogni tre ore; il momento esatto lo decide il sistema."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アプリは起動時、引っぱって更新したとき、地点を変更したときに予報をダウンロードします。ウィジェットは約3時間ごとに更新を要求しますが、正確なタイミングはシステムが決めます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "앱은 시작할 때, 당겨서 새로 고칠 때, 위치를 바꿀 때 예보를 다운로드합니다. 위젯은 약 3시간마다 업데이트를 요청하며, 정확한 시점은 시스템이 결정합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O app baixa previsões ao abrir, quando você puxa para atualizar e quando muda de local. O widget pede uma atualização cerca de a cada três horas; o sistema decide o momento exato."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приложение загружает прогнозы при запуске, при обновлении жестом вниз и при смене места. Виджет запрашивает обновление примерно раз в три часа; точное время определяет система."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App 会在启动、下拉刷新和切换地点时下载预报。小组件大约每三小时请求一次更新，具体时间由系统决定。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App 會在啟動、下拉重新整理和切換地點時下載預報。小工具大約每三小時要求一次更新，確切時間由系統決定。"
           }
         }
       }
@@ -9765,6 +10475,70 @@
         }
       }
     },
+    "The Danish Meteorological Institute: the DMI HARMONIE forecast.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Dänische Meteorologische Institut: die Prognose DMI HARMONIE."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El Instituto Meteorológico Danés: la previsión DMI HARMONIE."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’Institut météorologique danois : la prévision DMI HARMONIE."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’Istituto meteorologico danese: la previsione DMI HARMONIE."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "デンマーク気象研究所：DMI HARMONIEの予報。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "덴마크 기상연구소: DMI HARMONIE 예보."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Instituto Meteorológico Dinamarquês: a previsão DMI HARMONIE."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Датский метеорологический институт: прогноз DMI HARMONIE."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "丹麦气象研究所：DMI HARMONIE 预报。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "丹麥氣象研究所：DMI HARMONIE 預報。"
+          }
+        }
+      }
+    },
     "The forecast that supplied this day's %@ value. The other values above may come from different forecasts, so these hours can look worse than the best case above.": {
       "localizations": {
         "de": {
@@ -9829,66 +10603,130 @@
         }
       }
     },
-    "The JMA forecast.": {
+    "The JMA and JMA MSM forecasts.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die Prognose der JMA."
+            "value": "Die Prognosen JMA und JMA MSM."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "La previsión de la JMA."
+            "value": "Las previsiones JMA y JMA MSM."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "La prévision de la JMA."
+            "value": "Les prévisions JMA et JMA MSM."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "La previsione della JMA."
+            "value": "Le previsioni JMA e JMA MSM."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "JMAの予報。"
+            "value": "JMAおよびJMA MSMの予報。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "JMA 예보."
+            "value": "JMA 및 JMA MSM 예보."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "A previsão da JMA."
+            "value": "As previsões JMA e JMA MSM."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Прогноз JMA."
+            "value": "Прогнозы JMA и JMA MSM."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "JMA 预报。"
+            "value": "JMA 和 JMA MSM 预报。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "JMA 預報。"
+            "value": "JMA 和 JMA MSM 預報。"
+          }
+        }
+      }
+    },
+    "The KMA LDPS forecast.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Prognose KMA LDPS."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La previsión KMA LDPS."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La prévision KMA LDPS."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La previsione KMA LDPS."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KMA LDPSの予報。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KMA LDPS 예보."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A previsão KMA LDPS."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прогноз KMA LDPS."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KMA LDPS 预报。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KMA LDPS 預報。"
           }
         }
       }
@@ -9953,6 +10791,70 @@
           "stringUnit": {
             "state": "translated",
             "value": "主列表顯示 7 天。使用「選擇未來日期」可查看約六個月內的任何一天。"
+          }
+        }
+      }
+    },
+    "The Norwegian Meteorological Institute: the MET Norway Nordic forecast via Open-Meteo, and its Locationforecast downloaded directly from api.met.no (CC BY 4.0).": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Norwegische Meteorologische Institut: die Prognose MET Norway Nordic über Open-Meteo und sein Locationforecast, direkt von api.met.no geladen (CC BY 4.0)."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El Instituto Meteorológico Noruego: la previsión MET Norway Nordic mediante Open-Meteo y su Locationforecast, descargado directamente de api.met.no (CC BY 4.0)."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’Institut météorologique norvégien : la prévision MET Norway Nordic via Open-Meteo, et son Locationforecast téléchargé directement depuis api.met.no (CC BY 4.0)."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’Istituto meteorologico norvegese: la previsione MET Norway Nordic tramite Open-Meteo e il suo Locationforecast, scaricato direttamente da api.met.no (CC BY 4.0)."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ノルウェー気象研究所：Open-Meteo経由のMET Norway Nordicの予報と、api.met.noから直接ダウンロードするLocationforecast（CC BY 4.0）。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "노르웨이 기상연구소: Open-Meteo를 통한 MET Norway Nordic 예보와 api.met.no에서 직접 다운로드하는 Locationforecast(CC BY 4.0)."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Instituto Meteorológico Norueguês: a previsão MET Norway Nordic via Open-Meteo e o seu Locationforecast, baixado diretamente de api.met.no (CC BY 4.0)."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Норвежский метеорологический институт: прогноз MET Norway Nordic через Open-Meteo и его Locationforecast, загружаемый напрямую с api.met.no (CC BY 4.0)."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "挪威气象研究所：经由 Open-Meteo 的 MET Norway Nordic 预报，以及直接从 api.met.no 下载的 Locationforecast（CC BY 4.0）。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "挪威氣象研究所：經由 Open-Meteo 的 MET Norway Nordic 預報，以及直接從 api.met.no 下載的 Locationforecast（CC BY 4.0）。"
           }
         }
       }
@@ -10085,6 +10987,70 @@
         }
       }
     },
+    "The Royal Netherlands Meteorological Institute: the KNMI HARMONIE forecast.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Königlich Niederländische Meteorologische Institut: die Prognose KNMI HARMONIE."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El Real Instituto Meteorológico de los Países Bajos: la previsión KNMI HARMONIE."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’Institut royal météorologique des Pays-Bas : la prévision KNMI HARMONIE."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il Regio istituto meteorologico dei Paesi Bassi: la previsione KNMI HARMONIE."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "オランダ王立気象研究所：KNMI HARMONIEの予報。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "네덜란드 왕립 기상연구소: KNMI HARMONIE 예보."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Real Instituto Meteorológico dos Países Baixos: a previsão KNMI HARMONIE."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Королевский метеорологический институт Нидерландов: прогноз KNMI HARMONIE."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "荷兰皇家气象研究所：KNMI HARMONIE 预报。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "荷蘭皇家氣象研究所：KNMI HARMONIE 預報。"
+          }
+        }
+      }
+    },
     "The strongest hourly wind gust of the day.": {
       "localizations": {
         "de": {
@@ -10149,66 +11115,130 @@
         }
       }
     },
-    "The UK Met Office and UK Met Office Ensemble forecasts (CC BY-SA).": {
+    "The UK Met Office and UK Met Office 2 km forecasts and their ensembles (CC BY-SA).": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die Prognosen UK Met Office und UK Met Office Ensemble (CC BY-SA)."
+            "value": "Die Prognosen UK Met Office und UK Met Office 2 km und ihre Ensembles (CC BY-SA)."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "Las previsiones UK Met Office y UK Met Office Ensemble (CC BY-SA)."
+            "value": "Las previsiones UK Met Office y UK Met Office 2 km y sus conjuntos (CC BY-SA)."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les prévisions UK Met Office et UK Met Office Ensemble (CC BY-SA)."
+            "value": "Les prévisions UK Met Office et UK Met Office 2 km et leurs ensembles (CC BY-SA)."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Le previsioni UK Met Office e UK Met Office Ensemble (CC BY-SA)."
+            "value": "Le previsioni UK Met Office e UK Met Office 2 km e i loro ensemble (CC BY-SA)."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "UK Met OfficeおよびUK Met Officeアンサンブルの予報（CC BY-SA）。"
+            "value": "UK Met OfficeおよびUK Met Office 2 kmの予報とそれぞれのアンサンブル（CC BY-SA）。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "UK Met Office 및 UK Met Office 앙상블 예보(CC BY-SA)."
+            "value": "UK Met Office 및 UK Met Office 2 km 예보와 각각의 앙상블(CC BY-SA)."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "As previsões UK Met Office e UK Met Office Ensemble (CC BY-SA)."
+            "value": "As previsões UK Met Office e UK Met Office 2 km e seus conjuntos (CC BY-SA)."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Прогнозы UK Met Office и UK Met Office Ensemble (CC BY-SA)."
+            "value": "Прогнозы UK Met Office и UK Met Office 2 km и их ансамбли (CC BY-SA)."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "UK Met Office 和 UK Met Office 集合预报（CC BY-SA）。"
+            "value": "UK Met Office 和 UK Met Office 2 km 预报及其集合（CC BY-SA）。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "UK Met Office 和 UK Met Office 系集預報（CC BY-SA）。"
+            "value": "UK Met Office 和 UK Met Office 2 km 預報及其系集（CC BY-SA）。"
+          }
+        }
+      }
+    },
+    "The US National Weather Service's gridded forecast, downloaded directly from api.weather.gov (US places only; public domain).": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Gitterprognose des US National Weather Service, direkt von api.weather.gov geladen (nur Orte in den USA; gemeinfrei)."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La previsión en cuadrícula del National Weather Service de EE. UU., descargada directamente de api.weather.gov (solo lugares de EE. UU.; dominio público)."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La prévision sur grille du National Weather Service américain, téléchargée directement depuis api.weather.gov (lieux aux États-Unis uniquement ; domaine public)."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La previsione su griglia del National Weather Service statunitense, scaricata direttamente da api.weather.gov (solo luoghi negli Stati Uniti; pubblico dominio)."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "米国国立気象局の格子点予報。api.weather.govから直接ダウンロードします（米国内の地点のみ、パブリックドメイン）。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "미국 국립기상청의 격자 예보로, api.weather.gov에서 직접 다운로드합니다(미국 내 장소만, 퍼블릭 도메인)."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A previsão em grade do National Weather Service dos EUA, baixada diretamente de api.weather.gov (somente locais nos EUA; domínio público)."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сеточный прогноз Национальной метеослужбы США, загружаемый напрямую с api.weather.gov (только для мест в США; общественное достояние)."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "美国国家气象局的网格预报，直接从 api.weather.gov 下载（仅限美国地点；公共领域）。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "美國國家氣象局的網格預報，直接從 api.weather.gov 下載（僅限美國地點；公有領域）。"
           }
         }
       }
@@ -10725,66 +11755,66 @@
         }
       }
     },
-    "U.S. National Centers for Environmental Prediction: the GFS and GFS Ensemble forecasts.": {
+    "U.S. National Centers for Environmental Prediction: the GFS, GFS Ensemble, HRRR, NAM and NBM forecasts.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "National Centers for Environmental Prediction der USA: die Prognosen GFS und GFS Ensemble."
+            "value": "National Centers for Environmental Prediction der USA: die Prognosen GFS, GFS Ensemble, HRRR, NAM und NBM."
           }
         },
         "es-ES": {
           "stringUnit": {
             "state": "translated",
-            "value": "Centros Nacionales de Predicción Ambiental de EE. UU.: las previsiones GFS y GFS Ensemble."
+            "value": "Centros Nacionales de Predicción Ambiental de EE. UU.: las previsiones GFS, GFS Ensemble, HRRR, NAM y NBM."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Centres nationaux de prévision environnementale des États-Unis : les prévisions GFS et GFS Ensemble."
+            "value": "Centres nationaux de prévision environnementale des États-Unis : les prévisions GFS, GFS Ensemble, HRRR, NAM et NBM."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Centri nazionali per la previsione ambientale degli Stati Uniti: le previsioni GFS e GFS Ensemble."
+            "value": "Centri nazionali per la previsione ambientale degli Stati Uniti: le previsioni GFS, GFS Ensemble, HRRR, NAM e NBM."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "米国環境予測センター：GFSおよびGFSアンサンブルの予報。"
+            "value": "米国環境予測センター：GFS、GFSアンサンブル、HRRR、NAM、NBMの予報。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "미국 국립환경예측센터: GFS 및 GFS 앙상블 예보."
+            "value": "미국 국립환경예측센터: GFS, GFS 앙상블, HRRR, NAM 및 NBM 예보."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Centros Nacionais de Previsão Ambiental dos EUA: as previsões GFS e GFS Ensemble."
+            "value": "Centros Nacionais de Previsão Ambiental dos EUA: as previsões GFS, GFS Ensemble, HRRR, NAM e NBM."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Национальные центры прогнозирования окружающей среды США: прогнозы GFS и GFS Ensemble."
+            "value": "Национальные центры прогнозирования окружающей среды США: прогнозы GFS, GFS Ensemble, HRRR, NAM и NBM."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "美国国家环境预报中心：GFS 和 GFS 集合预报。"
+            "value": "美国国家环境预报中心：GFS、GFS 集合、HRRR、NAM 和 NBM 预报。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "美國國家環境預報中心：GFS 和 GFS 系集預報。"
+            "value": "美國國家環境預報中心：GFS、GFS 系集、HRRR、NAM 和 NBM 預報。"
           }
         }
       }
@@ -11745,6 +12775,78 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wishcast"
+          }
+        }
+      }
+    },
+    "Wishcast draws on %lld weather models, %lld ensembles and %lld forecasts straight from their providers, made by ECMWF, Apple and 13 national weather services across North America, Europe and East Asia. They include global and high-resolution regional models, physics-based and AI models, and ensembles that rerun a model up to 51 times. Regional models only count where they reach.": {
+      "comment": "A paragraph describing the weather data source for Wishcast. The first argument is the number of weather models. The second argument is the number of weather ensembles. The third argument is the number of weather providers.",
+      "isCommentAutoGenerated": true,
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Wishcast draws on %1$lld weather models, %2$lld ensembles and %3$lld forecasts straight from their providers, made by ECMWF, Apple and 13 national weather services across North America, Europe and East Asia. They include global and high-resolution regional models, physics-based and AI models, and ensembles that rerun a model up to 51 times. Regional models only count where they reach."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wishcast nutzt %1$lld Wettermodelle, %2$lld Ensembles und %3$lld Prognosen direkt von ihren Anbietern, erstellt von ECMWF, Apple und 13 nationalen Wetterdiensten in Nordamerika, Europa und Ostasien. Darunter sind globale und hochaufgelöste regionale Modelle, physikalische und KI-Modelle sowie Ensembles, die ein Modell bis zu 51-mal neu rechnen. Regionale Modelle zählen nur dort, wo sie hinreichen."
+          }
+        },
+        "es-ES": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wishcast se basa en %1$lld modelos meteorológicos, %2$lld conjuntos y %3$lld previsiones obtenidas directamente de sus proveedores, elaborados por el ECMWF, Apple y 13 servicios meteorológicos nacionales de Norteamérica, Europa y Asia oriental. Incluyen modelos globales y regionales de alta resolución, modelos físicos y de IA, y conjuntos que vuelven a ejecutar un modelo hasta 51 veces. Los modelos regionales solo cuentan donde llegan."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wishcast s’appuie sur %1$lld modèles météo, %2$lld ensembles et %3$lld prévisions obtenues directement auprès de leurs fournisseurs, produits par le CEPMMT (ECMWF), Apple et 13 services météorologiques nationaux d’Amérique du Nord, d’Europe et d’Asie de l’Est. On y trouve des modèles mondiaux et régionaux à haute résolution, des modèles physiques et d’IA, et des ensembles qui relancent un modèle jusqu’à 51 fois. Les modèles régionaux ne comptent que là où ils s’étendent."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wishcast si basa su %1$lld modelli meteo, %2$lld ensemble e %3$lld previsioni prese direttamente dai loro fornitori, realizzati da ECMWF, Apple e 13 servizi meteorologici nazionali in Nord America, Europa e Asia orientale. Comprendono modelli globali e regionali ad alta risoluzione, modelli fisici e di IA, ed ensemble che rieseguono un modello fino a 51 volte. I modelli regionali contano solo dove arrivano."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wishcastは、%1$lld個の気象モデル、%2$lld個のアンサンブル、提供元から直接取得する%3$lld件の予報を使います。作成しているのはECMWF、Apple、そして北米・ヨーロッパ・東アジアの13の国立気象機関です。全球モデルと高解像度の地域モデル、物理モデルとAIモデル、1つのモデルを最大51回計算し直すアンサンブルが含まれます。地域モデルは対象地域でのみ使われます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wishcast는 기상 모델 %1$lld개, 앙상블 %2$lld개, 제공처에서 직접 받는 예보 %3$lld개를 사용합니다. 이를 만드는 곳은 ECMWF, Apple, 그리고 북미·유럽·동아시아의 국립 기상청 13곳입니다. 전 지구 모델과 고해상도 지역 모델, 물리 기반 모델과 AI 모델, 하나의 모델을 최대 51번 다시 계산하는 앙상블이 포함됩니다. 지역 모델은 해당 지역에서만 사용됩니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Wishcast usa %1$lld modelos meteorológicos, %2$lld conjuntos e %3$lld previsões obtidas direto de seus provedores, feitos pelo ECMWF, pela Apple e por 13 serviços meteorológicos nacionais da América do Norte, Europa e Leste Asiático. Há modelos globais e regionais de alta resolução, modelos físicos e de IA, e conjuntos que rodam um modelo de novo até 51 vezes. Modelos regionais só contam onde alcançam."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wishcast использует метеомодели (%1$lld), ансамбли (%2$lld) и прогнозы напрямую от поставщиков (%3$lld). Их создают ECMWF, Apple и 13 национальных метеослужб Северной Америки, Европы и Восточной Азии. Среди них глобальные и региональные модели высокого разрешения, физические модели и модели ИИ, а также ансамбли, пересчитывающие модель до 51 раза. Региональные модели учитываются только там, где они действуют."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wishcast 使用 %1$lld 个天气模型、%2$lld 个集合，以及 %3$lld 个直接来自提供方的预报，它们出自 ECMWF、Apple 以及北美、欧洲和东亚的 13 家国家气象机构。其中既有全球模型，也有高分辨率区域模型；既有物理模型，也有 AI 模型；还有将一个模型重算多达 51 次的集合。区域模型只在其覆盖范围内计入。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wishcast 使用 %1$lld 個天氣模式、%2$lld 個系集，以及 %3$lld 個直接來自提供者的預報，它們出自 ECMWF、Apple 以及北美、歐洲和東亞的 13 家國家氣象機構。其中既有全球模式，也有高解析度區域模式；既有物理模式，也有 AI 模式；還有將一個模式重算多達 51 次的系集。區域模式只在其涵蓋範圍內計入。"
           }
         }
       }

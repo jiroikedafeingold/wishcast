@@ -1,4 +1,4 @@
-Wir haben es alle schon gemacht: eine Wetter-App geprüft, dann noch eine und noch eine, bis uns endlich eine gesagt hat, was wir hören wollten. Wishcast spart dir die Suche. Es betrachtet etwa 170 Prognosen auf einmal und zeigt dir den besten Fall für das Wetter, auf das du hoffst.
+Wir haben es alle schon gemacht: eine Wetter-App geprüft, dann noch eine und noch eine, bis uns endlich eine gesagt hat, was wir hören wollten. Wishcast spart dir die Suche. Es betrachtet mehr als 200 Prognosen auf einmal und zeigt dir den besten Fall für das Wetter, auf das du hoffst.
 
 Du belügst dich nicht selbst. Du bist nur optimistisch.
 
@@ -12,7 +12,7 @@ WÄHLE DEINEN WUNSCH
 Lege dein perfektes Hoch, deinen perfekten Abend und dein perfektes Tief fest, und Wishcast sucht danach.
 
 SO FUNKTIONIERT ES
-Wishcast lädt Prognosen von 9 globalen Wettermodellen und von jedem Lauf von 5 Ensemble-Modellen: etwa 170 Prognosen pro Tag. Für jeden Wert (Hoch, Tief, Regen, Schnee, Wolken, Wind) wählt es den, der am besten zu deinem Wunsch passt. Das Hoch kann aus einer Prognose stammen und das Tief aus einer anderen – ein Wishcast-Tag ist also ein bester Fall, keine Vorhersage.
+Wishcast lädt Prognosen von bis zu 26 globalen und regionalen Wettermodellen, von jedem Lauf von bis zu 11 Ensembles und direkt vom US National Weather Service, von MET Norway und von Apple Wetter: mehr als 200 Prognosen für jeden Tag der kommenden Woche. Darunter sind physikalische und KI-Modelle von ECMWF und 13 nationalen Wetterdiensten in Nordamerika, Europa und Ostasien. Für jeden Wert (Hoch, Tief, Regen, Schnee, Wolken, Wind) wählt es den, der am besten zu deinem Wunsch passt. Das Hoch kann aus einer Prognose stammen und das Tief aus einer anderen – ein Wishcast-Tag ist also ein bester Fall, keine Vorhersage.
 
 Und es bleibt dabei ehrlich:
 - Jeder Tag zeigt, wie viele Prognosen tatsächlich sein Hoch und Tief zeigen.
@@ -27,10 +27,10 @@ ALLES, WAS DU VON EINER WETTER-APP ERWARTEST
 - Sonnenaufgang, Sonnenuntergang, UV-Index und Regenrisiko
 - Gespeicherte Orte, Ortssuche und aktueller Standort
 - Widgets für den Home-Bildschirm und auf dem iPhone auch für den Sperrbildschirm
-- Layouts für iPhone, iPad und iPhone Duo. Stell das Duo halb geöffnet auf einen Tisch, und die untere Hälfte kann sonnigen Rasen mit dem besten Fall für heute zeigen.
+- Layouts für iPhone, iPad und iPhone Duo. Stell das Duo halb geöffnet auf einen Tisch, und es kann oben den Tag vor blauem Himmel und unten die Liste der Tage auf sonnigem Rasen zeigen.
 
 Kein Account, keine Anmeldung. Dein Standort wird nur verwendet, um Prognosen abzurufen.
 
-Wetterdaten von Open-Meteo.com, aus Prognosen von ECMWF, NOAA, Deutscher Wetterdienst, Canadian Meteorological Centre, Météo-France, Japan Meteorological Agency, UK Met Office und China Meteorological Administration. Wishcast ist mit keiner dieser Organisationen verbunden und wird von keiner unterstützt.
+Wetterdaten von Open-Meteo.com, MET Norway, dem US National Weather Service und Apple Wetter, aus Prognosen von ECMWF, NOAA, Deutscher Wetterdienst, Environment and Climate Change Canada, Météo-France, Japan Meteorological Agency, UK Met Office, China Meteorological Administration, MET Norway, KNMI, DMI, MeteoSchweiz, ItaliaMeteo und Korea Meteorological Administration. Wishcast ist mit keiner dieser Organisationen verbunden und wird von keiner unterstützt.
 
 Wishcast ist zum Spaß und zum Hoffen da. Für wetterabhängige Pläne sieh dir eine offizielle Vorhersage an.

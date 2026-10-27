@@ -1,4 +1,4 @@
-We've all done it: checked one weather app, then another, then another, until one finally told us what we wanted to hear. Wishcast skips the hunting. It looks at about 170 forecasts at once and shows you the best case for the weather you're hoping for.
+We've all done it: checked one weather app, then another, then another, until one finally told us what we wanted to hear. Wishcast skips the hunting. It looks at more than 200 forecasts at once and shows you the best case for the weather you're hoping for.
 
 You aren't lying to yourself. You are just being optimistic.
 
@@ -12,7 +12,7 @@ PICK YOUR WISH
 Set your own perfect high, perfect evening and perfect low, and Wishcast hunts for them.
 
 HOW IT WORKS
-Wishcast downloads forecasts from 9 global weather models plus every run of 5 ensemble models: about 170 forecasts for each day. For every value (high, low, rain, snow, clouds, wind), it picks the one that best fits your wish. The high can come from one forecast and the low from another, so a Wishcast day is a best case, not a prediction.
+Wishcast downloads forecasts from up to 26 global and regional weather models, every run of up to 11 ensembles, and directly from the US National Weather Service, MET Norway and Apple Weather: more than 200 forecasts for each day of the week ahead. They include physics-based and AI models from ECMWF and 13 national weather services across North America, Europe and East Asia. For every value (high, low, rain, snow, clouds, wind), it picks the one that best fits your wish. The high can come from one forecast and the low from another, so a Wishcast day is a best case, not a prediction.
 
 It stays honest about it:
 - Each day shows how many forecasts actually show its high and low.
@@ -27,10 +27,10 @@ EVERYTHING YOU EXPECT FROM A WEATHER APP
 - Sunrise, sunset, UV index and chance of precipitation
 - Saved places, city search and current location
 - Home Screen widgets, plus Lock Screen widgets on iPhone
-- Layouts for iPhone, iPad and iPhone Duo. Stand the Duo half-open on a table and the lower half can show sunlit grass with today's best case.
+- Layouts for iPhone, iPad and iPhone Duo. Stand the Duo half-open on a table and it can show the day over a blue sky on top and the list of days over sunlit grass below.
 
 No account and no sign-in. Your location is only used to request forecasts.
 
-Weather data by Open-Meteo.com, from forecasts published by ECMWF, NOAA, Deutscher Wetterdienst, the Canadian Meteorological Centre, Météo-France, the Japan Meteorological Agency, the UK Met Office and the China Meteorological Administration. Wishcast isn't affiliated with or endorsed by any of them.
+Weather data by Open-Meteo.com, MET Norway, the US National Weather Service and Apple Weather, from forecasts published by ECMWF, NOAA, Deutscher Wetterdienst, Environment and Climate Change Canada, Météo-France, the Japan Meteorological Agency, the UK Met Office, the China Meteorological Administration, MET Norway, KNMI, DMI, MeteoSwiss, ItaliaMeteo and the Korea Meteorological Administration. Wishcast isn't affiliated with or endorsed by any of them.
 
 Wishcast is for fun and for hope. For plans that depend on the weather, check an official forecast.

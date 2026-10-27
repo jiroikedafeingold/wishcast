@@ -1,6 +1,7 @@
 import Foundation
 import CoreLocation
 import Observation
+import WeatherKit
 import WidgetKit
 
 @Observable
@@ -24,6 +25,10 @@ final class WishcastViewModel {
     private(set) var conditions: Conditions?
     private(set) var timeZone: TimeZone = .current
     private(set) var sourceCount = 0
+    /// Which non-Open-Meteo providers (NWS, MET Norway, Apple Weather) are in the current mix, for attribution.
+    private(set) var otherProviders: Set<String> = []
+    /// Apple Weather's required attribution, fetched once its forecast is in the mix.
+    private(set) var appleWeatherAttribution: WeatherAttribution?
     private(set) var isLoading = false
     var errorMessage: String?
 
@@ -35,7 +40,9 @@ final class WishcastViewModel {
 
     private var forecasts: [DayForecast] = [] {
         didSet {
-            sourceCount = Set(forecasts.map(\.source)).count
+            let sources = Set(forecasts.map(\.source))
+            sourceCount = sources.count
+            otherProviders = sources.intersection([OpenMeteoClient.nwsName, OpenMeteoClient.metNorwayName, OpenMeteoClient.appleWeatherName])
             rebuildDays()
         }
     }
@@ -58,11 +65,14 @@ final class WishcastViewModel {
         isLoading = true
         defer { isLoading = false }
         do {
-            let result = try await client.forecasts(for: place)
+            let result = try await client.forecasts(for: place, includeAppleWeather: true)
             timeZone = result.timeZone
             conditions = result.conditions
             forecasts = result.forecasts
             errorMessage = nil
+            if otherProviders.contains(OpenMeteoClient.appleWeatherName), appleWeatherAttribution == nil {
+                appleWeatherAttribution = try? await WeatherService.shared.attribution
+            }
         } catch {
             errorMessage = String(localized: "Couldn't load forecasts. Pull to try again.")
         }
@@ -92,7 +102,7 @@ final class WishcastViewModel {
         isLoadingLongRange = true
         defer { isLoadingLongRange = false }
         do {
-            let hourly = try await client.forecasts(for: place, days: 35)
+            let hourly = try await client.forecasts(for: place, days: 35, includeAppleWeather: true)
             // The long-range ensemble adds 51 more forecasts to every day after the 7-day list.
             let lastListDay = days.map(\.date).max() ?? .now
             let daily = (try? await client.longRangeForecasts(for: place, after: lastListDay)) ?? []
