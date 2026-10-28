@@ -26,8 +26,11 @@ EVERYTHING YOU EXPECT FROM A WEATHER APP
 - Current conditions, a 7-day outlook and hourly forecasts
 - Pick any date up to about six months ahead. Past a week it's labeled a long shot, past two weeks a wild guess.
 - Sunrise, sunset, UV index and chance of precipitation
-- Saved places, city search and current location
-- Home Screen widgets, plus Lock Screen widgets on iPhone
+- Official weather alerts and a next-hour rain forecast from Apple Weather where available, shown as issued and never mixed
+- Saved places, city search and current location. Star your favorites and swipe between them.
+- Animated backgrounds that match the weather: drifting clouds, rain, lightning (with a thunder rumble on iPhone), snow and blowing leaves. Turn them off in Settings.
+- Home Screen widgets, each showing the place you choose, plus Lock Screen widgets on iPhone
+- Apple Watch app, complications and a Smart Stack widget
 - Layouts for iPhone, iPad and iPhone Duo. Stand the Duo half-open on a table and it can show the day on top and the list of days below, over a sky and ground drawn to match the day's weather.
 
 No account and no sign-in. Your location is only used to request forecasts.

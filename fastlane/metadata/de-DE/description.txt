@@ -26,8 +26,11 @@ ALLES, WAS DU VON EINER WETTER-APP ERWARTEST
 - Aktuelle Bedingungen, ein 7-Tage-Ausblick und stündliche Prognosen
 - Wähle ein beliebiges Datum bis etwa sechs Monate im Voraus. Nach einer Woche heißt es „Glücksspiel“, nach zwei Wochen „Wilder Tipp“.
 - Sonnenaufgang, Sonnenuntergang, UV-Index und Regenrisiko
-- Gespeicherte Orte, Ortssuche und aktueller Standort
-- Widgets für den Home-Bildschirm und auf dem iPhone auch für den Sperrbildschirm
+- Offizielle Wetterwarnungen und eine Regenprognose für die nächste Stunde von Apple Wetter, wo verfügbar, so angezeigt, wie sie herausgegeben wurden, nie gemischt
+- Gespeicherte Orte, Ortssuche und aktueller Standort. Markiere Favoriten mit einem Stern und wische zwischen ihnen.
+- Animierte Hintergründe passend zum Wetter: ziehende Wolken, Regen, Blitze (mit Donnergrollen auf dem iPhone), Schnee und wehende Blätter. In den Einstellungen abschaltbar.
+- Widgets für den Home-Bildschirm, jedes mit dem Ort deiner Wahl, und auf dem iPhone auch für den Sperrbildschirm
+- Apple Watch App, Komplikationen und ein Smart-Stack-Widget
 - Layouts für iPhone, iPad und iPhone Duo. Stell das Duo halb geöffnet auf einen Tisch, und es kann oben den Tag und unten die Liste der Tage zeigen, vor Himmel und Boden passend zum Wetter des Tages.
 
 Kein Account, keine Anmeldung. Dein Standort wird nur verwendet, um Prognosen abzurufen.

@@ -26,8 +26,11 @@ TUDO O QUE VOCÊ ESPERA DE UM APP DE CLIMA
 - Condições atuais, tendência de 7 dias e previsão por hora
 - Escolha qualquer data até cerca de seis meses à frente. Depois de uma semana, é uma aposta arriscada; depois de duas semanas, um chute.
 - Nascer e pôr do sol, índice UV e chance de precipitação
-- Locais salvos, busca de cidades e localização atual
-- Widgets para a Tela de Início e, no iPhone, para a Tela Bloqueada
+- Alertas meteorológicos oficiais e previsão de chuva para a próxima hora do Tempo da Apple, onde disponíveis, exibidos como emitidos e nunca misturados
+- Locais salvos, busca de cidades e localização atual. Marque favoritos com uma estrela e deslize entre eles.
+- Fundos animados de acordo com o tempo: nuvens passando, chuva, relâmpagos (com um ronco de trovão no iPhone), neve e folhas ao vento. Dá para desativar nos Ajustes.
+- Widgets para a Tela de Início, cada um com o local que você escolher, e widgets para a Tela Bloqueada no iPhone
+- App para Apple Watch, complicações e um widget para a Pilha Inteligente
 - Layouts para iPhone, iPad e iPhone Duo. Deixe o Duo meio aberto sobre uma mesa e ele pode mostrar em cima o dia e embaixo a lista de dias, sobre um céu e um chão desenhados de acordo com o tempo do dia.
 
 Sem conta e sem cadastro. Sua localização é usada só para pedir previsões.

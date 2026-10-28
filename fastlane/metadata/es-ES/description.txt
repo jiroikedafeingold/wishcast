@@ -26,8 +26,11 @@ TODO LO QUE ESPERAS DE UNA APP DEL TIEMPO
 - Condiciones actuales, perspectiva a 7 días y previsión por horas
 - Elige cualquier fecha hasta unos seis meses vista. Pasada una semana se marca como apuesta arriesgada y pasadas dos semanas, como corazonada.
 - Amanecer, atardecer, índice UV y probabilidad de precipitación
-- Lugares guardados, búsqueda de ciudades y ubicación actual
-- Widgets para la pantalla de inicio y, en el iPhone, para la pantalla bloqueada
+- Avisos meteorológicos oficiales y previsión de lluvia para la próxima hora de El Tiempo de Apple, donde estén disponibles, tal como se emiten y nunca mezclados
+- Lugares guardados, búsqueda de ciudades y ubicación actual. Marca tus favoritos con una estrella y desliza entre ellos.
+- Fondos animados según el tiempo: nubes que pasan, lluvia, relámpagos (con un retumbar de trueno en el iPhone), nieve y hojas al viento. Se pueden desactivar en Ajustes.
+- Widgets para la pantalla de inicio, cada uno con el lugar que elijas, y widgets para la pantalla bloqueada en el iPhone
+- App para Apple Watch, complicaciones y un widget para la Pila Inteligente
 - Diseños para iPhone, iPad y iPhone Duo. Deja el Duo medio abierto sobre una mesa y puede mostrar arriba el día y abajo la lista de días, sobre un cielo y un suelo dibujados según el tiempo de ese día.
 
 Sin cuenta y sin registro. Tu ubicación solo se usa para pedir previsiones.

@@ -26,8 +26,11 @@ TOUT CE QU’ON ATTEND D’UNE APP MÉTÉO
 - Conditions actuelles, tendance sur 7 jours et prévisions heure par heure
 - Choisissez n’importe quelle date jusqu’à environ six mois. Au-delà d’une semaine, c’est un pari risqué ; au-delà de deux semaines, un coup de dés.
 - Lever et coucher du soleil, indice UV et risque de précipitations
-- Lieux enregistrés, recherche de villes et position actuelle
-- Widgets pour l’écran d’accueil et, sur iPhone, pour l’écran verrouillé
+- Alertes météo officielles et prévisions de pluie pour l’heure à venir d’Apple Météo, là où elles sont disponibles, affichées telles qu’émises, jamais mélangées
+- Lieux enregistrés, recherche de villes et position actuelle. Ajoutez vos favoris d’une étoile et passez de l’un à l’autre d’un balayage.
+- Fonds animés selon la météo : nuages qui passent, pluie, éclairs (avec un grondement de tonnerre sur iPhone), neige et feuilles au vent. Désactivables dans les Réglages.
+- Widgets pour l’écran d’accueil, chacun avec le lieu de votre choix, et widgets pour l’écran verrouillé sur iPhone
+- App Apple Watch, complications et un widget pour la Pile intelligente
 - Mises en page pour iPhone, iPad et iPhone Duo. Posez le Duo à demi ouvert sur une table : il peut afficher en haut le jour et en bas la liste des jours, sur un ciel et un sol dessinés selon la météo du jour.
 
 Pas de compte, pas d’inscription. Votre position sert uniquement à demander les prévisions.

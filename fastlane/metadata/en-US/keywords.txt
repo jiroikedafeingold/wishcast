@@ -1,1 +1,1 @@
-weather,forecast,optimistic,best case,snow,sunny,storm,ensemble,widget,hourly,temperature,rain
+weather,forecast,optimistic,best case,sunnyside,widget,hourly,temperature,rain,weather report
