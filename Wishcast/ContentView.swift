@@ -3,6 +3,9 @@ import SwiftUI
 struct ContentView: View {
     @State private var viewModel = WishcastViewModel()
     @State private var selectedDate: Date?
+    /// The bars sit in a rail down the side instead of across the top (the closed Duo's outer screen,
+    /// an iPhone held sideways), which leaves no room for the place name in them.
+    @State private var hasSideRail = false
     @State private var isPickingPlace = false
     @State private var isShowingSettings = false
     @State private var isShowingHelp = false
@@ -30,6 +33,10 @@ struct ContentView: View {
         #if os(iOS)
         splitView
             .background(FoldReader(state: $fold).ignoresSafeArea())
+            .onGeometryChange(for: Bool.self) { geometry in
+                let insets = geometry.safeAreaInsets
+                return insets.top < 1 && max(insets.leading, insets.trailing) > 40
+            } action: { hasSideRail = $0 }
         #else
         splitView
         #endif
@@ -424,6 +431,14 @@ struct ContentView: View {
             }
         } else {
             List(selection: $selectedDate) {
+                // With the bars in a side rail there's no large title, so the place name heads the list.
+                // Not on the open Duo's two-page layouts, which keep their own title.
+                if hasSideRail && !isBookLayout && !isOnScenery {
+                    placeTitle(font: .largeTitle.bold())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                }
                 favoritesRow
 
                 if !viewModel.alerts.isEmpty {
