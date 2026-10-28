@@ -43,7 +43,7 @@ struct AmbientBackground: View {
             if reduceMotion {
                 AmbientLayer(scenery: scenery, time: 0, isDark: colorScheme == .dark, flashes: false)
             } else {
-                // Rain, lightning, snow and footprints are drawn on top of the content by AmbientOverlay.
+                // Rain, lightning, snow, footprints, leaves and faint clouds are drawn on top by AmbientOverlay.
                 TimelineView(.animation(minimumInterval: 1.0 / 30)) { timeline in
                     AmbientLayer(scenery: scenery, time: timeline.date.timeIntervalSinceReferenceDate,
                                  isDark: colorScheme == .dark, flashes: true, part: .background)
@@ -69,15 +69,16 @@ struct AmbientBackground: View {
     }
 }
 
-/// The falling part of the weather (rain, lightning, snow and footprints in the snow), drawn on top
-/// of the page's text and cards. Never takes touches. With Reduce Motion it's left out and the still
+/// The weather that crosses over the page's text and cards: rain, lightning, snow, footprints in the
+/// snow, blowing leaves, and a faint copy of the clouds. Never takes touches. With Reduce Motion it's left out and the still
 /// frame stays behind the content instead.
 struct AmbientOverlay: View {
     let scenery: Scenery
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    /// Only sunshine and clear night skies have nothing that drifts or falls over the content.
     static func hasOverlay(_ scenery: Scenery) -> Bool {
-        [.rain, .thunderstorm, .snow].contains(scenery)
+        ![.sunny, .clearNight].contains(scenery)
     }
 
     var body: some View {
@@ -232,54 +233,57 @@ private struct AmbientLayer: View {
 
     var body: some View {
         Canvas { context, size in
-            // Rain, lightning, snow and footprints fall over everything; the rest stays behind.
-            let falls = part != .background
+            // Behind the content: sun, stars and clouds. On top of it: rain, lightning, snow, footprints
+            // and leaves, plus a faint copy of the clouds so they seem to drift over everything.
             let behind = part != .overlay
+            let onTop = part != .background
             switch scenery {
+            case .sunny:
+                if behind {
+                    drawSunGlow(in: &context, size: size, strength: 1)
+                    drawSunDisc(in: &context, size: size, strength: 1)
+                }
+            case .partlyCloudy:
+                if behind {
+                    // A smaller, dimmer sun that the clouds keep drifting across.
+                    drawSunGlow(in: &context, size: size, strength: 0.35, rays: false)
+                    drawSunDisc(in: &context, size: size, strength: 0.55)
+                    drawSunCoveringClouds(in: &context, size: size)
+                }
+                drawCloudLayer(in: &context, size: size, count: 9, opacity: 0.75, seed: 0xC1)
+            case .cloudy:
+                drawCloudLayer(in: &context, size: size, count: 16, opacity: 0.85, seed: 0xC2)
             case .rain:
-                if behind { drawClouds(in: &context, size: size, count: 13, opacity: 0.8, seed: 0xC3, darkness: 0.15) }
-                if falls { drawRain(in: &context, size: size, count: 85) }
+                drawCloudLayer(in: &context, size: size, count: 13, opacity: 0.8, seed: 0xC3, darkness: 0.15)
+                if onTop { drawRain(in: &context, size: size, count: 85) }
             case .thunderstorm:
-                if behind { drawClouds(in: &context, size: size, count: 14, opacity: 0.85, seed: 0xC4, darkness: 0.3) }
-                if falls {
+                drawCloudLayer(in: &context, size: size, count: 14, opacity: 0.85, seed: 0xC4, darkness: 0.3)
+                if onTop {
                     drawRain(in: &context, size: size, count: 100)
                     if flashes { drawLightning(in: &context, size: size) }
                 }
             case .snow:
-                if falls {
+                if onTop {
                     drawFootprints(in: &context, size: size)
                     drawSnow(in: &context, size: size)
                 }
-            default:
-                if behind { drawBackground(in: &context, size: size) }
+            case .windy:
+                if onTop { drawWind(in: &context, size: size) }
+            case .clearNight:
+                if behind { drawStars(in: &context, size: size, count: 70) }
+            case .partlyCloudyNight:
+                if behind { drawStars(in: &context, size: size, count: 40) }
+                drawCloudLayer(in: &context, size: size, count: 7, opacity: 0.55, seed: 0xC5, darkness: 0.2)
             }
         }
     }
 
-    /// Everything that never falls over the content.
-    private func drawBackground(in context: inout GraphicsContext, size: CGSize) {
-        switch scenery {
-        case .sunny:
-            drawSunGlow(in: &context, size: size, strength: 1)
-            drawSunDisc(in: &context, size: size, strength: 1)
-        case .partlyCloudy:
-            // A smaller, dimmer sun that the clouds keep drifting across.
-            drawSunGlow(in: &context, size: size, strength: 0.35, rays: false)
-            drawSunDisc(in: &context, size: size, strength: 0.55)
-            drawSunCoveringClouds(in: &context, size: size)
-            drawClouds(in: &context, size: size, count: 9, opacity: 0.75, seed: 0xC1)
-        case .cloudy:
-            drawClouds(in: &context, size: size, count: 16, opacity: 0.85, seed: 0xC2)
-        case .windy:
-            drawWind(in: &context, size: size)
-        case .clearNight:
-            drawStars(in: &context, size: size, count: 70)
-        case .partlyCloudyNight:
-            drawStars(in: &context, size: size, count: 40)
-            drawClouds(in: &context, size: size, count: 7, opacity: 0.55, seed: 0xC5, darkness: 0.2)
-        case .rain, .thunderstorm, .snow:
-            break
-        }
+    /// Clouds at full strength behind the content. Over it, the same clouds again (same seed, so they
+    /// line up), faint enough that the cards and text stay clear.
+    private func drawCloudLayer(in context: inout GraphicsContext, size: CGSize, count: Int, opacity: Double,
+                                seed: UInt64, darkness: Double = 0) {
+        let strength = part == .overlay ? 0.18 : 1
+        drawClouds(in: &context, size: size, count: count, opacity: opacity * strength, seed: seed, darkness: darkness)
     }
 
     private var sunCenter: (CGSize) -> CGPoint { { CGPoint(x: $0.width * 0.86, y: $0.height * 0.05) } }
