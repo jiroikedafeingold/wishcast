@@ -8,7 +8,7 @@ struct WelcomeView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                Text("Welcome to Sunnyside")
+                Text("Welcome to Wishcast")
                     .font(.largeTitle.bold())
 
                 point("eye", title: "It looks like a weather app",
@@ -17,11 +17,11 @@ struct WelcomeView: View {
                 // Météo-France, JMA, UK Met Office, CMA, MET Norway, KNMI, DMI, MeteoSwiss, ItaliaMeteo, KMA)
                 // are in the credits; keep "13" in sync with them.
                 point("globe", title: "Many forecasters, not just one",
-                      text: "Sunnyside draws on \(OpenMeteoClient.modelNames.count) weather models, \(OpenMeteoClient.ensembleNames.count) ensembles and \(OpenMeteoClient.providerNames.count) forecasts straight from their providers, made by ECMWF, Apple and 13 national weather services across North America, Europe and East Asia. They include global and high-resolution regional models, physics-based and AI models, and ensembles that rerun a model up to 51 times. Regional models only count where they reach.")
+                      text: "Wishcast draws on \(OpenMeteoClient.modelNames.count) weather models, \(OpenMeteoClient.ensembleNames.count) ensembles and \(OpenMeteoClient.providerNames.count) forecasts straight from their providers, made by ECMWF, Apple and 13 national weather services across North America, Europe and East Asia. They include global and high-resolution regional models, physics-based and AI models, and ensembles that rerun a model up to 51 times. Regional models only count where they reach.")
                 point("sparkles", title: "But it shows the best case",
-                      text: "For each day of the week ahead, Sunnyside looks at more than 200 forecasts from weather models around the world and their ensemble runs. For every value (high, low, rain, clouds) it picks the one that best fits the weather you’re wishing for. The high can come from one forecast and the low from another.")
+                      text: "For each day of the week ahead, Wishcast looks at more than 200 forecasts from weather models around the world and their ensemble runs. For every value (high, low, rain, clouds) it picks the one that best fits the weather you’re wishing for. The high can come from one forecast and the low from another.")
                 point("exclamationmark.bubble", title: "So it isn’t a prediction",
-                      text: "A sunny day in Sunnyside means at least one forecast shows mostly clear skies, not that it will be sunny. Each day shows how many forecasts actually show its high and low. Check a regular forecast before making plans that depend on the weather.")
+                      text: "A sunny day in Wishcast means at least one forecast shows mostly clear skies, not that it will be sunny. Each day shows how many forecasts actually show its high and low. Check a regular forecast before making plans that depend on the weather.")
                 point("checkmark.seal", title: "The rest is straight",
                       text: "“Right Now”, sunrise, sunset, UV and chance of precipitation come from one standard Open-Meteo forecast and aren’t mixed.")
             }
@@ -39,7 +39,7 @@ struct WelcomeView: View {
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
 
-                Button("How Sunnyside Works", action: onLearnMore)
+                Button("How Wishcast Works", action: onLearnMore)
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 12)

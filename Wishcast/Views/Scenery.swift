@@ -463,7 +463,7 @@ struct HingeHorizon: View {
             let size = min(max(proxy.size.height * 0.5, 15), 30)
             HStack(spacing: size * 0.5) {
                 rule(colors.title, leading: true)
-                Text(verbatim: "Sunnyside")
+                Text(verbatim: "Wishcast")
                     .font(.system(size: size, weight: .medium, design: .serif).smallCaps())
                     .italic()
                     .tracking(size * 0.12)

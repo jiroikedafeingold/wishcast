@@ -563,10 +563,10 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Sunnyside;
+				INFOPLIST_KEY_CFBundleDisplayName = Wishcast;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Sunnyside uses your location to find forecasts for where you are.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Wishcast uses your location to find forecasts for where you are.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -620,10 +620,10 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Sunnyside;
+				INFOPLIST_KEY_CFBundleDisplayName = Wishcast;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Sunnyside uses your location to find forecasts for where you are.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Wishcast uses your location to find forecasts for where you are.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -668,7 +668,7 @@
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WishcastWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Sunnyside;
+				INFOPLIST_KEY_CFBundleDisplayName = Wishcast;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -713,7 +713,7 @@
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WishcastWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Sunnyside;
+				INFOPLIST_KEY_CFBundleDisplayName = Wishcast;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -756,7 +756,7 @@
 				DEVELOPMENT_TEAM = TJ8LYQ4D36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Sunnyside;
+				INFOPLIST_KEY_CFBundleDisplayName = Wishcast;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.jirofeingold.Wishcast;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -791,7 +791,7 @@
 				DEVELOPMENT_TEAM = TJ8LYQ4D36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Sunnyside;
+				INFOPLIST_KEY_CFBundleDisplayName = Wishcast;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.jirofeingold.Wishcast;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -827,7 +827,7 @@
 				DEVELOPMENT_TEAM = TJ8LYQ4D36;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WishcastComplications/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Sunnyside;
+				INFOPLIST_KEY_CFBundleDisplayName = Wishcast;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -862,7 +862,7 @@
 				DEVELOPMENT_TEAM = TJ8LYQ4D36;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WishcastComplications/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Sunnyside;
+				INFOPLIST_KEY_CFBundleDisplayName = Wishcast;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

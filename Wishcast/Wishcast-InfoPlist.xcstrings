@@ -8,67 +8,67 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "es-ES" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         }
       }
@@ -80,7 +80,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "en" : {
@@ -92,55 +92,55 @@
         "es-ES" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sunnyside"
+            "value" : "Wishcast"
           }
         }
       }
@@ -152,67 +152,67 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside verwendet deinen Standort, um Prognosen für deinen Aufenthaltsort zu finden."
+            "value" : "Wishcast verwendet deinen Standort, um Prognosen für deinen Aufenthaltsort zu finden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Sunnyside uses your location to find forecasts for where you are."
+            "value" : "Wishcast uses your location to find forecasts for where you are."
           }
         },
         "es-ES" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside usa tu ubicación para buscar previsiones del lugar donde estás."
+            "value" : "Wishcast usa tu ubicación para buscar previsiones del lugar donde estás."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside utilise votre position pour trouver les prévisions de l’endroit où vous êtes."
+            "value" : "Wishcast utilise votre position pour trouver les prévisions de l’endroit où vous êtes."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside usa la tua posizione per trovare le previsioni del luogo in cui ti trovi."
+            "value" : "Wishcast usa la tua posizione per trovare le previsioni del luogo in cui ti trovi."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnysideは現在地の予報を探すために位置情報を使用します。"
+            "value" : "Wishcastは現在地の予報を探すために位置情報を使用します。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside는 현재 있는 곳의 예보를 찾기 위해 위치를 사용합니다."
+            "value" : "Wishcast는 현재 있는 곳의 예보를 찾기 위해 위치를 사용합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O Sunnyside usa sua localização para encontrar previsões de onde você está."
+            "value" : "O Wishcast usa sua localização para encontrar previsões de onde você está."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside использует ваше местоположение, чтобы найти прогнозы для места, где вы находитесь."
+            "value" : "Wishcast использует ваше местоположение, чтобы найти прогнозы для места, где вы находитесь."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside 使用你的位置来查找你所在地的预报。"
+            "value" : "Wishcast 使用你的位置来查找你所在地的预报。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sunnyside 使用你的位置來尋找你所在地的預報。"
+            "value" : "Wishcast 使用你的位置來尋找你所在地的預報。"
           }
         }
       }

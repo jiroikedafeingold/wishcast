@@ -1,4 +1,4 @@
-On l’a tous fait : consulter une app météo, puis une autre, puis encore une autre, jusqu’à ce que l’une d’elles nous dise enfin ce qu’on voulait entendre. Sunnyside vous épargne la recherche. Il examine plus de 200 prévisions à la fois et vous montre le meilleur cas pour la météo que vous espérez.
+On l’a tous fait : consulter une app météo, puis une autre, puis encore une autre, jusqu’à ce que l’une d’elles nous dise enfin ce qu’on voulait entendre. Wishcast vous épargne la recherche. Il examine plus de 200 prévisions à la fois et vous montre le meilleur cas pour la météo que vous espérez.
 
 Vous ne vous mentez pas. Vous êtes juste optimiste.
 
@@ -10,17 +10,17 @@ CHOISISSEZ VOTRE SOUHAIT
 - Météo extrême
 - Soirées fraîches
 
-Définissez votre maximum idéal, votre soirée idéale et votre minimum idéal, et Sunnyside part à leur recherche.
+Définissez votre maximum idéal, votre soirée idéale et votre minimum idéal, et Wishcast part à leur recherche.
 
 COMMENT ÇA MARCHE
-Sunnyside télécharge les prévisions de jusqu’à 26 modèles météo mondiaux et régionaux, de chaque exécution de jusqu’à 11 ensembles, et directement auprès du National Weather Service américain, de MET Norway et d’Apple Météo : plus de 200 prévisions pour chaque jour de la semaine à venir. On y trouve des modèles physiques et d’IA du CEPMMT (ECMWF) et de 13 services météorologiques nationaux d’Amérique du Nord, d’Europe et d’Asie de l’Est. Pour chaque valeur (maximum, minimum, pluie, neige, nuages, vent), il choisit celle qui correspond le mieux à votre souhait. Le maximum peut venir d’une prévision et le minimum d’une autre : une journée Sunnyside est donc un meilleur cas, pas une prédiction.
+Wishcast télécharge les prévisions de jusqu’à 26 modèles météo mondiaux et régionaux, de chaque exécution de jusqu’à 11 ensembles, et directement auprès du National Weather Service américain, de MET Norway et d’Apple Météo : plus de 200 prévisions pour chaque jour de la semaine à venir. On y trouve des modèles physiques et d’IA du CEPMMT (ECMWF) et de 13 services météorologiques nationaux d’Amérique du Nord, d’Europe et d’Asie de l’Est. Pour chaque valeur (maximum, minimum, pluie, neige, nuages, vent), il choisit celle qui correspond le mieux à votre souhait. Le maximum peut venir d’une prévision et le minimum d’une autre : une journée Wishcast est donc un meilleur cas, pas une prédiction.
 
 Et il reste honnête :
 - Chaque jour indique combien de prévisions affichent réellement son maximum et son minimum.
 - Touchez un jour pour voir d’où vient chaque valeur et comment elle a été choisie.
 - Un test de réalité compte les prévisions individuelles qui exaucent entièrement votre souhait.
 - Un graphique montre toutes les prévisions pour voir à quel point votre souhait est audacieux.
-- « Comment fonctionne Sunnyside » explique chaque règle, avec crédits et références.
+- « Comment fonctionne Wishcast » explique chaque règle, avec crédits et références.
 
 TOUT CE QU’ON ATTEND D’UNE APP MÉTÉO
 - Conditions actuelles, tendance sur 7 jours et prévisions heure par heure
@@ -35,6 +35,6 @@ TOUT CE QU’ON ATTEND D’UNE APP MÉTÉO
 
 Pas de compte, pas d’inscription. Votre position sert uniquement à demander les prévisions.
 
-Données météo par Open-Meteo.com, MET Norway, le National Weather Service américain et Apple Météo, à partir des prévisions publiées par l’ECMWF, la NOAA, le Deutscher Wetterdienst, Environnement et Changement climatique Canada, Météo-France, l’Agence météorologique du Japon, le UK Met Office, l’Administration météorologique de Chine, MET Norway, le KNMI, le DMI, MétéoSuisse, ItaliaMeteo et l’Administration météorologique de Corée. Sunnyside n’est affilié à aucun d’eux et n’est soutenu par aucun.
+Données météo par Open-Meteo.com, MET Norway, le National Weather Service américain et Apple Météo, à partir des prévisions publiées par l’ECMWF, la NOAA, le Deutscher Wetterdienst, Environnement et Changement climatique Canada, Météo-France, l’Agence météorologique du Japon, le UK Met Office, l’Administration météorologique de Chine, MET Norway, le KNMI, le DMI, MétéoSuisse, ItaliaMeteo et l’Administration météorologique de Corée. Wishcast n’est affilié à aucun d’eux et n’est soutenu par aucun.
 
-Sunnyside, c’est pour le plaisir et pour l’espoir. Pour des projets qui dépendent de la météo, consultez une prévision officielle.
+Wishcast, c’est pour le plaisir et pour l’espoir. Pour des projets qui dépendent de la météo, consultez une prévision officielle.

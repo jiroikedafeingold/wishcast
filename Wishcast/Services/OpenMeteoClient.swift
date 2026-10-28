@@ -5,7 +5,7 @@ import WeatherKit
 /// Fetches forecasts from a set of global Open-Meteo models plus every member of several
 /// ensembles, and reduces each to per-day summaries.
 struct OpenMeteoClient {
-    /// Display names, for the "How Sunnyside Works" screen.
+    /// Display names, for the "How Wishcast Works" screen.
     static var modelNames: [String] { models.values.sorted() }
     static var ensembleNames: [String] { ensembles.values.sorted() }
     static var providerNames: [String] { [nwsName, metNorwayName, appleWeatherName] }
@@ -249,7 +249,7 @@ struct OpenMeteoClient {
     nonisolated static let appleWeatherName = "Apple Weather"
 
     /// NWS and MET Norway both ask apps to identify themselves with contact details.
-    private static let userAgent = "Sunnyside/1.0 (https://jiroikedafeingold.github.io/wishcast/; apps@feingold5.com)"
+    private static let userAgent = "Wishcast/1.0 (https://jiroikedafeingold.github.io/wishcast/; apps@feingold5.com)"
 
     /// The US National Weather Service's gridded forecast (about 7 days, US only; elsewhere the
     /// lookup fails and the source is left out). Values cover intervals like "…/PT3H", spread here

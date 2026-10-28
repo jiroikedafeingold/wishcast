@@ -200,7 +200,7 @@ struct ContentView: View {
 
     private var sidebarContent: some View {
         sidebar
-            .navigationTitle(viewModel.place?.name ?? String(localized: "Sunnyside"))
+            .navigationTitle(viewModel.place?.name ?? String(localized: "Wishcast"))
             .toolbar {
                 // The place name with its favorite star, shown once: as the large title, or (only on the
                 // upright Duo, whose top page has no room for one) in the toolbar row, bigger than the
@@ -256,7 +256,7 @@ struct ContentView: View {
                     Button("Settings", systemImage: "slider.horizontal.3") { isShowingSettings = true }
                 }
                 ToolbarItem {
-                    Button("How Sunnyside Works", systemImage: "questionmark.circle") { isShowingHelp = true }
+                    Button("How Wishcast Works", systemImage: "questionmark.circle") { isShowingHelp = true }
                 }
             }
     }
@@ -417,7 +417,7 @@ struct ContentView: View {
             ContentUnavailableView {
                 Label("Where To?", systemImage: "mappin.and.ellipse")
             } description: {
-                Text("Choose a place and Sunnyside will compare more than 200 forecasts from weather services around the world to find the best case for the weather you're hoping for.")
+                Text("Choose a place and Wishcast will compare more than 200 forecasts from weather services around the world to find the best case for the weather you're hoping for.")
             } actions: {
                 Button("Choose Location") { isPickingPlace = true }
                     .buttonStyle(.borderedProminent)
@@ -607,7 +607,7 @@ struct ContentView: View {
     /// The place name with a star beside it to add or remove it from favorites.
     private func placeTitle(font: Font) -> some View {
         HStack(spacing: 8) {
-            Text(viewModel.place?.name ?? String(localized: "Sunnyside"))
+            Text(viewModel.place?.name ?? String(localized: "Wishcast"))
                 .font(font)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)

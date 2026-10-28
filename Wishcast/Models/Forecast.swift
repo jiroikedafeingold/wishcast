@@ -173,7 +173,7 @@ enum Wish: String, CaseIterable, Identifiable, Codable {
     }
 
     /// How each value of a day is chosen from all forecasts. This table is the single source of
-    /// truth: the Wishcast is built from it and the "How Sunnyside Works" screen describes it.
+    /// truth: the Wishcast is built from it and the "How Wishcast Works" screen describes it.
     func choice(for field: Field, preferences: Preferences) -> Choice {
         switch (self, field) {
         case (.snow, .snowfall), (.snow, .precipitation): .highest

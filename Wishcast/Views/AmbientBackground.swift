@@ -132,7 +132,7 @@ private enum Lightning {
 /// (which can take a moment the first time) never stalls the screen.
 nonisolated private final class ThunderHaptics: @unchecked Sendable {
     static let shared = ThunderHaptics()
-    private let queue = DispatchQueue(label: "Sunnyside.thunder", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "Wishcast.thunder", qos: .userInitiated)
     #if os(iOS)
     private var engine: CHHapticEngine?
     private var pattern: CHHapticPattern?

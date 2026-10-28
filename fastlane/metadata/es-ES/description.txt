@@ -1,4 +1,4 @@
-Todos lo hemos hecho: mirar una app del tiempo, luego otra y otra más, hasta que una por fin nos dice lo que queríamos oír. Sunnyside se ahorra la búsqueda. Examina más de 200 previsiones a la vez y te muestra el mejor caso para el tiempo que esperas.
+Todos lo hemos hecho: mirar una app del tiempo, luego otra y otra más, hasta que una por fin nos dice lo que queríamos oír. Wishcast se ahorra la búsqueda. Examina más de 200 previsiones a la vez y te muestra el mejor caso para el tiempo que esperas.
 
 No te estás engañando. Solo estás siendo optimista.
 
@@ -10,17 +10,17 @@ ELIGE TU DESEO
 - Tiempo extremo
 - Tardes frescas
 
-Define tu máxima perfecta, tu tarde perfecta y tu mínima perfecta, y Sunnyside las busca.
+Define tu máxima perfecta, tu tarde perfecta y tu mínima perfecta, y Wishcast las busca.
 
 CÓMO FUNCIONA
-Sunnyside descarga previsiones de hasta 26 modelos meteorológicos globales y regionales, de cada ejecución de hasta 11 conjuntos, y directamente del National Weather Service de EE. UU., de MET Norway y de Apple Weather: más de 200 previsiones para cada día de la próxima semana. Incluyen modelos físicos y de IA del ECMWF y de 13 servicios meteorológicos nacionales de Norteamérica, Europa y Asia oriental. Para cada valor (máxima, mínima, lluvia, nieve, nubes, viento) elige el que mejor encaja con tu deseo. La máxima puede venir de una previsión y la mínima de otra, así que un día de Sunnyside es un mejor caso, no una predicción.
+Wishcast descarga previsiones de hasta 26 modelos meteorológicos globales y regionales, de cada ejecución de hasta 11 conjuntos, y directamente del National Weather Service de EE. UU., de MET Norway y de Apple Weather: más de 200 previsiones para cada día de la próxima semana. Incluyen modelos físicos y de IA del ECMWF y de 13 servicios meteorológicos nacionales de Norteamérica, Europa y Asia oriental. Para cada valor (máxima, mínima, lluvia, nieve, nubes, viento) elige el que mejor encaja con tu deseo. La máxima puede venir de una previsión y la mínima de otra, así que un día de Wishcast es un mejor caso, no una predicción.
 
 Y es honesto al respecto:
 - Cada día muestra cuántas previsiones indican realmente su máxima y su mínima.
 - Toca un día para ver de dónde salió cada valor y cómo se eligió.
 - La comprobación de realidad cuenta las previsiones individuales que cumplen tu deseo por completo.
 - Un gráfico muestra todas las previsiones para que veas lo arriesgado que es tu deseo.
-- «Cómo funciona Sunnyside» explica cada regla, con créditos y referencias.
+- «Cómo funciona Wishcast» explica cada regla, con créditos y referencias.
 
 TODO LO QUE ESPERAS DE UNA APP DEL TIEMPO
 - Condiciones actuales, perspectiva a 7 días y previsión por horas
@@ -35,6 +35,6 @@ TODO LO QUE ESPERAS DE UNA APP DEL TIEMPO
 
 Sin cuenta y sin registro. Tu ubicación solo se usa para pedir previsiones.
 
-Datos meteorológicos de Open-Meteo.com, MET Norway, el National Weather Service de EE. UU. y Apple Weather, a partir de previsiones publicadas por ECMWF, NOAA, Deutscher Wetterdienst, Environment and Climate Change Canada, Météo-France, la Agencia Meteorológica de Japón, la UK Met Office, la Administración Meteorológica de China, MET Norway, KNMI, DMI, MeteoSwiss, ItaliaMeteo y la Administración Meteorológica de Corea. Sunnyside no está afiliada ni respaldada por ninguno de ellos.
+Datos meteorológicos de Open-Meteo.com, MET Norway, el National Weather Service de EE. UU. y Apple Weather, a partir de previsiones publicadas por ECMWF, NOAA, Deutscher Wetterdienst, Environment and Climate Change Canada, Météo-France, la Agencia Meteorológica de Japón, la UK Met Office, la Administración Meteorológica de China, MET Norway, KNMI, DMI, MeteoSwiss, ItaliaMeteo y la Administración Meteorológica de Corea. Wishcast no está afiliada ni respaldada por ninguno de ellos.
 
-Sunnyside es para divertirse y tener esperanza. Para planes que dependan del tiempo, consulta una previsión oficial.
+Wishcast es para divertirse y tener esperanza. Para planes que dependan del tiempo, consulta una previsión oficial.

@@ -2,7 +2,7 @@ import WidgetKit
 import AppIntents
 
 struct ConfigurationAppIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource { "Sunnyside" }
+    static var title: LocalizedStringResource { "Wishcast" }
     static var description: IntentDescription { "Best-case weather for your wish, mixed from many weather models and their ensemble members." }
 
     @Parameter(title: "Wishing For", default: .app)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Sunnyside's App Store creative assets (product page header, search results image, universal asset).
+Wishcast's App Store creative assets (product page header, search results image, universal asset).
 
 One text-free scene, rendered at each size: a storm on the left (dark clouds, rain) giving way to the
 app's deep sky blue and a glowing sun on the right, the sunny side. It uses the same soft, irregular
@@ -214,7 +214,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     for name, (w, h, sw, sh, scy) in FORMATS.items():
         image = render(w, h, sw, sh, scy).convert("RGB")  # no alpha channel, as Apple requires
-        path = os.path.join(OUT, f"sunnyside_{name}.png")
+        path = os.path.join(OUT, f"wishcast_{name}.png")
         image.save(path, optimize=True)
         print(path, image.size)
 

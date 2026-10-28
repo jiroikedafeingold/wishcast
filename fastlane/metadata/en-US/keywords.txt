@@ -1,1 +1,1 @@
-weather,forecast,optimistic,best case,sunnyside,widget,hourly,temperature,rain,weather report
+weather,forecast,optimistic,best case,wishcast,widget,hourly,temperature,rain,weather report

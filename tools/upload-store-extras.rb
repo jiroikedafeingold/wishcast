@@ -17,8 +17,8 @@ require "openssl"; require "base64"; require "json"; require "net/http"; require
 BUNDLE_ID = "com.jirofeingold.Wishcast"
 ROOT = File.expand_path("..", __dir__)
 DUO_DIR = File.join(ROOT, "fastlane", "screenshots_duo")
-HEADER = File.join(ROOT, "fastlane", "creative_assets", "sunnyside_header_3840x1646.png")
-SEARCH = File.join(ROOT, "fastlane", "creative_assets", "sunnyside_search_3840x2560.png")
+HEADER = File.join(ROOT, "fastlane", "creative_assets", "wishcast_header_3840x1646.png")
+SEARCH = File.join(ROOT, "fastlane", "creative_assets", "wishcast_search_3840x2560.png")
 KEY = OpenSSL::PKey::EC.new(File.read(ENV.fetch("ASC_KEY_PATH")))
 
 def b64(d) = Base64.urlsafe_encode64(d).delete("=")

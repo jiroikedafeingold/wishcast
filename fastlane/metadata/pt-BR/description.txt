@@ -1,4 +1,4 @@
-Todo mundo já fez isso: abrir um app de clima, depois outro e mais outro, até que um finalmente diga o que a gente queria ouvir. O Sunnyside poupa essa busca. Ele analisa mais de 200 previsões de uma vez e mostra o melhor cenário para o tempo que você espera.
+Todo mundo já fez isso: abrir um app de clima, depois outro e mais outro, até que um finalmente diga o que a gente queria ouvir. O Wishcast poupa essa busca. Ele analisa mais de 200 previsões de uma vez e mostra o melhor cenário para o tempo que você espera.
 
 Você não está se enganando. Só está sendo otimista.
 
@@ -10,17 +10,17 @@ ESCOLHA SEU DESEJO
 - Tempo extremo
 - Fins de tarde frescos
 
-Defina sua máxima perfeita, seu fim de tarde perfeito e sua mínima perfeita, e o Sunnyside vai atrás deles.
+Defina sua máxima perfeita, seu fim de tarde perfeito e sua mínima perfeita, e o Wishcast vai atrás deles.
 
 COMO FUNCIONA
-O Sunnyside baixa previsões de até 26 modelos meteorológicos globais e regionais, de cada execução de até 11 conjuntos, e direto do National Weather Service dos EUA, da MET Norway e do Apple Tempo: mais de 200 previsões para cada dia da próxima semana. Há modelos físicos e de IA do ECMWF e de 13 serviços meteorológicos nacionais da América do Norte, Europa e Leste Asiático. Para cada valor (máxima, mínima, chuva, neve, nuvens, vento), ele escolhe o que melhor combina com seu desejo. A máxima pode vir de uma previsão e a mínima de outra, então um dia no Sunnyside é um melhor cenário, não uma previsão certa.
+O Wishcast baixa previsões de até 26 modelos meteorológicos globais e regionais, de cada execução de até 11 conjuntos, e direto do National Weather Service dos EUA, da MET Norway e do Apple Tempo: mais de 200 previsões para cada dia da próxima semana. Há modelos físicos e de IA do ECMWF e de 13 serviços meteorológicos nacionais da América do Norte, Europa e Leste Asiático. Para cada valor (máxima, mínima, chuva, neve, nuvens, vento), ele escolhe o que melhor combina com seu desejo. A máxima pode vir de uma previsão e a mínima de outra, então um dia no Wishcast é um melhor cenário, não uma previsão certa.
 
 E ele é honesto sobre isso:
 - Cada dia mostra quantas previsões realmente indicam sua máxima e sua mínima.
 - Toque em um dia para ver de onde veio cada valor e como ele foi escolhido.
 - A checagem de realidade conta as previsões individuais que realizam totalmente seu desejo.
 - Um gráfico mostra todas as previsões para você ver o quanto seu desejo é ousado.
-- “Como o Sunnyside funciona” explica cada regra, com créditos e referências.
+- “Como o Wishcast funciona” explica cada regra, com créditos e referências.
 
 TUDO O QUE VOCÊ ESPERA DE UM APP DE CLIMA
 - Condições atuais, tendência de 7 dias e previsão por hora
@@ -35,6 +35,6 @@ TUDO O QUE VOCÊ ESPERA DE UM APP DE CLIMA
 
 Sem conta e sem cadastro. Sua localização é usada só para pedir previsões.
 
-Dados meteorológicos do Open-Meteo.com, da MET Norway, do National Weather Service dos EUA e do Apple Tempo, a partir de previsões publicadas pelo ECMWF, NOAA, Deutscher Wetterdienst, Environment and Climate Change Canada, Météo-France, Agência Meteorológica do Japão, UK Met Office, Administração Meteorológica da China, MET Norway, KNMI, DMI, MeteoSwiss, ItaliaMeteo e Administração Meteorológica da Coreia. O Sunnyside não é afiliado nem endossado por nenhum deles.
+Dados meteorológicos do Open-Meteo.com, da MET Norway, do National Weather Service dos EUA e do Apple Tempo, a partir de previsões publicadas pelo ECMWF, NOAA, Deutscher Wetterdienst, Environment and Climate Change Canada, Météo-France, Agência Meteorológica do Japão, UK Met Office, Administração Meteorológica da China, MET Norway, KNMI, DMI, MeteoSwiss, ItaliaMeteo e Administração Meteorológica da Coreia. O Wishcast não é afiliado nem endossado por nenhum deles.
 
-O Sunnyside é para diversão e esperança. Para planos que dependem do tempo, confira uma previsão oficial.
+O Wishcast é para diversão e esperança. Para planos que dependem do tempo, confira uma previsão oficial.
