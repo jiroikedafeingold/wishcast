@@ -45,9 +45,22 @@ if [[ "${LOCALES[0]:-}" == "all" ]]; then LOCALES=("${ALL_LOCALES[@]}"); fi
 UDID=$(xcrun simctl list devices available | grep -F "$DEVICE (" | tail -1 | sed -E 's/.*\(([0-9A-F-]{36})\).*/\1/')
 [[ -n "$UDID" ]] || { echo "no available simulator named '$DEVICE'"; exit 1; }
 case "$DEVICE" in
-  iPad*) PREFIX="ipad13" ;;
-  *)     PREFIX="iphone69" ;;
+  iPad*)       PREFIX="ipad13" ;;
+  "iPhone Duo") PREFIX="duo" ;;
+  *)           PREFIX="iphone69" ;;
 esac
+
+# The Duo has two screens. Capture the inner one (2007 × 2853, the device open), found by its width
+# because the display IDs change on every boot. Duo shots go to their own folder: they're uploaded by
+# tools/upload-duo-screenshots.rb, not deliver.
+DISPLAY_ARG=()
+SHOTS_DIR="screenshots"
+if [[ "$PREFIX" == "duo" ]]; then
+  INNER=$(xcrun simctl io "$UDID" enumerate | awk '/UUID:/{id=$2} /Default width: 2007/{print id; exit}')
+  [[ -n "$INNER" ]] || { echo "couldn't find the Duo's inner display"; exit 1; }
+  DISPLAY_ARG=(--display="$INNER")
+  SHOTS_DIR="screenshots_duo"
+fi
 
 # The Debug simulator build: APP_PATH if set, else Xcode's custom build location on this Mac.
 APP="${APP_PATH:-}"
@@ -77,7 +90,7 @@ sleep 8
 for locale in "${LOCALES[@]}"; do
   read -r language applelocale <<<"$(locale_language "$locale")"
   [[ -n "$language" ]] || { echo "!! unknown locale $locale — skipped"; continue; }
-  out="$ROOT/fastlane/screenshots/$locale"
+  out="$ROOT/fastlane/$SHOTS_DIR/$locale"
   mkdir -p "$out"
   for i in "${!SHOTS[@]}"; do
     shot=$((i + 1))
@@ -85,7 +98,7 @@ for locale in "${LOCALES[@]}"; do
       -shot "$shot" -AppleLanguages "($language)" -AppleLocale "$applelocale" >/dev/null
     # Long enough to download ~170 forecasts (and, for the wild guess, the long-range ones) and settle.
     if [[ $shot -eq 4 ]]; then sleep 16; else sleep 9; fi
-    xcrun simctl io "$UDID" screenshot --type=png "$out/${PREFIX}_${SHOTS[$i]}.png" >/dev/null 2>&1
+    xcrun simctl io "$UDID" screenshot --type=png "${DISPLAY_ARG[@]}" "$out/${PREFIX}_${SHOTS[$i]}.png" >/dev/null 2>&1
   done
   echo "  $locale: ${#SHOTS[@]} shots"
 done

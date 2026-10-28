@@ -31,6 +31,9 @@ platform :ios do
     # few screenshots twice (same file, same bytes, COMPLETE, nothing in the log). Count what actually
     # landed and prune the duplicates, failing the lane if a set still looks wrong.
     unless options[:skip_screenshots]
+      # deliver just deleted every screenshot set, Duo included; put the Duo shots and the creative
+      # assets (header + search results images) back. Needs the version number.
+      sh("cd .. && ruby tools/upload-store-extras.rb #{options[:version]}") if options[:version]
       sh("cd .. && tools/verify-screenshots.rb #{options[:version] || ""}")
     end
   end
