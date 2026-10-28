@@ -272,6 +272,14 @@ struct ContentView: View {
         }
     }
 
+    /// Footprints that now and then walk over the page itself, in the snow.
+    @ViewBuilder
+    private func pageOverlay() -> some View {
+        if showsAmbient && currentScenery == .snow {
+            SnowFootprintsOverlay()
+        }
+    }
+
     /// Whether the animated weather background is on (and this isn't the Duo tabletop, which has its own scenery).
     private var showsAmbient: Bool { ambientBackground && !isOnScenery }
 
@@ -280,7 +288,8 @@ struct ContentView: View {
         if let day = viewModel.day(for: selectedDate) ?? (isBookLayout ? viewModel.days.first : nil) {
             blackPage(DayDetailView(day: day, wish: viewModel.wish, preferences: viewModel.preferences,
                                     timeZone: viewModel.timeZone, official: viewModel.conditions(for: day))
-                .background { pageBackground() })
+                .background { pageBackground() }
+                .overlay { pageOverlay() })
         } else {
             ContentUnavailableView("Pick a Day", systemImage: "calendar",
                                    description: Text("See how each value for that day was picked, and how many forecasts show it."))
@@ -521,6 +530,7 @@ struct ContentView: View {
             .sceneryScrollHints()
             .scrollContentBackground(.hidden)
             .background { pageBackground() }
+            .overlay { pageOverlay() }
             // Swipe sideways to move between favorites (not while scrolling the wish chips).
             .simultaneousGesture(DragGesture(minimumDistance: 40).onEnded { drag in
                 let dx = drag.translation.width, dy = drag.translation.height

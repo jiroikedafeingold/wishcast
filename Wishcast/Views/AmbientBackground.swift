@@ -68,6 +68,24 @@ struct AmbientBackground: View {
     }
 }
 
+/// In the snow, now and then a walker's footprints cross over the page's text and cards. Lies on top
+/// of the content and never takes touches; still when Reduce Motion is on.
+struct SnowFootprintsOverlay: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        if !reduceMotion {
+            TimelineView(.animation(minimumInterval: 1.0 / 30)) { timeline in
+                AmbientLayer(scenery: .snow, time: timeline.date.timeIntervalSinceReferenceDate,
+                             isDark: false, flashes: false, footprintsOverText: true)
+            }
+            .ignoresSafeArea()
+            .allowsHitTesting(false)
+            .accessibilityHidden(true)
+        }
+    }
+}
+
 // MARK: - Lightning schedule
 
 /// When lightning strikes: one strike in every 6.5-second slot at a random moment, and sometimes a
@@ -195,9 +213,15 @@ private struct AmbientLayer: View {
     let time: Double
     let isDark: Bool
     let flashes: Bool
+    /// Draws only the occasional walker who crosses over the page's text and cards.
+    var footprintsOverText = false
 
     var body: some View {
         Canvas { context, size in
+            if footprintsOverText {
+                drawWalk(walker: 3, offset: 5, overText: true, in: &context, size: size)
+                return
+            }
             switch scenery {
             case .sunny:
                 drawSunGlow(in: &context, size: size, strength: 1)
@@ -467,10 +491,13 @@ private struct AmbientLayer: View {
         }
     }
 
-    private func drawWalk(walker: Int, offset: Double, in context: inout GraphicsContext, size: CGSize) {
+    /// One walker's trail. Over the text, they only walk every other cycle, and their prints use a
+    /// blue-grey that shows on both the white cards and the dark page.
+    private func drawWalk(walker: Int, offset: Double, overText: Bool = false, in context: inout GraphicsContext, size: CGSize) {
         let walk = 16.0
         let shifted = time + offset
         let cycle = Int(shifted / walk)
+        if overText && !cycle.isMultiple(of: 2) { return }
         let progress = shifted.truncatingRemainder(dividingBy: walk) / walk
         var random = SeededGenerator(seed: (UInt64(truncatingIfNeeded: cycle) &* 0x9E37 &+ 7) ^ (UInt64(walker) &* 0x51ED27))
         let start = CGPoint(x: Double.random(in: -0.1...0.3, using: &random) * size.width,
@@ -489,7 +516,7 @@ private struct AmbientLayer: View {
         let steps = max(Int(length * 0.85 / 26), 6)
         let shown = Int(Double(steps) * min(progress / 0.7, 1))
         let trailFade = progress > 0.8 ? 1 - (progress - 0.8) / 0.2 : 1
-        let shade = (isDark ? Color(white: 0.75) : Color(red: 0.5, green: 0.58, blue: 0.74))
+        let shade = (isDark && !overText ? Color(white: 0.75) : Color(red: 0.5, green: 0.58, blue: 0.74))
         for step in 0..<shown {
             let t = (Double(step) + 0.5) / Double(steps)
             let here = point(t)
