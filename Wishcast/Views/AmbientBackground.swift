@@ -43,7 +43,7 @@ struct AmbientBackground: View {
             if reduceMotion {
                 AmbientLayer(scenery: scenery, time: 0, isDark: colorScheme == .dark, flashes: false)
             } else {
-                // Rain, lightning, snow, footprints, leaves and faint clouds are drawn on top by AmbientOverlay.
+                // Sun rays, rain, lightning, snow, footprints, leaves and lighter clouds are drawn on top by AmbientOverlay.
                 TimelineView(.animation(minimumInterval: 1.0 / 30)) { timeline in
                     AmbientLayer(scenery: scenery, time: timeline.date.timeIntervalSinceReferenceDate,
                                  isDark: colorScheme == .dark, flashes: true, part: .background)
@@ -69,16 +69,16 @@ struct AmbientBackground: View {
     }
 }
 
-/// The weather that crosses over the page's text and cards: rain, lightning, snow, footprints in the
-/// snow, blowing leaves, and a faint copy of the clouds. Never takes touches. With Reduce Motion it's left out and the still
+/// The weather that crosses over the page's text and cards: sun rays, rain, lightning, snow, footprints
+/// in the snow, blowing leaves, and a lighter copy of the clouds. Never takes touches. With Reduce Motion it's left out and the still
 /// frame stays behind the content instead.
 struct AmbientOverlay: View {
     let scenery: Scenery
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    /// Only sunshine and clear night skies have nothing that drifts or falls over the content.
+    /// Only clear night skies have nothing that drifts or falls over the content.
     static func hasOverlay(_ scenery: Scenery) -> Bool {
-        ![.sunny, .clearNight].contains(scenery)
+        scenery != .clearNight
     }
 
     var body: some View {
@@ -233,8 +233,8 @@ private struct AmbientLayer: View {
 
     var body: some View {
         Canvas { context, size in
-            // Behind the content: sun, stars and clouds. On top of it: rain, lightning, snow, footprints
-            // and leaves, plus a faint copy of the clouds so they seem to drift over everything.
+            // Behind the content: the sun, stars and clouds. On top of it: sun rays, rain, lightning, snow,
+            // footprints and leaves, plus a lighter copy of the clouds so they seem to drift over everything.
             let behind = part != .overlay
             let onTop = part != .background
             switch scenery {
@@ -243,10 +243,11 @@ private struct AmbientLayer: View {
                     drawSunGlow(in: &context, size: size, strength: 1)
                     drawSunDisc(in: &context, size: size, strength: 1)
                 }
+                if onTop { drawSunRays(in: &context, size: size) }
             case .partlyCloudy:
                 if behind {
                     // A smaller, dimmer sun that the clouds keep drifting across.
-                    drawSunGlow(in: &context, size: size, strength: 0.35, rays: false)
+                    drawSunGlow(in: &context, size: size, strength: 0.35)
                     drawSunDisc(in: &context, size: size, strength: 0.55)
                     drawSunCoveringClouds(in: &context, size: size)
                 }
@@ -279,10 +280,10 @@ private struct AmbientLayer: View {
     }
 
     /// Clouds at full strength behind the content. Over it, the same clouds again (same seed, so they
-    /// line up), faint enough that the cards and text stay clear.
+    /// line up), light enough that the cards and text stay readable.
     private func drawCloudLayer(in context: inout GraphicsContext, size: CGSize, count: Int, opacity: Double,
                                 seed: UInt64, darkness: Double = 0) {
-        let strength = part == .overlay ? 0.18 : 1
+        let strength = part == .overlay ? 0.4 : 1
         drawClouds(in: &context, size: size, count: count, opacity: opacity * strength, seed: seed, darkness: darkness)
     }
 
@@ -290,27 +291,52 @@ private struct AmbientLayer: View {
 
     // MARK: Sun
 
-    private func drawSunGlow(in context: inout GraphicsContext, size: CGSize, strength: Double, rays: Bool = true) {
+    private func drawSunGlow(in context: inout GraphicsContext, size: CGSize, strength: Double) {
         let center = sunCenter(size)
         let breathe = 0.85 + 0.15 * sin(time * 0.4)
         let radius = max(size.width, 320) * 0.75
         context.fill(Path(CGRect(origin: .zero, size: size)), with: .radialGradient(
             Gradient(colors: [Color(red: 1, green: 0.82, blue: 0.4).opacity((isDark ? 0.5 : 0.45) * strength * breathe), .clear]),
             center: center, startRadius: 0, endRadius: radius))
-        guard rays else { return }
-        var rays = context
-        rays.translateBy(x: center.x, y: center.y)
-        rays.rotate(by: .radians(time * 0.03))
-        for index in 0..<12 {
-            let angle = Double(index) / 12 * 2 * .pi
-            var ray = Path()
-            ray.move(to: .zero)
-            ray.addLine(to: CGPoint(x: cos(angle - 0.05) * radius, y: sin(angle - 0.05) * radius))
-            ray.addLine(to: CGPoint(x: cos(angle + 0.05) * radius, y: sin(angle + 0.05) * radius))
-            ray.closeSubpath()
-            rays.fill(ray, with: .radialGradient(
-                Gradient(colors: [Color(red: 1, green: 0.9, blue: 0.6).opacity(0.16 * strength), .clear]),
-                center: .zero, startRadius: 0, endRadius: radius))
+    }
+
+    /// Soft, uneven shafts of light fanning out from the sun: wide hazy beams and fine bright
+    /// filaments, each a different width, length and brightness, slightly bent, shimmering on its
+    /// own rhythm and swaying a little, with no hard edges.
+    private func drawSunRays(in context: inout GraphicsContext, size: CGSize) {
+        let center = sunCenter(size)
+        let reach = max(size.width, 320) * 1.05
+        func polar(_ angle: Double, _ distance: Double) -> CGPoint {
+            CGPoint(x: center.x + cos(angle) * distance, y: center.y + sin(angle) * distance)
+        }
+        let warm = Color(red: 1, green: 0.9, blue: 0.62)
+        var random = SeededGenerator(seed: 0x5011)
+        // (count, angular half-width range, blur, peak opacity): hazy beams, then fine filaments.
+        for (count, widths, blur, peak) in [(16, 0.03...0.09, 12.0, 0.42), (22, 0.006...0.018, 2.5, 0.55)] {
+            var layer = context
+            layer.addFilter(.blur(radius: blur))
+            for _ in 0..<count {
+                let base = Double.random(in: 0...(2 * .pi), using: &random)
+                let width = Double.random(in: widths, using: &random)
+                let length = reach * Double.random(in: 0.4...1.1, using: &random)
+                let speed = Double.random(in: 0.12...0.45, using: &random)
+                let phase = Double.random(in: 0...(2 * .pi), using: &random)
+                let brightness = Double.random(in: 0.35...1, using: &random)
+                // Two slow waves multiplied: rays brighten and fade at irregular moments.
+                let shimmer = 0.6 + 0.4 * sin(time * speed + phase) * sin(time * speed * 0.37 + phase * 1.7)
+                let angle = base + time * 0.015 + 0.03 * sin(time * speed * 0.5 + phase)
+                let bend = 0.035 * sin(time * speed * 0.8 + phase * 2) // the far end sways more than the near end
+                var ray = Path()
+                ray.move(to: polar(angle - width * 0.2, reach * 0.03))
+                ray.addQuadCurve(to: polar(angle - width + bend, length), control: polar(angle - width * 0.7 + bend * 0.3, length * 0.5))
+                ray.addLine(to: polar(angle + width * 0.8 + bend, length))
+                ray.addQuadCurve(to: polar(angle + width * 0.2, reach * 0.03), control: polar(angle + width * 0.6 + bend * 0.3, length * 0.5))
+                ray.closeSubpath()
+                let opacity = peak * brightness * shimmer
+                layer.fill(ray, with: .radialGradient(
+                    Gradient(colors: [warm.opacity(opacity), warm.opacity(opacity * 0.6), .clear]),
+                    center: center, startRadius: 0, endRadius: length))
+            }
         }
     }
 

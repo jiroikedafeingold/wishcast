@@ -272,7 +272,7 @@ struct ContentView: View {
         }
     }
 
-    /// Rain, lightning, snow, footprints, leaves and faint clouds, crossing over the page's text and cards.
+    /// Sun rays, rain, lightning, snow, footprints, leaves and lighter clouds, crossing over the page's text and cards.
     @ViewBuilder
     private func pageOverlay() -> some View {
         if showsAmbient {
