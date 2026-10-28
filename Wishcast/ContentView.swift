@@ -205,25 +205,47 @@ struct ContentView: View {
         }
     }
 
+    /// Whether the place name heads the list instead of sitting in the bars: when the bars are in a side
+    /// rail (no large title there), or before iOS 26 (no large-title slot for the star). Not on the open
+    /// Duo's two-page layouts, which keep their own title.
+    private var namesPlaceInList: Bool {
+        #if os(iOS)
+        guard !isBookLayout, !isOnScenery else { return false }
+        if #available(iOS 26.0, *) { return hasSideRail }
+        return true
+        #else
+        return false
+        #endif
+    }
+
     private var sidebarContent: some View {
         sidebar
             .navigationTitle(viewModel.place?.name ?? String(localized: "Wishcast"))
+            #if os(iOS)
+            // With the name in the list, keep the system's own large title from repeating it.
+            .navigationBarTitleDisplayMode(namesPlaceInList && !hasSideRail ? .inline : .automatic)
+            #endif
             .toolbar {
                 // The place name with its favorite star, shown once: as the large title, or (only on the
                 // upright Duo, whose top page has no room for one) in the toolbar row, bigger than the
                 // system's inline title so it still reads as the heading. Elsewhere the toolbar row stays
-                // empty, even after the large title scrolls away.
+                // empty, even after the large title scrolls away. Before iOS 26 there's no large-title
+                // slot in the toolbar, so the name heads the list instead (see `namesPlaceInList`).
                 #if os(iOS)
                 if isUprightPages {
                     ToolbarItem(placement: .title) {
                         placeTitle(font: .title.bold())
                     }
-                } else {
+                } else if #available(iOS 26.0, *) {
                     ToolbarItem(placement: .largeTitle) {
                         placeTitle(font: .largeTitle.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     ToolbarItem(placement: .title) {
+                        Color.clear.frame(width: 0, height: 0)
+                    }
+                } else {
+                    ToolbarItem(placement: .principal) {
                         Color.clear.frame(width: 0, height: 0)
                     }
                 }
@@ -365,13 +387,16 @@ struct ContentView: View {
         return clear ? AnyView(Color.clear) : nil
     }
 
-    /// The scene for the day on the upper page (today by default). After dark, today's clear and
-    /// partly cloudy skies turn to night.
+    /// The scene behind the page. For today (the default) it's the weather right now, the same as the
+    /// Right Now card, day or night; another picked day shows that day's forecast.
     private var currentScenery: Scenery {
         #if DEBUG
         if let testScenery { return testScenery }
         #endif
         guard let day = viewModel.day(for: selectedDate) ?? viewModel.days.first else { return .sunny }
+        if day.date == viewModel.days.first?.date, let now = viewModel.conditions {
+            return Scenery(symbolName: now.symbolName, isNight: !now.isDay)
+        }
         return Scenery(symbolName: day.symbolName, isNight: viewModel.isNightNow(on: day))
     }
 
@@ -431,9 +456,7 @@ struct ContentView: View {
             }
         } else {
             List(selection: $selectedDate) {
-                // With the bars in a side rail there's no large title, so the place name heads the list.
-                // Not on the open Duo's two-page layouts, which keep their own title.
-                if hasSideRail && !isBookLayout && !isOnScenery {
+                if namesPlaceInList {
                     placeTitle(font: .largeTitle.bold())
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .listRowBackground(Color.clear)

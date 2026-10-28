@@ -360,11 +360,19 @@ final class WishcastViewModel {
 
     /// The city (and country) at a location, so the current location is saved under its real name.
     private func placeName(for location: CLLocation) async -> (name: String, detail: String?)? {
-        guard let request = MKReverseGeocodingRequest(location: location),
-              let address = try? await request.mapItems.first?.addressRepresentations,
-              let city = address.cityName
-        else { return nil }
-        return (city, address.regionName)
+        if #available(iOS 26.0, macOS 26.0, *) {
+            guard let request = MKReverseGeocodingRequest(location: location),
+                  let address = try? await request.mapItems.first?.addressRepresentations,
+                  let city = address.cityName
+            else { return nil }
+            return (city, address.regionName)
+        } else {
+            // Before iOS 26: the older geocoder, which MapKit's request replaces.
+            guard let placemark = try? await CLGeocoder().reverseGeocodeLocation(location).first,
+                  let city = placemark.locality
+            else { return nil }
+            return (city, [placemark.administrativeArea, placemark.country].compactMap(\.self).first)
+        }
     }
 
     func conditions(for day: WishcastDay) -> Conditions.Daily? {

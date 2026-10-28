@@ -13,9 +13,9 @@ enum Scenery: String, CaseIterable, Identifiable {
         switch symbolName {
         case "cloud.snow.fill": self = .snow
         case "cloud.bolt.rain.fill": self = .thunderstorm
-        case "cloud.rain.fill": self = .rain
+        case "cloud.rain.fill", "cloud.drizzle.fill": self = .rain
         case "wind": self = .windy
-        case "cloud.fill": self = .cloudy
+        case "cloud.fill", "cloud.fog.fill": self = .cloudy
         case "cloud.sun.fill", "cloud.moon.fill": self = isNight ? .partlyCloudyNight : .partlyCloudy
         default: self = isNight ? .clearNight : .sunny
         }
@@ -168,7 +168,11 @@ private struct LightCard: ViewModifier {
 
     func body(content: Content) -> some View {
         if lightCardsOnBlack {
-            content.environment(\.colorScheme, .light)
+            // The card is always white, so its text is set dark directly too: before iOS 26 a list
+            // row's text ignores the light color scheme set here. Secondary text derives from this.
+            content
+                .environment(\.colorScheme, .light)
+                .foregroundStyle(Color.black)
         } else {
             content
         }
