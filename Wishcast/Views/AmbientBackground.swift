@@ -43,9 +43,10 @@ struct AmbientBackground: View {
             if reduceMotion {
                 AmbientLayer(scenery: scenery, time: 0, isDark: colorScheme == .dark, flashes: false)
             } else {
+                // Rain, lightning, snow and footprints are drawn on top of the content by AmbientOverlay.
                 TimelineView(.animation(minimumInterval: 1.0 / 30)) { timeline in
                     AmbientLayer(scenery: scenery, time: timeline.date.timeIntervalSinceReferenceDate,
-                                 isDark: colorScheme == .dark, flashes: true)
+                                 isDark: colorScheme == .dark, flashes: true, part: .background)
                 }
             }
         }
@@ -68,16 +69,22 @@ struct AmbientBackground: View {
     }
 }
 
-/// In the snow, now and then a walker's footprints cross over the page's text and cards. Lies on top
-/// of the content and never takes touches; still when Reduce Motion is on.
-struct SnowFootprintsOverlay: View {
+/// The falling part of the weather (rain, lightning, snow and footprints in the snow), drawn on top
+/// of the page's text and cards. Never takes touches. With Reduce Motion it's left out and the still
+/// frame stays behind the content instead.
+struct AmbientOverlay: View {
+    let scenery: Scenery
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    static func hasOverlay(_ scenery: Scenery) -> Bool {
+        [.rain, .thunderstorm, .snow].contains(scenery)
+    }
+
     var body: some View {
-        if !reduceMotion {
+        if !reduceMotion && Self.hasOverlay(scenery) {
             TimelineView(.animation(minimumInterval: 1.0 / 30)) { timeline in
-                AmbientLayer(scenery: .snow, time: timeline.date.timeIntervalSinceReferenceDate,
-                             isDark: false, flashes: false, footprintsOverText: true)
+                AmbientLayer(scenery: scenery, time: timeline.date.timeIntervalSinceReferenceDate,
+                             isDark: false, flashes: true, part: .overlay)
             }
             .ignoresSafeArea()
             .allowsHitTesting(false)
@@ -208,50 +215,70 @@ nonisolated private final class ThunderHaptics: @unchecked Sendable {
 
 // MARK: - Drawing
 
+/// Which part of the weather a layer draws: behind the content, on top of it, or (when still) all of it behind.
+private enum AmbientPart {
+    case all, background, overlay
+}
+
 private struct AmbientLayer: View {
     let scenery: Scenery
     let time: Double
     let isDark: Bool
     let flashes: Bool
-    /// Draws only the occasional walker who crosses over the page's text and cards.
-    var footprintsOverText = false
+    var part: AmbientPart = .all
+
+    /// Drawn over the cards as well as the page, so colors must show on white and on dark grey.
+    private var overContent: Bool { part == .overlay }
 
     var body: some View {
         Canvas { context, size in
-            if footprintsOverText {
-                drawWalk(walker: 3, offset: 5, overText: true, in: &context, size: size)
-                return
-            }
+            // Rain, lightning, snow and footprints fall over everything; the rest stays behind.
+            let falls = part != .background
+            let behind = part != .overlay
             switch scenery {
-            case .sunny:
-                drawSunGlow(in: &context, size: size, strength: 1)
-                drawSunDisc(in: &context, size: size, strength: 1)
-            case .partlyCloudy:
-                // A smaller, dimmer sun that the clouds keep drifting across.
-                drawSunGlow(in: &context, size: size, strength: 0.35, rays: false)
-                drawSunDisc(in: &context, size: size, strength: 0.55)
-                drawSunCoveringClouds(in: &context, size: size)
-                drawClouds(in: &context, size: size, count: 9, opacity: 0.75, seed: 0xC1)
-            case .cloudy:
-                drawClouds(in: &context, size: size, count: 16, opacity: 0.85, seed: 0xC2)
             case .rain:
-                drawClouds(in: &context, size: size, count: 13, opacity: 0.8, seed: 0xC3, darkness: 0.15)
-                drawRain(in: &context, size: size, count: 85)
+                if behind { drawClouds(in: &context, size: size, count: 13, opacity: 0.8, seed: 0xC3, darkness: 0.15) }
+                if falls { drawRain(in: &context, size: size, count: 85) }
             case .thunderstorm:
-                drawClouds(in: &context, size: size, count: 14, opacity: 0.85, seed: 0xC4, darkness: 0.3)
-                drawRain(in: &context, size: size, count: 100)
-                if flashes { drawLightning(in: &context, size: size) }
+                if behind { drawClouds(in: &context, size: size, count: 14, opacity: 0.85, seed: 0xC4, darkness: 0.3) }
+                if falls {
+                    drawRain(in: &context, size: size, count: 100)
+                    if flashes { drawLightning(in: &context, size: size) }
+                }
             case .snow:
-                drawFootprints(in: &context, size: size)
-                drawSnow(in: &context, size: size)
-            case .windy:
-                drawWind(in: &context, size: size)
-            case .clearNight:
-                drawStars(in: &context, size: size, count: 70)
-            case .partlyCloudyNight:
-                drawStars(in: &context, size: size, count: 40)
-                drawClouds(in: &context, size: size, count: 7, opacity: 0.55, seed: 0xC5, darkness: 0.2)
+                if falls {
+                    drawFootprints(in: &context, size: size)
+                    drawSnow(in: &context, size: size)
+                }
+            default:
+                if behind { drawBackground(in: &context, size: size) }
             }
+        }
+    }
+
+    /// Everything that never falls over the content.
+    private func drawBackground(in context: inout GraphicsContext, size: CGSize) {
+        switch scenery {
+        case .sunny:
+            drawSunGlow(in: &context, size: size, strength: 1)
+            drawSunDisc(in: &context, size: size, strength: 1)
+        case .partlyCloudy:
+            // A smaller, dimmer sun that the clouds keep drifting across.
+            drawSunGlow(in: &context, size: size, strength: 0.35, rays: false)
+            drawSunDisc(in: &context, size: size, strength: 0.55)
+            drawSunCoveringClouds(in: &context, size: size)
+            drawClouds(in: &context, size: size, count: 9, opacity: 0.75, seed: 0xC1)
+        case .cloudy:
+            drawClouds(in: &context, size: size, count: 16, opacity: 0.85, seed: 0xC2)
+        case .windy:
+            drawWind(in: &context, size: size)
+        case .clearNight:
+            drawStars(in: &context, size: size, count: 70)
+        case .partlyCloudyNight:
+            drawStars(in: &context, size: size, count: 40)
+            drawClouds(in: &context, size: size, count: 7, opacity: 0.55, seed: 0xC5, darkness: 0.2)
+        case .rain, .thunderstorm, .snow:
+            break
         }
     }
 
@@ -378,7 +405,9 @@ private struct AmbientLayer: View {
 
     private func drawRain(in context: inout GraphicsContext, size: CGSize, count: Int) {
         var random = SeededGenerator(seed: 0x7A1)
-        let color = (isDark ? Color(red: 0.75, green: 0.85, blue: 1) : Color(red: 0.3, green: 0.45, blue: 0.68)).opacity(isDark ? 0.38 : 0.4)
+        let color = overContent
+            ? Color(red: 0.42, green: 0.58, blue: 0.85).opacity(0.55)   // shows on white cards and the dark page
+            : (isDark ? Color(red: 0.75, green: 0.85, blue: 1) : Color(red: 0.3, green: 0.45, blue: 0.68)).opacity(isDark ? 0.38 : 0.4)
         for _ in 0..<count {
             let x = Double.random(in: -20...size.width, using: &random)
             let speed = Double.random(in: 380...620, using: &random)
@@ -435,7 +464,8 @@ private struct AmbientLayer: View {
     /// Each drifts on its own mix of slow sways and breezes, so no two fall the same way.
     private func drawSnow(in context: inout GraphicsContext, size: CGSize) {
         var random = SeededGenerator(seed: 0x5A0)
-        let tint = isDark ? Color.white : Color(red: 0.55, green: 0.66, blue: 0.84)
+        // Over the content, a pale blue that shows on white cards as well as the dark page.
+        let tint = overContent ? Color(red: 0.6, green: 0.7, blue: 0.9) : (isDark ? Color.white : Color(red: 0.55, green: 0.66, blue: 0.84))
         for index in 0..<110 {
             let depth = Double(index % 3) // 0 far, 1 middle, 2 near
             let baseX = Double.random(in: -0.1...1.1, using: &random) * size.width
@@ -491,13 +521,12 @@ private struct AmbientLayer: View {
         }
     }
 
-    /// One walker's trail. Over the text, they only walk every other cycle, and their prints use a
-    /// blue-grey that shows on both the white cards and the dark page.
-    private func drawWalk(walker: Int, offset: Double, overText: Bool = false, in context: inout GraphicsContext, size: CGSize) {
+    /// One walker's trail. Over the content, the prints use a blue-grey that shows on both the white
+    /// cards and the dark page.
+    private func drawWalk(walker: Int, offset: Double, in context: inout GraphicsContext, size: CGSize) {
         let walk = 16.0
         let shifted = time + offset
         let cycle = Int(shifted / walk)
-        if overText && !cycle.isMultiple(of: 2) { return }
         let progress = shifted.truncatingRemainder(dividingBy: walk) / walk
         var random = SeededGenerator(seed: (UInt64(truncatingIfNeeded: cycle) &* 0x9E37 &+ 7) ^ (UInt64(walker) &* 0x51ED27))
         let start = CGPoint(x: Double.random(in: -0.1...0.3, using: &random) * size.width,
@@ -516,7 +545,7 @@ private struct AmbientLayer: View {
         let steps = max(Int(length * 0.85 / 26), 6)
         let shown = Int(Double(steps) * min(progress / 0.7, 1))
         let trailFade = progress > 0.8 ? 1 - (progress - 0.8) / 0.2 : 1
-        let shade = (isDark && !overText ? Color(white: 0.75) : Color(red: 0.5, green: 0.58, blue: 0.74))
+        let shade = (isDark && !overContent ? Color(white: 0.75) : Color(red: 0.5, green: 0.58, blue: 0.74))
         for step in 0..<shown {
             let t = (Double(step) + 0.5) / Double(steps)
             let here = point(t)
@@ -680,6 +709,7 @@ private struct SeededGenerator: RandomNumberGenerator {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], spacing: 8) {
             ForEach(Scenery.allCases) { scenery in
                 AmbientBackground(scenery: scenery)
+                    .overlay { AmbientOverlay(scenery: scenery) }
                     .frame(height: 260)
                     .overlay(alignment: .bottom) { Text(verbatim: scenery.debugName).font(.caption2) }
             }

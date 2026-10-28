@@ -272,11 +272,11 @@ struct ContentView: View {
         }
     }
 
-    /// Footprints that now and then walk over the page itself, in the snow.
+    /// Rain, lightning, snow and footprints, falling over the page's text and cards.
     @ViewBuilder
     private func pageOverlay() -> some View {
-        if showsAmbient && currentScenery == .snow {
-            SnowFootprintsOverlay()
+        if showsAmbient {
+            AmbientOverlay(scenery: currentScenery)
         }
     }
 
