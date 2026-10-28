@@ -98,7 +98,7 @@ for locale in "${LOCALES[@]}"; do
       -shot "$shot" -AppleLanguages "($language)" -AppleLocale "$applelocale" >/dev/null
     # Long enough to download ~170 forecasts (and, for the wild guess, the long-range ones) and settle.
     if [[ $shot -eq 4 ]]; then sleep 16; else sleep 9; fi
-    xcrun simctl io "$UDID" screenshot --type=png "${DISPLAY_ARG[@]}" "$out/${PREFIX}_${SHOTS[$i]}.png" >/dev/null 2>&1
+    xcrun simctl io "$UDID" screenshot --type=png ${DISPLAY_ARG[@]+"${DISPLAY_ARG[@]}"} "$out/${PREFIX}_${SHOTS[$i]}.png" >/dev/null 2>&1
   done
   echo "  $locale: ${#SHOTS[@]} shots"
 done
