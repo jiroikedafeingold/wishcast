@@ -11,6 +11,8 @@ struct WishPicker: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     /// On the black light-mode page, chips sit on white so they don't vanish into the black.
     @Environment(\.lightCardsOnBlack) private var lightCardsOnBlack
+    /// In light mode the page is colored (blue, blue-grey or dark grey), so chips sit on solid white.
+    @Environment(\.colorScheme) private var colorScheme
     /// Once per launch.
     private static var nudgedThisLaunch = false
 
@@ -58,8 +60,9 @@ struct WishPicker: View {
                     }
                     .buttonStyle(.bordered)
                     .buttonBorderShape(.capsule)
-                    .tint(isSelected ? wish.tint : .secondary)
-                    .background(lightCardsOnBlack ? Color.white : Color.clear, in: .capsule)
+                    // Full-strength text on the solid white chips in light mode, for contrast.
+                    .tint(isSelected ? wish.tint : (colorScheme == .light ? .primary : .secondary))
+                    .background(lightCardsOnBlack || colorScheme == .light ? Color.white : Color.clear, in: .capsule)
                     .accessibilityAddTraits(isSelected ? .isSelected : [])
                     .id(wish)
                 }

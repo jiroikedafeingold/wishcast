@@ -18,12 +18,12 @@ struct AmbientBackground: View {
 
     /// The page color behind the animation: a light grey in light mode (so white cards stand out
     /// and the weather shows), the system's dark grouped background in dark mode.
-    /// The page color for each kind of weather. Light mode: sky blue for sunshine, pale blue-grey
+    /// The page color for each kind of weather. Light mode: a deep, rich blue for sunshine, pale blue-grey
     /// when partly cloudy, dark grey for everything else; dark mode: muted blue, darker blue-grey,
     /// black. Nights are black in both.
     static func pageColor(for scenery: Scenery, systemIsDark: Bool) -> Color {
         switch (scenery, systemIsDark) {
-        case (.sunny, false): Color(red: 0.53, green: 0.76, blue: 0.95)
+        case (.sunny, false): Color(red: 0.16, green: 0.45, blue: 0.85)
         case (.sunny, true): Color(red: 0.12, green: 0.2, blue: 0.32)
         case (.partlyCloudy, false): Color(red: 0.78, green: 0.83, blue: 0.88)
         case (.partlyCloudy, true): Color(red: 0.17, green: 0.2, blue: 0.24)
@@ -35,7 +35,7 @@ struct AmbientBackground: View {
 
     /// Whether the page is dark enough that text sitting on it needs light (dark-mode) styling.
     static func isDarkPage(for scenery: Scenery, systemIsDark: Bool) -> Bool {
-        systemIsDark || !(scenery == .sunny || scenery == .partlyCloudy)
+        systemIsDark || scenery != .partlyCloudy
     }
 
     static let base = Color.adaptive(light: Color(red: 0.88, green: 0.89, blue: 0.91),
