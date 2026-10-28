@@ -340,18 +340,45 @@ private struct AmbientLayer: View {
         }
     }
 
-    /// The sun itself, half off the top corner: a warm disc with a soft bloom.
+    /// The sun itself, half off the top corner: a softly edged, slightly irregular disc whose outline
+    /// shimmers like heat haze, a hot core set a little off center, and an uneven layered corona.
     private func drawSunDisc(in context: inout GraphicsContext, size: CGSize, strength: Double) {
         let center = sunCenter(size)
         let radius = min(size.width, 400) * 0.16
-        var bloom = context
-        bloom.addFilter(.blur(radius: radius * 0.5))
-        bloom.fill(Path(ellipseIn: CGRect(x: center.x - radius * 1.4, y: center.y - radius * 1.4, width: radius * 2.8, height: radius * 2.8)),
-                   with: .color(Color(red: 1, green: 0.8, blue: 0.35).opacity(0.45 * strength)))
-        context.fill(Path(ellipseIn: CGRect(x: center.x - radius, y: center.y - radius, width: radius * 2, height: radius * 2)),
-                     with: .radialGradient(Gradient(colors: [Color(red: 1, green: 0.95, blue: 0.75).opacity(0.85 * strength),
-                                                             Color(red: 1, green: 0.78, blue: 0.3).opacity(0.6 * strength)]),
-                                           center: center, startRadius: 0, endRadius: radius))
+        // Corona: soft halos of different sizes and shapes, from wide and faint to close and bright.
+        for (index, (scale, blur, opacity)) in [(1.9, 0.7, 0.16), (1.45, 0.42, 0.26), (1.15, 0.18, 0.36)].enumerated() {
+            var halo = context
+            halo.addFilter(.blur(radius: radius * blur))
+            halo.fill(sunOutline(center: center, radius: radius * scale, wobble: 0.07, seed: Double(index)),
+                      with: .color(Color(red: 1, green: 0.8, blue: 0.38).opacity(opacity * strength)))
+        }
+        // The disc, its edge just slightly blurred, brightest toward the screen.
+        var disc = context
+        disc.addFilter(.blur(radius: radius * 0.05))
+        disc.fill(sunOutline(center: center, radius: radius, wobble: 0.025, seed: 7),
+                  with: .radialGradient(Gradient(stops: [
+                    .init(color: Color(red: 1, green: 0.98, blue: 0.88).opacity(0.95 * strength), location: 0),
+                    .init(color: Color(red: 1, green: 0.9, blue: 0.6).opacity(0.85 * strength), location: 0.55),
+                    .init(color: Color(red: 1, green: 0.74, blue: 0.3).opacity(0.7 * strength), location: 1)
+                  ]), center: CGPoint(x: center.x - radius * 0.18, y: center.y + radius * 0.15),
+                  startRadius: 0, endRadius: radius * 1.15))
+    }
+
+    /// A circle whose edge swells and dips a little, slowly, from a few overlapping waves.
+    private func sunOutline(center: CGPoint, radius: Double, wobble: Double, seed: Double) -> Path {
+        var path = Path()
+        let points = 90
+        for index in 0...points {
+            let angle = Double(index) / Double(points) * 2 * .pi
+            let wave = 0.6 * sin(3 * angle + time * 0.35 + seed)
+                + 0.4 * sin(5 * angle - time * 0.5 + seed * 1.7)
+                + 0.3 * sin(8 * angle + time * 0.8 + seed * 2.3)
+            let distance = radius * (1 + wobble * wave / 1.3)
+            let point = CGPoint(x: center.x + cos(angle) * distance, y: center.y + sin(angle) * distance)
+            if index == 0 { path.move(to: point) } else { path.addLine(to: point) }
+        }
+        path.closeSubpath()
+        return path
     }
 
     /// Two slow clouds that pass back and forth over the sun, so it keeps peeking out.
