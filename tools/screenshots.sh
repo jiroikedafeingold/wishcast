@@ -42,7 +42,8 @@ shift
 LOCALES=("$@")
 if [[ "${LOCALES[0]:-}" == "all" ]]; then LOCALES=("${ALL_LOCALES[@]}"); fi
 
-UDID=$(xcrun simctl list devices available | grep -F "$DEVICE (" | tail -1 | sed -E 's/.*\(([0-9A-F-]{36})\).*/\1/')
+# SIM_UDID picks one simulator when several share the name (e.g. the Duo that's currently unfolded).
+UDID=${SIM_UDID:-$(xcrun simctl list devices available | grep -F "$DEVICE (" | tail -1 | sed -E 's/.*\(([0-9A-F-]{36})\).*/\1/')}
 [[ -n "$UDID" ]] || { echo "no available simulator named '$DEVICE'"; exit 1; }
 case "$DEVICE" in
   iPad*)       PREFIX="ipad13" ;;
