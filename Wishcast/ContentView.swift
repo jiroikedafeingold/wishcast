@@ -172,11 +172,10 @@ struct ContentView: View {
     }
 
     /// In light mode the page is black while cards stay light (not on the Duo tabletop's scenery).
-    /// In light mode, a dark page (stormy weather, or animations off) gets light text on it while
-    /// cards stay light. Not on the Duo tabletop's scenery.
+    /// In light mode every page color is dark, so text on it gets light styling while cards stay
+    /// light. Not on the Duo tabletop's scenery.
     private var isBlackPage: Bool {
-        guard systemColorScheme == .light, !isOnScenery else { return false }
-        return !showsAmbient || AmbientBackground.isDarkPage(for: currentScenery, systemIsDark: false)
+        systemColorScheme == .light && !isOnScenery
     }
 
     private var sidebarColumn: some View {

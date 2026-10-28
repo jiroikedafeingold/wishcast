@@ -18,24 +18,19 @@ struct AmbientBackground: View {
 
     /// The page color behind the animation: a light grey in light mode (so white cards stand out
     /// and the weather shows), the system's dark grouped background in dark mode.
-    /// The page color for each kind of weather. Light mode: a deep, rich blue for sunshine, pale blue-grey
-    /// when partly cloudy, dark grey for everything else; dark mode: muted blue, darker blue-grey,
-    /// black. Nights are black in both.
+    /// The page color for each kind of weather. Light mode: a deep, rich blue for sunshine, a softer
+    /// version of it when partly cloudy, dark grey for everything else; dark mode: muted blue, darker
+    /// blue-grey, black. Nights are black in both. Every one is dark enough for light text.
     static func pageColor(for scenery: Scenery, systemIsDark: Bool) -> Color {
         switch (scenery, systemIsDark) {
         case (.sunny, false): Color(red: 0.16, green: 0.45, blue: 0.85)
         case (.sunny, true): Color(red: 0.12, green: 0.2, blue: 0.32)
-        case (.partlyCloudy, false): Color(red: 0.78, green: 0.83, blue: 0.88)
+        case (.partlyCloudy, false): Color(red: 0.3, green: 0.5, blue: 0.76)
         case (.partlyCloudy, true): Color(red: 0.17, green: 0.2, blue: 0.24)
         case (.cloudy, false), (.rain, false), (.thunderstorm, false), (.snow, false), (.windy, false):
             Color(red: 0.2, green: 0.21, blue: 0.23)
         default: .black
         }
-    }
-
-    /// Whether the page is dark enough that text sitting on it needs light (dark-mode) styling.
-    static func isDarkPage(for scenery: Scenery, systemIsDark: Bool) -> Bool {
-        systemIsDark || scenery != .partlyCloudy
     }
 
     static let base = Color.adaptive(light: Color(red: 0.88, green: 0.89, blue: 0.91),
@@ -463,13 +458,21 @@ private struct AmbientLayer: View {
         context.stroke(crystal, with: .color(color), style: StrokeStyle(lineWidth: max(radius * 0.09, 0.5), lineCap: .round))
     }
 
-    /// Someone walking across the snow: prints appear one by one along a wandering path, linger,
-    /// and fade, then a new walk starts somewhere else.
+    /// A few people walking across the snow at staggered times: prints appear one by one along each
+    /// wandering path, linger, and fade, then that walker starts again somewhere else.
     private func drawFootprints(in context: inout GraphicsContext, size: CGSize) {
+        let walkers = 3
+        for walker in 0..<walkers {
+            drawWalk(walker: walker, offset: 16.0 * Double(walker) / Double(walkers), in: &context, size: size)
+        }
+    }
+
+    private func drawWalk(walker: Int, offset: Double, in context: inout GraphicsContext, size: CGSize) {
         let walk = 16.0
-        let cycle = Int(time / walk)
-        let progress = time.truncatingRemainder(dividingBy: walk) / walk
-        var random = SeededGenerator(seed: UInt64(truncatingIfNeeded: cycle) &* 0x9E37 &+ 7)
+        let shifted = time + offset
+        let cycle = Int(shifted / walk)
+        let progress = shifted.truncatingRemainder(dividingBy: walk) / walk
+        var random = SeededGenerator(seed: (UInt64(truncatingIfNeeded: cycle) &* 0x9E37 &+ 7) ^ (UInt64(walker) &* 0x51ED27))
         let start = CGPoint(x: Double.random(in: -0.1...0.3, using: &random) * size.width,
                             y: Double.random(in: 0.2...1.0, using: &random) * size.height)
         let end = CGPoint(x: Double.random(in: 0.7...1.1, using: &random) * size.width,
