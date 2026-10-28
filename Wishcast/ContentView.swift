@@ -312,10 +312,13 @@ struct ContentView: View {
             .accessibilityAddTraits(selectedDate == day.date ? .isSelected : [])
         } else {
             NavigationLink(value: day.date) {
+                // A selected sidebar row turns its text white for a solid highlight; on the white
+                // card it would vanish, so keep it dark there.
                 DayRow(day: day, timeZone: viewModel.timeZone)
+                    .foregroundStyle(isBlackPage ? AnyShapeStyle(Color.black) : AnyShapeStyle(.primary))
             }
             .lightCard()
-            .listRowBackground(rowBackground())
+            .listRowBackground(rowBackground(isSelected: isBlackPage && selectedDate == day.date))
         }
     }
 
@@ -379,6 +382,8 @@ struct ContentView: View {
         guard let shot = ScreenshotMode.shot else { return }
         isShowingWelcome = false
         viewModel.wish = shot == 3 ? .snow : .pleasant
+        // Only the wild-guess shot shows a picked date; don't carry it over from an earlier run.
+        if shot != 4 { viewModel.clearPickedDay() }
         await viewModel.select(ScreenshotMode.place)
         switch shot {
         case 2:
