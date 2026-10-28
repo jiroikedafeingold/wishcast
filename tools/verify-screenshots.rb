@@ -36,6 +36,7 @@ def get(path) = req(Net::HTTP::Get, path)[1]
 
 version = ARGV[0] or abort "usage: verify-screenshots.rb <version> [expected-per-set]"
 expected = (ARGV[1] || 5).to_i
+WATCH_SHOTS = 2
 
 app = get("/v1/apps?filter[bundleId]=#{BUNDLE_ID}").dig("data", 0, "id") or abort "app not found"
 v = get("/v1/apps/#{app}/appStoreVersions?limit=8")["data"]
@@ -60,7 +61,9 @@ get("/v1/appStoreVersions/#{v["id"]}/appStoreVersionLocalizations?limit=50")["da
     shots = get("/v1/appScreenshotSets/#{s["id"]}/appScreenshots?limit=20")["data"]
     names = shots.map { |x| x.dig("attributes", "fileName") }
     total += shots.size
-    unless shots.size == expected && names == names.sort && names.uniq.size == expected
+    # The Apple Watch set (en-US only) has its own, smaller number of shots.
+    want = s.dig("attributes", "screenshotDisplayType").to_s.start_with?("APP_WATCH") ? WATCH_SHOTS : expected
+    unless shots.size == want && names == names.sort && names.uniq.size == want
       bad << "#{locale} #{s.dig("attributes", "screenshotDisplayType")}: #{names.inspect}"
     end
   end
