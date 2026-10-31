@@ -110,7 +110,7 @@ struct ContentView: View {
         .onChange(of: viewModel.days.map(\.date)) { _, dates in
             // With room for both columns, show today rather than an empty detail pane —
             // including after switching to a place whose days don't include the old selection.
-            if horizontalSizeClass == .regular || isBookLayout, !dates.contains(where: { $0 == selectedDate }) {
+            if showsDayBesideList, !dates.contains(where: { $0 == selectedDate }) {
                 selectedDate = dates.first
             }
         }
@@ -145,18 +145,27 @@ struct ContentView: View {
         } else if let division = fold.bookDivision {
             // iPhone Duo held open like a book: the list on the left page, the day on the right, and
             // nothing on the hinge. (The system split view slides the list over the day on this screen.)
+            // One sky spans both pages and the crease (a single sun, weather crossing the whole
+            // screen), so the pages are see-through.
             HStack(spacing: 0) {
-                NavigationStack { sidebarColumn }
+                NavigationStack { sidebarColumn.containerBackground(.clear, for: .navigation) }
                     .frame(width: division.lowerBound)
                 Color.clear
                     .frame(width: division.upperBound - division.lowerBound)
-                NavigationStack { detailColumn }
+                NavigationStack { detailColumn.containerBackground(.clear, for: .navigation) }
             }
             .ignoresSafeArea(edges: .horizontal)
+            .background { pageBackground(acrossPages: true) }
+            .overlay { pageOverlay(acrossPages: true) }
+        } else if fold.uprightDivision != nil && fold.tabletopBand == nil {
+            // iPhone Duo open flat and held upright: one column, as on the outer screen and other
+            // iPhones, with each day opening on its own page.
+            NavigationSplitView { sidebarColumn } detail: { detailColumn }
+                .environment(\.horizontalSizeClass, .compact)
         } else if let division = fold.uprightDivision {
-            // iPhone Duo open and held upright: the list of days on the top page, the full day below,
-            // and the title strip across the hinge. The lower page uses a compact title so the day
-            // starts near the top of its page.
+            // iPhone Duo half-open (tabletop) with the scenery turned off: the list of days on the top
+            // page, the full day below, and the title strip across the hinge. The lower page uses a
+            // compact title so the day starts near the top of its page.
             VStack(spacing: 0) {
                 // The place name moves into the toolbar row and sections sit closer together, so more
                 // of the list of days fits on the upper page.
@@ -298,10 +307,13 @@ struct ContentView: View {
     }
 
     /// The page behind the list and the day: the animated weather, or the plain page color when
-    /// that's off. The Duo tabletop draws its own scenery instead.
+    /// that's off. The Duo tabletop draws its own scenery instead. In the open Duo's book layout it's
+    /// drawn once across both pages (`acrossPages`) rather than behind each.
     @ViewBuilder
-    private func pageBackground() -> some View {
-        if showsAmbient {
+    private func pageBackground(acrossPages: Bool = false) -> some View {
+        if spansPages && !acrossPages {
+            Color.clear
+        } else if showsAmbient {
             AmbientBackground(scenery: currentScenery, systemIsDark: systemColorScheme == .dark, seasonal: currentSeason)
         } else if !isOnScenery {
             AmbientBackground.base.ignoresSafeArea()
@@ -310,10 +322,28 @@ struct ContentView: View {
 
     /// Sun rays, rain, lightning, snow, footprints, leaves and lighter clouds, crossing over the page's text and cards.
     @ViewBuilder
-    private func pageOverlay() -> some View {
-        if showsAmbient {
+    private func pageOverlay(acrossPages: Bool = false) -> some View {
+        if showsAmbient && spansPages == acrossPages {
             AmbientOverlay(scenery: currentScenery, seasonal: currentSeason)
         }
+    }
+
+    /// Whether the list and a day show side by side, so a day should always be selected. Not on the
+    /// open Duo held upright, which shows one column like a phone.
+    private var showsDayBesideList: Bool {
+        #if os(iOS)
+        if fold.uprightDivision != nil && fold.tabletopBand == nil { return false }
+        #endif
+        return horizontalSizeClass == .regular || isBookLayout
+    }
+
+    /// The open Duo held sideways, where one background spans both pages.
+    private var spansPages: Bool {
+        #if os(iOS)
+        fold.bookDivision != nil && !isOnScenery
+        #else
+        false
+        #endif
     }
 
     /// Whether the animated weather background is on (and this isn't the Duo tabletop, which has its own scenery).
@@ -362,8 +392,8 @@ struct ContentView: View {
     private static let hingeBarOverlap: CGFloat = 14
 
     #if os(iOS)
-    /// iPhone Duo open and upright (not on a table): list on the top page, day on the bottom.
-    private var isUprightPages: Bool { fold.uprightDivision != nil && !isOnScenery }
+    /// iPhone Duo half-open with the tabletop scenery off: list on the top page, day on the bottom.
+    private var isUprightPages: Bool { fold.uprightDivision != nil && fold.tabletopBand != nil && !isOnScenery }
     #else
     private var isUprightPages: Bool { false }
     #endif
@@ -449,11 +479,11 @@ struct ContentView: View {
     }
     #endif
 
-    /// Whether the list and the day are both on screen around a hinge (book or upright), so rows
-    /// select a day rather than navigate to it.
+    /// Whether the list and the day are both on screen around a hinge (book, or upright while half
+    /// open), so rows select a day rather than navigate to it.
     private var isBookLayout: Bool {
         #if os(iOS)
-        fold.bookDivision != nil || fold.uprightDivision != nil
+        fold.bookDivision != nil || (fold.uprightDivision != nil && fold.tabletopBand != nil)
         #else
         false
         #endif
