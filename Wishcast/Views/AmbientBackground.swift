@@ -4,6 +4,40 @@ import CoreHaptics
 import UIKit
 #endif
 
+/// Small seasonal touches in the sky, from the season at the place shown (meteorological seasons,
+/// flipped south of the equator): blossom petals drifting on spring days, fireflies on summer nights,
+/// falling leaves on autumn days, and extra stars on the nights around the solstices.
+struct SeasonalSky: Equatable {
+    enum Season { case spring, summer, autumn, winter }
+    let season: Season
+    let isSolstice: Bool
+
+    init(date: Date, latitude: Double, timeZone: TimeZone) {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        let month = calendar.component(.month, from: date)
+        let day = calendar.component(.day, from: date)
+        let north: Season = switch month {
+        case 3...5: .spring
+        case 6...8: .summer
+        case 9...11: .autumn
+        default: .winter
+        }
+        if latitude < 0 {
+            season = switch north {
+            case .spring: .autumn
+            case .summer: .winter
+            case .autumn: .spring
+            case .winter: .summer
+            }
+        } else {
+            season = north
+        }
+        // The solstices fall on June 20–22 and December 20–22 in both hemispheres.
+        isSolstice = (month == 6 || month == 12) && (20...22).contains(day)
+    }
+}
+
 /// An animated hint of the day's weather behind the main screens: sunshine, clouds drifting over a
 /// peeking sun, rain, lightning (with a soft haptic rumble), drifting snow with footprints wandering
 /// across it, tumbling leaves blown on the wind, or twinkling stars. Cards sit on top, so the data stays
@@ -15,6 +49,8 @@ struct AmbientBackground: View {
     /// Whether this copy plays the thunder rumble. When the list and the day are both on screen,
     /// each strike still rumbles only once (see `WeatherHaptics.rumble(forStrikeAt:)`).
     var playsThunder = true
+    /// The season's touches (petals, fireflies, falling leaves, solstice stars), if any.
+    var seasonal: SeasonalSky? = nil
 
     /// The page color behind the animation: a light grey in light mode (so white cards stand out
     /// and the weather shows), the system's dark grouped background in dark mode.
@@ -55,12 +91,12 @@ struct AmbientBackground: View {
     var body: some View {
         Group {
             if reduceMotion {
-                AmbientLayer(scenery: scenery, time: 0, isDark: colorScheme == .dark, flashes: false)
+                AmbientLayer(scenery: scenery, time: 0, isDark: colorScheme == .dark, flashes: false, seasonal: seasonal)
             } else {
                 // Sun rays, rain, lightning, snow, footprints, leaves and lighter clouds are drawn on top by AmbientOverlay.
                 TimelineView(.animation(minimumInterval: 1.0 / 30)) { timeline in
                     AmbientLayer(scenery: scenery, time: timeline.date.timeIntervalSinceReferenceDate,
-                                 isDark: colorScheme == .dark, flashes: true, part: .background)
+                                 isDark: colorScheme == .dark, flashes: true, part: .background, seasonal: seasonal)
                 }
             }
         }
@@ -110,6 +146,7 @@ struct AmbientBackground: View {
 /// frame stays behind the content instead.
 struct AmbientOverlay: View {
     let scenery: Scenery
+    var seasonal: SeasonalSky? = nil
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     /// Only clear night skies have nothing that drifts or falls over the content.
@@ -121,7 +158,7 @@ struct AmbientOverlay: View {
         if !reduceMotion && Self.hasOverlay(scenery) {
             TimelineView(.animation(minimumInterval: 1.0 / 30)) { timeline in
                 AmbientLayer(scenery: scenery, time: timeline.date.timeIntervalSinceReferenceDate,
-                             isDark: false, flashes: true, part: .overlay)
+                             isDark: false, flashes: true, part: .overlay, seasonal: seasonal)
             }
             .ignoresSafeArea()
             .allowsHitTesting(false)
@@ -374,6 +411,7 @@ private struct AmbientLayer: View {
     let isDark: Bool
     let flashes: Bool
     var part: AmbientPart = .all
+    var seasonal: SeasonalSky? = nil
 
     /// Drawn over the cards as well as the page, so colors must show on white and on dark grey.
     private var overContent: Bool { part == .overlay }
@@ -423,6 +461,90 @@ private struct AmbientLayer: View {
                 if behind { drawStars(in: &context, size: size, count: 40) }
                 drawCloudLayer(in: &context, size: size, count: 7, opacity: 0.55, seed: 0xC5, darkness: 0.2)
             }
+            if let seasonal { drawSeasonal(seasonal, in: &context, size: size, behind: behind, onTop: onTop) }
+        }
+    }
+
+    // MARK: Seasons
+
+    /// The season's touch, if this weather has room for one: petals and leaves only on calm, dry days
+    /// (the wind already blows its own leaves), fireflies and extra stars only on clear-ish nights.
+    private func drawSeasonal(_ seasonal: SeasonalSky, in context: inout GraphicsContext, size: CGSize,
+                              behind: Bool, onTop: Bool) {
+        let calmDay = [.sunny, .partlyCloudy, .cloudy].contains(scenery)
+        let clearNight = [.clearNight, .partlyCloudyNight].contains(scenery)
+        if onTop && calmDay && seasonal.season == .spring { drawDrifting(petals: true, in: &context, size: size) }
+        if onTop && calmDay && seasonal.season == .autumn { drawDrifting(petals: false, in: &context, size: size) }
+        if behind && clearNight && seasonal.isSolstice { drawStars(in: &context, size: size, count: 55, seed: 0x5011C) }
+        if behind && clearNight && seasonal.season == .summer { drawFireflies(in: &context, size: size) }
+    }
+
+    /// A few blossom petals or autumn leaves drifting slowly down, swaying and turning as they fall.
+    private func drawDrifting(petals: Bool, in context: inout GraphicsContext, size: CGSize) {
+        var random = SeededGenerator(seed: petals ? 0xB105 : 0xFA11)
+        let colors = petals
+            ? [Color(red: 1, green: 0.78, blue: 0.85), Color(red: 0.98, green: 0.86, blue: 0.9), Color(red: 0.95, green: 0.68, blue: 0.78)]
+            : [Color(red: 0.85, green: 0.45, blue: 0.15), Color(red: 0.75, green: 0.25, blue: 0.15),
+               Color(red: 0.9, green: 0.65, blue: 0.2), Color(red: 0.6, green: 0.35, blue: 0.15)]
+        for _ in 0..<(petals ? 12 : 9) {
+            let speed = Double.random(in: 14...30, using: &random)
+            let span = size.height + 60
+            let y = (Double.random(in: 0...span, using: &random) + time * speed).truncatingRemainder(dividingBy: span) - 30
+            let sway = Double.random(in: 20...50, using: &random)
+            let swayRate = Double.random(in: 0.25...0.6, using: &random)
+            let phase = Double.random(in: 0...(2 * .pi), using: &random)
+            let x = Double.random(in: 0...1, using: &random) * size.width + sway * sin(time * swayRate + phase)
+            let length = petals ? Double.random(in: 6...10, using: &random) : Double.random(in: 10...16, using: &random)
+            let color = colors[Int.random(in: 0..<colors.count, using: &random)]
+            var item = context
+            item.translateBy(x: x, y: y)
+            // Rocks back and forth like a falling leaf, rather than spinning.
+            item.rotate(by: .radians(0.9 * sin(time * swayRate * 2 + phase)))
+            item.scaleBy(x: 1, y: 0.35 + 0.65 * abs(cos(time * swayRate * 1.5 + phase)))
+            var shape = Path()
+            if petals {
+                // A rounded petal with a small notch at its tip.
+                shape.move(to: CGPoint(x: 0, y: length / 2))
+                shape.addQuadCurve(to: CGPoint(x: -length * 0.12, y: -length / 2), control: CGPoint(x: -length * 0.6, y: 0))
+                shape.addLine(to: CGPoint(x: 0, y: -length * 0.36))
+                shape.addLine(to: CGPoint(x: length * 0.12, y: -length / 2))
+                shape.addQuadCurve(to: CGPoint(x: 0, y: length / 2), control: CGPoint(x: length * 0.6, y: 0))
+            } else {
+                shape.move(to: CGPoint(x: -length / 2, y: 0))
+                shape.addQuadCurve(to: CGPoint(x: length / 2, y: 0), control: CGPoint(x: 0, y: -length * 0.45))
+                shape.addQuadCurve(to: CGPoint(x: -length / 2, y: 0), control: CGPoint(x: 0, y: length * 0.45))
+            }
+            item.fill(shape, with: .color(color.opacity(0.85)))
+            if !petals {
+                var rib = Path()
+                rib.move(to: CGPoint(x: -length / 2, y: 0))
+                rib.addLine(to: CGPoint(x: length / 2, y: 0))
+                item.stroke(rib, with: .color(.black.opacity(0.18)), lineWidth: 0.5)
+            }
+        }
+    }
+
+    /// Fireflies drifting low over the page, each glowing in slow pulses of its own.
+    private func drawFireflies(in context: inout GraphicsContext, size: CGSize) {
+        var random = SeededGenerator(seed: 0xF1EF)
+        let glow = Color(red: 0.85, green: 1, blue: 0.45)
+        for _ in 0..<16 {
+            let baseX = Double.random(in: 0...1, using: &random) * size.width
+            let baseY = Double.random(in: 0.35...1, using: &random) * size.height
+            let rateX = Double.random(in: 0.05...0.15, using: &random)
+            let rateY = Double.random(in: 0.07...0.18, using: &random)
+            let phase = Double.random(in: 0...(2 * .pi), using: &random)
+            let x = baseX + 40 * sin(time * rateX + phase)
+            let y = baseY + 28 * sin(time * rateY + phase * 1.3)
+            // Mostly dark, with a soft swell of light now and then.
+            let pulse = pow(max(0, sin(time * Double.random(in: 0.35...0.7, using: &random) + phase)), 4)
+            guard pulse > 0.02 else { continue }
+            let radius = 10 * pulse + 2
+            context.fill(Path(ellipseIn: CGRect(x: x - radius, y: y - radius, width: radius * 2, height: radius * 2)),
+                         with: .radialGradient(Gradient(colors: [glow.opacity(0.55 * pulse), .clear]),
+                                               center: CGPoint(x: x, y: y), startRadius: 0, endRadius: radius))
+            context.fill(Path(ellipseIn: CGRect(x: x - 1.6, y: y - 1.6, width: 3.2, height: 3.2)),
+                         with: .color(glow.opacity(0.95 * pulse)))
         }
     }
 
@@ -822,8 +944,8 @@ private struct AmbientLayer: View {
     // MARK: Stars
 
     /// Stars that clearly brighten and dim at their own pace, the brightest with a little glint.
-    private func drawStars(in context: inout GraphicsContext, size: CGSize, count: Int) {
-        var random = SeededGenerator(seed: 0x57A)
+    private func drawStars(in context: inout GraphicsContext, size: CGSize, count: Int, seed: UInt64 = 0x57A) {
+        var random = SeededGenerator(seed: seed)
         let color = isDark ? Color.white : Color(red: 0.35, green: 0.4, blue: 0.68)
         for _ in 0..<count {
             let x = Double.random(in: 0...1, using: &random) * size.width
@@ -916,6 +1038,30 @@ private struct SeededGenerator: RandomNumberGenerator {
         z = (z ^ (z >> 27)) &* 0x94D0_49BB_1331_11EB
         return z ^ (z >> 31)
     }
+}
+
+#Preview("Seasons") {
+    let denver = 39.7, zone = TimeZone(identifier: "America/Denver")!
+    func date(_ month: Int, _ day: Int) -> Date {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = zone
+        return calendar.date(from: DateComponents(year: 2026, month: month, day: day))!
+    }
+    let samples: [(String, Scenery, SeasonalSky)] = [
+        ("Spring day", .sunny, SeasonalSky(date: date(4, 15), latitude: denver, timeZone: zone)),
+        ("Summer night", .clearNight, SeasonalSky(date: date(7, 15), latitude: denver, timeZone: zone)),
+        ("Autumn day", .partlyCloudy, SeasonalSky(date: date(10, 31), latitude: denver, timeZone: zone)),
+        ("Solstice night", .clearNight, SeasonalSky(date: date(12, 21), latitude: denver, timeZone: zone))
+    ]
+    return LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], spacing: 8) {
+        ForEach(samples, id: \.0) { name, scenery, season in
+            AmbientBackground(scenery: scenery, systemIsDark: true, seasonal: season)
+                .overlay { AmbientOverlay(scenery: scenery, seasonal: season) }
+                .frame(height: 300)
+                .overlay(alignment: .bottom) { Text(verbatim: name).font(.caption2).foregroundStyle(.white) }
+        }
+    }
+    .padding(8)
 }
 
 #Preview("Ambient") {

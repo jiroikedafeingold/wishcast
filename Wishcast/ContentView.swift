@@ -28,6 +28,7 @@ struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     /// The system appearance (the columns may override it below).
     @Environment(\.colorScheme) private var systemColorScheme
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         #if os(iOS)
@@ -45,6 +46,12 @@ struct ContentView: View {
     private var splitView: some View {
         columns
         .tint(viewModel.wish.tint)
+        // Siri or Shortcuts may have changed the wish while Wishcast was in the background.
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active, SharedSettings.wish != viewModel.wish {
+                viewModel.wish = SharedSettings.wish
+            }
+        }
         .sheet(isPresented: $isPickingPlace) {
             PlaceSearchView(
                 favorites: viewModel.favorites,
@@ -295,7 +302,7 @@ struct ContentView: View {
     @ViewBuilder
     private func pageBackground() -> some View {
         if showsAmbient {
-            AmbientBackground(scenery: currentScenery, systemIsDark: systemColorScheme == .dark)
+            AmbientBackground(scenery: currentScenery, systemIsDark: systemColorScheme == .dark, seasonal: currentSeason)
         } else if !isOnScenery {
             AmbientBackground.base.ignoresSafeArea()
         }
@@ -305,7 +312,7 @@ struct ContentView: View {
     @ViewBuilder
     private func pageOverlay() -> some View {
         if showsAmbient {
-            AmbientOverlay(scenery: currentScenery)
+            AmbientOverlay(scenery: currentScenery, seasonal: currentSeason)
         }
     }
 
@@ -389,6 +396,15 @@ struct ContentView: View {
 
     /// The scene behind the page. For today (the default) it's the weather right now, the same as the
     /// Right Now card, day or night; another picked day shows that day's forecast.
+    /// The season at the place shown, on the day shown (today means right now), for the sky's
+    /// seasonal touches.
+    private var currentSeason: SeasonalSky? {
+        guard let place = viewModel.place,
+              let day = viewModel.day(for: selectedDate) ?? viewModel.days.first else { return nil }
+        let date = day.date == viewModel.days.first?.date ? Date.now : day.date
+        return SeasonalSky(date: date, latitude: place.latitude, timeZone: viewModel.timeZone)
+    }
+
     private var currentScenery: Scenery {
         #if DEBUG
         if let testScenery { return testScenery }

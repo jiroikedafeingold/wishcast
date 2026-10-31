@@ -1,0 +1,249 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Set my ${applicationName} wish to ${wish}" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringSet" : {
+            "state" : "new",
+            "values" : [
+              "Set my ${applicationName} wish to ${wish}",
+              "Make a ${applicationName} wish for ${wish}",
+              "Wish for ${wish} in ${applicationName}"
+            ]
+          }
+        },
+        "de" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Setze meinen ${applicationName}-Wunsch auf ${wish}",
+              "Wünsch dir ${wish} in ${applicationName}",
+              "In ${applicationName} ${wish} wünschen"
+            ]
+          }
+        },
+        "es-ES" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Cambia mi deseo de ${applicationName} a ${wish}",
+              "Desea ${wish} en ${applicationName}",
+              "Pide un deseo de ${wish} en ${applicationName}"
+            ]
+          }
+        },
+        "fr" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Change mon vœu ${applicationName} en ${wish}",
+              "Souhaite ${wish} dans ${applicationName}",
+              "Fais un vœu ${applicationName} pour ${wish}"
+            ]
+          }
+        },
+        "it" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Imposta il mio desiderio di ${applicationName} su ${wish}",
+              "Desidera ${wish} in ${applicationName}",
+              "Esprimi un desiderio ${applicationName} per ${wish}"
+            ]
+          }
+        },
+        "ja" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "${applicationName}の願いを${wish}にして",
+              "${applicationName}で${wish}を願う"
+            ]
+          }
+        },
+        "ko" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "${applicationName} 소원을 ${wish}(으)로 바꿔 줘",
+              "${applicationName}에서 ${wish} 빌어 줘"
+            ]
+          }
+        },
+        "pt-BR" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Mude meu desejo do ${applicationName} para ${wish}",
+              "Deseje ${wish} no ${applicationName}",
+              "Faça um desejo de ${wish} no ${applicationName}"
+            ]
+          }
+        },
+        "ru" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Поставь в ${applicationName} желание ${wish}",
+              "Загадай ${wish} в ${applicationName}"
+            ]
+          }
+        },
+        "zh-Hans" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "把${applicationName}的愿望设为${wish}",
+              "在${applicationName}里许愿${wish}"
+            ]
+          }
+        },
+        "zh-Hant" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "把${applicationName}的願望設為${wish}",
+              "在${applicationName}裡許願${wish}"
+            ]
+          }
+        }
+      }
+    },
+    "What's my ${applicationName} for ${day}" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringSet" : {
+            "state" : "new",
+            "values" : [
+              "What's my ${applicationName} for ${day}",
+              "What's the ${applicationName} for ${day}",
+              "Get my ${applicationName} for ${day}",
+              "What's my ${applicationName}",
+              "Get my ${applicationName}"
+            ]
+          }
+        },
+        "de" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Was ist mein ${applicationName} für ${day}",
+              "Wie ist der ${applicationName} für ${day}",
+              "Zeig mir mein ${applicationName} für ${day}",
+              "Was ist mein ${applicationName}",
+              "Zeig mir mein ${applicationName}"
+            ]
+          }
+        },
+        "es-ES" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Cuál es mi ${applicationName} para ${day}",
+              "Qué dice ${applicationName} para ${day}",
+              "Dame mi ${applicationName} para ${day}",
+              "Cuál es mi ${applicationName}",
+              "Dame mi ${applicationName}"
+            ]
+          }
+        },
+        "fr" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Quel est mon ${applicationName} pour ${day}",
+              "Que dit ${applicationName} pour ${day}",
+              "Donne-moi mon ${applicationName} pour ${day}",
+              "Quel est mon ${applicationName}",
+              "Donne-moi mon ${applicationName}"
+            ]
+          }
+        },
+        "it" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Qual è il mio ${applicationName} per ${day}",
+              "Cosa dice ${applicationName} per ${day}",
+              "Dammi il mio ${applicationName} per ${day}",
+              "Qual è il mio ${applicationName}",
+              "Dammi il mio ${applicationName}"
+            ]
+          }
+        },
+        "ja" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "${day}の${applicationName}は",
+              "${applicationName}で${day}の天気を教えて",
+              "${applicationName}を教えて",
+              "${applicationName}の天気は"
+            ]
+          }
+        },
+        "ko" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "${day} ${applicationName} 알려 줘",
+              "${applicationName}에서 ${day} 날씨 알려 줘",
+              "${applicationName} 알려 줘",
+              "${applicationName} 날씨 어때"
+            ]
+          }
+        },
+        "pt-BR" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Qual é o meu ${applicationName} para ${day}",
+              "O que diz o ${applicationName} para ${day}",
+              "Me dá o meu ${applicationName} para ${day}",
+              "Qual é o meu ${applicationName}",
+              "Me dá o meu ${applicationName}"
+            ]
+          }
+        },
+        "ru" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "Какой ${applicationName} на ${day}",
+              "Что говорит ${applicationName} на ${day}",
+              "Покажи ${applicationName} на ${day}",
+              "Какой у меня ${applicationName}",
+              "Покажи ${applicationName}"
+            ]
+          }
+        },
+        "zh-Hans" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "${day}的${applicationName}是什么",
+              "${applicationName}说${day}天气怎么样",
+              "告诉我${applicationName}",
+              "我的${applicationName}是什么"
+            ]
+          }
+        },
+        "zh-Hant" : {
+          "stringSet" : {
+            "state" : "translated",
+            "values" : [
+              "${day}的${applicationName}是什麼",
+              "${applicationName}說${day}天氣怎麼樣",
+              "告訴我${applicationName}",
+              "我的${applicationName}是什麼"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
