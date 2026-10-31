@@ -149,13 +149,8 @@ struct AmbientOverlay: View {
     var seasonal: SeasonalSky? = nil
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    /// Only clear night skies have nothing that drifts or falls over the content.
-    static func hasOverlay(_ scenery: Scenery) -> Bool {
-        scenery != .clearNight
-    }
-
     var body: some View {
-        if !reduceMotion && Self.hasOverlay(scenery) {
+        if !reduceMotion {
             TimelineView(.animation(minimumInterval: 1.0 / 30)) { timeline in
                 AmbientLayer(scenery: scenery, time: timeline.date.timeIntervalSinceReferenceDate,
                              isDark: false, flashes: true, part: .overlay, seasonal: seasonal)
@@ -457,12 +452,53 @@ private struct AmbientLayer: View {
                 if onTop { drawWind(in: &context, size: size) }
             case .clearNight:
                 if behind { drawStars(in: &context, size: size, count: 70) }
+                if onTop && flashes { drawShootingStar(in: &context, size: size) }
             case .partlyCloudyNight:
                 if behind { drawStars(in: &context, size: size, count: 40) }
                 drawCloudLayer(in: &context, size: size, count: 7, opacity: 0.55, seed: 0xC5, darkness: 0.2)
             }
             if let seasonal { drawSeasonal(seasonal, in: &context, size: size, behind: behind, onTop: onTop) }
         }
+    }
+
+    // MARK: Shooting stars
+
+    /// Now and then on a clear night, a shooting star streaks across the sky: in about half of each
+    /// 15-second stretch, at a random moment, from the upper part of the screen, slanting down. It
+    /// brightens and fades over a second, its tail tapering behind it.
+    private func drawShootingStar(in context: inout GraphicsContext, size: CGSize) {
+        let slot = 15.0
+        let length = 1.1
+        let index = Int((time / slot).rounded(.down))
+        var random = SeededGenerator(seed: UInt64(bitPattern: Int64(index)) &* 0x5747 &+ 0x2A)
+        guard Double.random(in: 0...1, using: &random) < 0.5 else { return }
+        let start = Double(index) * slot + Double.random(in: 1...(slot - length - 1), using: &random)
+        let age = time - start
+        guard age >= 0, age < length else { return }
+        let progress = age / length
+        // Fades in quickly, glides, then fades out.
+        let brightness = min(progress / 0.15, 1) * min((1 - progress) / 0.35, 1)
+        let origin = CGPoint(x: size.width * Double.random(in: 0.15...0.85, using: &random),
+                             y: size.height * Double.random(in: 0.03...0.3, using: &random))
+        // Heads back across the screen, so it isn't cut off at the edge.
+        let leftward = origin.x > size.width / 2
+        let angle = Double.random(in: 0.35...0.6, using: &random) // below horizontal
+        let travel = min(size.width, 500) * Double.random(in: 0.45...0.7, using: &random)
+        let direction = CGPoint(x: cos(angle) * (leftward ? -1 : 1), y: sin(angle))
+        let head = CGPoint(x: origin.x + direction.x * travel * progress, y: origin.y + direction.y * travel * progress)
+        let tailLength = travel * 0.35 * min(progress / 0.3, 1)
+        let tail = CGPoint(x: head.x - direction.x * tailLength, y: head.y - direction.y * tailLength)
+        var streak = Path()
+        streak.move(to: tail)
+        streak.addLine(to: head)
+        var glow = context
+        glow.addFilter(.blur(radius: 3))
+        glow.stroke(streak, with: .linearGradient(Gradient(colors: [.clear, Color(red: 0.8, green: 0.88, blue: 1).opacity(0.7 * brightness)]),
+                                                   startPoint: tail, endPoint: head), lineWidth: 4)
+        context.stroke(streak, with: .linearGradient(Gradient(colors: [.clear, .white.opacity(0.95 * brightness)]),
+                                                     startPoint: tail, endPoint: head),
+                       style: StrokeStyle(lineWidth: 1.6, lineCap: .round))
+        context.fill(Path(ellipseIn: CGRect(x: head.x - 2, y: head.y - 2, width: 4, height: 4)), with: .color(.white.opacity(brightness)))
     }
 
     // MARK: Seasons
