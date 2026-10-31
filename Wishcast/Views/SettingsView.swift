@@ -7,6 +7,7 @@ struct SettingsView: View {
     let placeName: String?
     @AppStorage("tabletopGrass") private var tabletopGrass = true
     @AppStorage("ambientBackground") private var ambientBackground = true
+    @AppStorage("weatherHaptics") private var weatherHaptics = true
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -34,6 +35,13 @@ struct SettingsView: View {
                 }
 
                 #if os(iOS)
+                Section {
+                    Toggle("Weather Haptics", isOn: $weatherHaptics)
+                        .disabled(!ambientBackground)
+                } footer: {
+                    Text("Feel a rumble when lightning strikes, a soft patter while rain or snow falls, and a gentle swell with each gust of wind. Plays with Animated Backgrounds.")
+                }
+
                 Section {
                     Toggle("Weather Scenery on Tabletop", isOn: $tabletopGrass)
                 } footer: {

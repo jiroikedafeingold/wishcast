@@ -13,7 +13,7 @@ struct AmbientBackground: View {
     /// The system appearance (the screen may force dark styling on top of a light-mode page).
     var systemIsDark = false
     /// Whether this copy plays the thunder rumble. When the list and the day are both on screen,
-    /// each strike still rumbles only once (see `ThunderHaptics.rumble(forStrikeAt:)`).
+    /// each strike still rumbles only once (see `WeatherHaptics.rumble(forStrikeAt:)`).
     var playsThunder = true
 
     /// The page color behind the animation: a light grey in light mode (so white cards stand out
@@ -37,6 +37,20 @@ struct AmbientBackground: View {
                                     dark: Color(red: 0, green: 0, blue: 0))
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.scenePhase) private var scenePhase
+    /// The Settings switch for the thunder rumble and the rain and snow patter.
+    @AppStorage("weatherHaptics") private var weatherHaptics = true
+
+    /// What the patter should feel like, if anything: only while rain or snow is falling on screen,
+    /// with the app in front and motion allowed.
+    private var falling: WeatherHaptics.Falling? {
+        guard weatherHaptics, !reduceMotion, scenePhase == .active else { return nil }
+        switch scenery {
+        case .rain, .thunderstorm: return .rain
+        case .snow: return .snow
+        default: return nil
+        }
+    }
 
     var body: some View {
         Group {
@@ -55,16 +69,38 @@ struct AmbientBackground: View {
         .allowsHitTesting(false)
         .accessibilityHidden(true)
         // Thunder follows each lightning strike: a short, strong rumble.
-        .task(id: playsThunder && scenery == .thunderstorm && !reduceMotion) {
-            guard playsThunder, scenery == .thunderstorm, !reduceMotion else { return }
-            ThunderHaptics.shared.prepare()
+        .task(id: weatherHaptics && playsThunder && scenery == .thunderstorm && !reduceMotion) {
+            guard weatherHaptics, playsThunder, scenery == .thunderstorm, !reduceMotion else { return }
+            WeatherHaptics.shared.prepare()
             while !Task.isCancelled {
                 let now = Date.timeIntervalSinceReferenceDate
                 let strike = Lightning.nextStrike(after: now)
                 try? await Task.sleep(for: .seconds(max(strike - now + 0.35, 0.1)))
                 guard !Task.isCancelled else { return }
-                ThunderHaptics.shared.rumble(forStrikeAt: strike)
+                WeatherHaptics.shared.rumble(forStrikeAt: strike)
             }
+        }
+        // Each gust of wind swells and fades as a soft, low rumble, in step with the leaves.
+        .task(id: weatherHaptics && playsThunder && scenery == .windy && !reduceMotion && scenePhase == .active) {
+            guard weatherHaptics, playsThunder, scenery == .windy, !reduceMotion, scenePhase == .active else { return }
+            WeatherHaptics.shared.prepare()
+            while !Task.isCancelled {
+                let now = Date.timeIntervalSinceReferenceDate
+                let gust = Wind.nextGust(after: now)
+                try? await Task.sleep(for: .seconds(max(gust - now, 0.05)))
+                guard !Task.isCancelled else { return }
+                WeatherHaptics.shared.gust(startingAt: gust, length: Wind.gustLength)
+            }
+        }
+        // A soft patter of falling raindrops or snowflakes, for as long as this background shows them.
+        .task(id: falling) {
+            guard let falling else { return }
+            let token = UUID()
+            WeatherHaptics.shared.startFalling(falling, token: token)
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(3600))
+            }
+            WeatherHaptics.shared.stopFalling(token: token)
         }
     }
 }
@@ -128,14 +164,79 @@ private enum Lightning {
     }
 }
 
-/// A short, strong thunder rumble. Everything runs on its own queue, so starting the haptic engine
-/// (which can take a moment the first time) never stalls the screen.
-nonisolated private final class ThunderHaptics: @unchecked Sendable {
-    static let shared = ThunderHaptics()
-    private let queue = DispatchQueue(label: "Wishcast.thunder", qos: .userInitiated)
+/// The weather you can feel: a short, strong rumble for each lightning strike, a soft patter of
+/// raindrops or snowflakes while rain or snow falls, and a gentle swell with each gust of wind. Everything runs on its own queue, so starting the
+/// haptic engine (which can take a moment the first time) never stalls the screen.
+nonisolated private final class WeatherHaptics: @unchecked Sendable {
+    static let shared = WeatherHaptics()
+    private let queue = DispatchQueue(label: "Wishcast.haptics", qos: .userInitiated)
+
+    /// What's falling, for the patter.
+    enum Falling: Equatable, Sendable { case rain, snow }
+
     #if os(iOS)
     private var engine: CHHapticEngine?
     private var pattern: CHHapticPattern?
+
+    /// The backgrounds that want a patter (several can be on screen at once) and the one playing.
+    private var fallingRequests: [UUID: Falling] = [:]
+    private var fallingPlayer: CHHapticAdvancedPatternPlayer?
+    private var playingFalling: Falling?
+
+    /// Starts (or keeps) the patter for `falling` on behalf of one background.
+    func startFalling(_ falling: Falling, token: UUID) {
+        queue.async { [self] in
+            fallingRequests[token] = falling
+            updateFalling()
+        }
+    }
+
+    /// That background is gone or its weather changed; the patter stops when no one wants it.
+    func stopFalling(token: UUID) {
+        queue.async { [self] in
+            fallingRequests[token] = nil
+            updateFalling()
+        }
+    }
+
+    /// On `queue` only. Plays rain if any background wants it, else snow, else nothing.
+    private func updateFalling() {
+        let wanted = fallingRequests.values.contains(.rain) ? Falling.rain : fallingRequests.values.first
+        guard wanted != playingFalling || (wanted != nil && fallingPlayer == nil) else { return }
+        try? fallingPlayer?.stop(atTime: CHHapticTimeImmediate)
+        fallingPlayer = nil
+        playingFalling = nil
+        guard let wanted, let engine = readyEngine(), let pattern = patterPattern(for: wanted) else { return }
+        do {
+            let player = try engine.makeAdvancedPlayer(with: pattern)
+            player.loopEnabled = true
+            try player.start(atTime: CHHapticTimeImmediate)
+            fallingPlayer = player
+            playingFalling = wanted
+        } catch {
+            engine.stop()
+            self.engine = nil
+        }
+    }
+
+    /// Six seconds of drops at irregular moments, looped. Rain: light, crisp taps every 0.1–0.35 s.
+    /// Snow: softer, duller touches about once a second. Soft, but enough to notice.
+    private func patterPattern(for falling: Falling) -> CHHapticPattern? {
+        var random = SeededGenerator(seed: falling == .rain ? 0xD20F : 0x5F1A)
+        let gap: ClosedRange<Double> = falling == .rain ? 0.1...0.35 : 0.6...1.4
+        let intensity: ClosedRange<Double> = falling == .rain ? 0.3...0.55 : 0.25...0.45
+        let sharpness: ClosedRange<Double> = falling == .rain ? 0.55...0.85 : 0.05...0.25
+        var events: [CHHapticEvent] = []
+        var time = Double.random(in: 0...gap.lowerBound, using: &random)
+        while time < 6 {
+            events.append(CHHapticEvent(eventType: .hapticTransient, parameters: [
+                CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double.random(in: intensity, using: &random))),
+                CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(Double.random(in: sharpness, using: &random)))
+            ], relativeTime: time))
+            time += Double.random(in: gap, using: &random)
+        }
+        return try? CHHapticPattern(events: events, parameters: [])
+    }
 
     /// Creates and starts the engine ahead of the first strike.
     func prepare() {
@@ -163,6 +264,49 @@ nonisolated private final class ThunderHaptics: @unchecked Sendable {
         }
     }
 
+    /// The gust that last swelled, so two backgrounds on screen don't both play it.
+    private var lastGust: Double = -1
+
+    /// A gust of wind: a soft, low swell that rises and falls over `length` seconds (the same sin²
+    /// curve the leaves follow), with a few faint flutters near its peak.
+    func gust(startingAt start: Double, length: Double) {
+        queue.async { [self] in
+            guard start != lastGust else { return }
+            lastGust = start
+            guard let engine = readyEngine() else { return }
+            var events = [CHHapticEvent(eventType: .hapticContinuous, parameters: [
+                CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.5),
+                CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.12)
+            ], relativeTime: 0, duration: length)]
+            for fraction in [0.35, 0.5, 0.62] {
+                events.append(CHHapticEvent(eventType: .hapticTransient, parameters: [
+                    CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.3),
+                    CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.3)
+                ], relativeTime: length * fraction))
+            }
+            let points = (0...12).map { step -> CHHapticParameterCurve.ControlPoint in
+                let t = Double(step) / 12
+                let swell = sin(t * .pi) * sin(t * .pi)
+                return .init(relativeTime: t * length, value: Float(swell))
+            }
+            let curve = CHHapticParameterCurve(parameterID: .hapticIntensityControl, controlPoints: points, relativeTime: 0)
+            do {
+                let pattern = try CHHapticPattern(events: events, parameterCurves: [curve])
+                try engine.makePlayer(with: pattern).start(atTime: CHHapticTimeImmediate)
+            } catch {
+                self.engine = nil
+            }
+        }
+    }
+
+    /// On `queue` only. The engine and anything playing on it are gone; the patter restarts when its
+    /// background next asks (it asks again whenever the app comes back to the foreground).
+    private func engineEnded() {
+        engine = nil
+        fallingPlayer = nil
+        playingFalling = nil
+    }
+
     /// On `queue` only.
     private func readyEngine() -> CHHapticEngine? {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return nil }
@@ -171,8 +315,8 @@ nonisolated private final class ThunderHaptics: @unchecked Sendable {
                 let engine = try CHHapticEngine()
                 engine.isAutoShutdownEnabled = true
                 // After the system resets or stops the engine (e.g. in the background), make a new one.
-                engine.resetHandler = { [weak self] in self?.queue.async { self?.engine = nil } }
-                engine.stoppedHandler = { [weak self] _ in self?.queue.async { self?.engine = nil } }
+                engine.resetHandler = { [weak self] in self?.queue.async { self?.engineEnded() } }
+                engine.stoppedHandler = { [weak self] _ in self?.queue.async { self?.engineEnded() } }
                 self.engine = engine
             }
             try engine?.start()
@@ -211,6 +355,9 @@ nonisolated private final class ThunderHaptics: @unchecked Sendable {
     #else
     func prepare() {}
     func rumble(forStrikeAt strike: Double) {}
+    func startFalling(_ falling: Falling, token: UUID) {}
+    func stopFalling(token: UUID) {}
+    func gust(startingAt start: Double, length: Double) {}
     #endif
 }
 
@@ -717,12 +864,22 @@ private struct Wind {
     /// Radians from left-to-right; between about -0.35 and 0.35 (±20°).
     let angle: Double
 
+    /// When the gust in slot number `index` begins (seconds since the reference date).
+    static func gustStart(_ index: Int) -> Double {
+        var random = SeededGenerator(seed: UInt64(bitPattern: Int64(index)) &* 0xA24B &+ 3)
+        return Double(index) * slot + Double.random(in: 0.5...(slot - gustLength - 0.5), using: &random)
+    }
+
+    /// The start of the next gust after `time`, so the haptic swell can line up with it.
+    static func nextGust(after time: Double) -> Double {
+        let index = Int((time / slot).rounded(.down))
+        let here = gustStart(index)
+        return here > time ? here : gustStart(index + 1)
+    }
+
     init(time: Double) {
         let index = Int((time / Self.slot).rounded(.down))
-        func gustStart(_ slot: Int) -> Double {
-            var random = SeededGenerator(seed: UInt64(bitPattern: Int64(slot)) &* 0xA24B &+ 3)
-            return Double(slot) * Self.slot + Double.random(in: 0.5...(Self.slot - Self.gustLength - 0.5), using: &random)
-        }
+        let gustStart = Self.gustStart
         func direction(_ slot: Int) -> Double {
             var random = SeededGenerator(seed: UInt64(bitPattern: Int64(slot)) &* 0x51F7 &+ 9)
             return Double.random(in: -0.35...0.35, using: &random)
